@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		270466AE1AD1E7440058C008 /* PriceTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 270466AD1AD1E7440058C008 /* PriceTime.m */; };
+		2725652E1AD7444B006078E3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2725652D1AD7444B006078E3 /* LICENSE */; };
+		272565371AD744A1006078E3 /* LCInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 272565301AD744A1006078E3 /* LCInfoView.m */; };
+		272565381AD744A1006078E3 /* LCLegendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 272565321AD744A1006078E3 /* LCLegendView.m */; };
+		272565391AD744A1006078E3 /* LCLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 272565341AD744A1006078E3 /* LCLineChartView.m */; };
+		2725653A1AD744A1006078E3 /* UIKit+DrawingHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 272565361AD744A1006078E3 /* UIKit+DrawingHelpers.m */; };
+		2725653D1AD7455C006078E3 /* CFStockChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 2725653C1AD7455C006078E3 /* CFStockChart.m */; };
 		2777EF011AD0D90800E8D592 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777EF001AD0D90800E8D592 /* main.m */; };
 		2777EF041AD0D90800E8D592 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777EF031AD0D90800E8D592 /* AppDelegate.m */; };
 		2777EF071AD0D90800E8D592 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777EF061AD0D90800E8D592 /* ViewController.m */; };
@@ -14,6 +21,8 @@
 		2777EF0C1AD0D90800E8D592 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2777EF0B1AD0D90800E8D592 /* Images.xcassets */; };
 		2777EF0F1AD0D90800E8D592 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2777EF0D1AD0D90800E8D592 /* LaunchScreen.xib */; };
 		2777EF1B1AD0D90800E8D592 /* Coral_FinanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777EF1A1AD0D90800E8D592 /* Coral_FinanceTests.m */; };
+		2777EF271AD0D9D200E8D592 /* FakeStock.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777EF261AD0D9D200E8D592 /* FakeStock.m */; };
+		2777EF2A1AD0DA3C00E8D592 /* RealStock.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777EF291AD0DA3C00E8D592 /* RealStock.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +36,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		270466AC1AD1E7440058C008 /* PriceTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PriceTime.h; sourceTree = "<group>"; };
+		270466AD1AD1E7440058C008 /* PriceTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PriceTime.m; sourceTree = "<group>"; };
+		2725652D1AD7444B006078E3 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		2725652F1AD744A1006078E3 /* LCInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCInfoView.h; sourceTree = "<group>"; };
+		272565301AD744A1006078E3 /* LCInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCInfoView.m; sourceTree = "<group>"; };
+		272565311AD744A1006078E3 /* LCLegendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCLegendView.h; sourceTree = "<group>"; };
+		272565321AD744A1006078E3 /* LCLegendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCLegendView.m; sourceTree = "<group>"; };
+		272565331AD744A1006078E3 /* LCLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCLineChartView.h; sourceTree = "<group>"; };
+		272565341AD744A1006078E3 /* LCLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCLineChartView.m; sourceTree = "<group>"; };
+		272565351AD744A1006078E3 /* UIKit+DrawingHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIKit+DrawingHelpers.h"; sourceTree = "<group>"; };
+		272565361AD744A1006078E3 /* UIKit+DrawingHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIKit+DrawingHelpers.m"; sourceTree = "<group>"; };
+		2725653B1AD7455C006078E3 /* CFStockChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFStockChart.h; sourceTree = "<group>"; };
+		2725653C1AD7455C006078E3 /* CFStockChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFStockChart.m; sourceTree = "<group>"; };
 		2777EEFB1AD0D90800E8D592 /* Coral Finance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coral Finance.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2777EEFF1AD0D90800E8D592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2777EF001AD0D90800E8D592 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -40,6 +62,10 @@
 		2777EF141AD0D90800E8D592 /* Coral FinanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Coral FinanceTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2777EF191AD0D90800E8D592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2777EF1A1AD0D90800E8D592 /* Coral_FinanceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Coral_FinanceTests.m; sourceTree = "<group>"; };
+		2777EF251AD0D9D200E8D592 /* FakeStock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeStock.h; sourceTree = "<group>"; };
+		2777EF261AD0D9D200E8D592 /* FakeStock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeStock.m; sourceTree = "<group>"; };
+		2777EF281AD0DA3C00E8D592 /* RealStock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealStock.h; sourceTree = "<group>"; };
+		2777EF291AD0DA3C00E8D592 /* RealStock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealStock.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +86,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		270466AB1AD1E72B0058C008 /* TimeObjects */ = {
+			isa = PBXGroup;
+			children = (
+				270466AC1AD1E7440058C008 /* PriceTime.h */,
+				270466AD1AD1E7440058C008 /* PriceTime.m */,
+			);
+			path = TimeObjects;
+			sourceTree = "<group>";
+		};
+		272565201AD74427006078E3 /* LCLineCharts */ = {
+			isa = PBXGroup;
+			children = (
+				2725652F1AD744A1006078E3 /* LCInfoView.h */,
+				272565301AD744A1006078E3 /* LCInfoView.m */,
+				272565311AD744A1006078E3 /* LCLegendView.h */,
+				272565321AD744A1006078E3 /* LCLegendView.m */,
+				272565331AD744A1006078E3 /* LCLineChartView.h */,
+				272565341AD744A1006078E3 /* LCLineChartView.m */,
+				272565351AD744A1006078E3 /* UIKit+DrawingHelpers.h */,
+				272565361AD744A1006078E3 /* UIKit+DrawingHelpers.m */,
+				2725652D1AD7444B006078E3 /* LICENSE */,
+				2725653B1AD7455C006078E3 /* CFStockChart.h */,
+				2725653C1AD7455C006078E3 /* CFStockChart.m */,
+			);
+			path = LCLineCharts;
+			sourceTree = "<group>";
+		};
 		2777EEF21AD0D90800E8D592 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +134,9 @@
 		2777EEFD1AD0D90800E8D592 /* Coral Finance */ = {
 			isa = PBXGroup;
 			children = (
+				272565201AD74427006078E3 /* LCLineCharts */,
+				270466AB1AD1E72B0058C008 /* TimeObjects */,
+				2777EF241AD0D9C500E8D592 /* Stock Objects */,
 				2777EF021AD0D90800E8D592 /* AppDelegate.h */,
 				2777EF031AD0D90800E8D592 /* AppDelegate.m */,
 				2777EF051AD0D90800E8D592 /* ViewController.h */,
@@ -117,6 +173,17 @@
 				2777EF191AD0D90800E8D592 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2777EF241AD0D9C500E8D592 /* Stock Objects */ = {
+			isa = PBXGroup;
+			children = (
+				2777EF251AD0D9D200E8D592 /* FakeStock.h */,
+				2777EF261AD0D9D200E8D592 /* FakeStock.m */,
+				2777EF281AD0DA3C00E8D592 /* RealStock.h */,
+				2777EF291AD0DA3C00E8D592 /* RealStock.m */,
+			);
+			path = "Stock Objects";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,6 +268,7 @@
 			files = (
 				2777EF0A1AD0D90800E8D592 /* Main.storyboard in Resources */,
 				2777EF0F1AD0D90800E8D592 /* LaunchScreen.xib in Resources */,
+				2725652E1AD7444B006078E3 /* LICENSE in Resources */,
 				2777EF0C1AD0D90800E8D592 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,9 +287,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2777EF2A1AD0DA3C00E8D592 /* RealStock.m in Sources */,
+				2725653D1AD7455C006078E3 /* CFStockChart.m in Sources */,
+				2725653A1AD744A1006078E3 /* UIKit+DrawingHelpers.m in Sources */,
+				272565371AD744A1006078E3 /* LCInfoView.m in Sources */,
+				272565381AD744A1006078E3 /* LCLegendView.m in Sources */,
 				2777EF071AD0D90800E8D592 /* ViewController.m in Sources */,
+				270466AE1AD1E7440058C008 /* PriceTime.m in Sources */,
+				2777EF271AD0D9D200E8D592 /* FakeStock.m in Sources */,
 				2777EF041AD0D90800E8D592 /* AppDelegate.m in Sources */,
 				2777EF011AD0D90800E8D592 /* main.m in Sources */,
+				272565391AD744A1006078E3 /* LCLineChartView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +422,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Coral Finance/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -356,6 +433,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Coral Finance/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -414,6 +492,7 @@
 				2777EF201AD0D90800E8D592 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2777EF211AD0D90800E8D592 /* Build configuration list for PBXNativeTarget "Coral FinanceTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +501,7 @@
 				2777EF231AD0D90800E8D592 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RealStock.h"
+#import "CFStockChart.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <RealStockDelegate, UISearchBarDelegate>
 
+@property (strong, nonatomic) RealStock *stock;
+@property (strong, nonatomic) CFStockChart *chart;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *timePeriodPicker;
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
 
