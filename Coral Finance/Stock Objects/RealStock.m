@@ -67,7 +67,7 @@ bool didGetYear;
 -(NSString *)numberToString:(NSNumber *)number
 {
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setPositiveFormat:@"#,##0.##"];
+    [formatter setPositiveFormat:@"#,##0.00"];
     return [formatter stringFromNumber:number];
 }
 
@@ -245,6 +245,7 @@ bool didGetYear;
             _performanceValues = performanceValuesTemp;
             didGetDay = YES;
             _currentValue = ((PriceTime *)[_performanceValues lastObject]).price;
+            if(_delegate) [_delegate realStockDoneDownloading:self];
         }
         else if(_delegate) [_delegate realStockError:error downloadingInformation:self];
     }];

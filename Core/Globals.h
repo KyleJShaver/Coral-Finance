@@ -13,6 +13,7 @@
 
 +(UIColor *) whiteColor;
 +(UIColor *) backgroundColor;
++(UIColor *) darkBackgroundColor;
 +(UIColor *) positiveColor;
 +(UIColor *) negativeColor;
 +(UIColor *) buttonColor;
@@ -21,5 +22,6 @@
 +(UIFont *) bebasLight:(CGFloat)fontSize;
 +(UIFont *) bebasRegular:(CGFloat)fontSize;
 +(UIFont *) canterLight:(CGFloat)fontSize;
++(NSString *)numberToString:(NSNumber *)number;
 
 @end

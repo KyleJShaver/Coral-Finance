@@ -22,21 +22,38 @@
     [self.timePeriodPicker setSelectedSegmentIndex:0];
     [self timePeriodChanged:self.timePeriodPicker];
     NSArray *jsonDictionary = [self.coreDataLayer getRealStockJSON];
-    if(!jsonDictionary) [[DataFetcher dataFetchWithType:DataFetchTypeRealStockList andDelegate:self] fetch];
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    for(int i=0; i<20; i++) {
-        NSDictionary *dict = jsonDictionary[i];
-        RealStock *stock =[[RealStock alloc] initWithTicker:[dict valueForKey:@"symbol"] performanceWindow:PerformanceWindowOneDay andDelegate:nil];
-        [stock downloadCurrentData];
-        [array addObject:stock];
+    if(!jsonDictionary || jsonDictionary.count==0) [[DataFetcher dataFetchWithType:DataFetchTypeRealStockList andDelegate:self] fetch];
+    else {
+        [self setTableDataFromCoreData];
     }
-    self.tableData = array;
-    [self.tableView reloadData];
+    [self checkExchangeOpen];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)checkExchangeOpen
+{
+    NSDate *now = [NSDate date];
+    NSDateComponents *comps = [[NSCalendar currentCalendar] components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitWeekday) fromDate:now];
+    NSDateFormatter *hour = [[NSDateFormatter alloc] init];
+    [hour setDateFormat:[NSDateFormatter dateFormatFromTemplate:@"hh" options:0 locale:[NSLocale currentLocale]]];
+    [hour setTimeZone:[NSTimeZone timeZoneWithName:@"America/New_York"]];
+    
+    if(comps.weekday != 1 && comps.day != 7) {
+        int hourInt = [[hour stringFromDate:now] intValue];
+        if(hourInt < 9) self.marketStatusLabel.text = @"market closed";
+        else if(hourInt == 4) {
+            if(comps.minute >= 30) self.marketStatusLabel.text = @"market closed";
+        }
+        else if(hourInt > 4) self.marketStatusLabel.text = @"market closed";
+        else self.marketStatusLabel.text = @"market open";
+    }
+    else {
+        self.marketStatusLabel.text = @"market closed";
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -46,13 +63,23 @@
     return self.tableData.count;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    RealStock *stock = (RealStock *)self.tableData[indexPath.row];
+    if(!self.stock || ![self.stock.tickerSymbol isEqualToString:stock.tickerSymbol])
+        return 47;
+    else return 159;
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RealStock *stock = (RealStock *)self.tableData[indexPath.row];
     if(!self.stock || ![self.stock.tickerSymbol isEqualToString:stock.tickerSymbol]) {
         StockCell *cell = [tableView dequeueReusableCellWithIdentifier:@"stockCell"];
         cell.tickerSymbolLabel.text = stock.tickerSymbol;
-        cell.currentPriceLabel.text = [NSString stringWithFormat:@"$%@",stock.currentValue];
+        if(stock.currentValue)
+            cell.currentPriceLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:stock.currentValue]];
+        else cell.currentPriceLabel.text = @"";
         NSString *performance = [stock dailyPerformancePercent];
         if(performance && [performance rangeOfString:@"-"].location!=NSNotFound)
             cell.performanceButton.backgroundColor = [Globals negativeColor];
@@ -60,10 +87,34 @@
             cell.performanceButton.backgroundColor = [Globals positiveColor];
         [cell.performanceButton setTitle:performance forState:UIControlStateNormal];
         cell.performanceButton.layer.cornerRadius = 5;
+        cell.selectedBackgroundView = [UIView new];
+        cell.selectedBackgroundView.backgroundColor = [Globals darkBackgroundColor];
         return cell;
     }
     else {
-        ExpandedStockCell *cell = [tableView dequeueReusableCellWithIdentifier:@"extendedCell"];
+        ExpandedStockCell *cell = [tableView dequeueReusableCellWithIdentifier:@"expandedCell"];
+        cell.tickerSymbolLabel.text = stock.tickerSymbol;
+        if(stock.currentValue) {
+            cell.currentPriceLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:stock.currentValue]];
+            NSString *performance = [stock dailyPerformancePercent];
+            if(performance && [performance rangeOfString:@"-"].location!=NSNotFound)
+                cell.performanceButton.backgroundColor = [Globals negativeColor];
+            else
+                cell.performanceButton.backgroundColor = [Globals positiveColor];
+            [cell.performanceButton setTitle:performance forState:UIControlStateNormal];
+            cell.companyNameLabel.text = stock.companyName;
+        }
+        else {
+            cell.currentPriceLabel.text = @"";
+            [cell.performanceButton setTitle:@"" forState:UIControlStateNormal];
+            cell.companyNameLabel.text = @"";
+        }
+        
+        cell.performanceButton.layer.cornerRadius = 5;
+        cell.buyButton.layer.cornerRadius = 5;
+        cell.sellButton.layer.cornerRadius = 5;
+        cell.selectedBackgroundView = [UIView new];
+        cell.selectedBackgroundView.backgroundColor = [Globals darkBackgroundColor];
         return cell;
     }
 }
@@ -71,7 +122,57 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RealStock *stock = (RealStock *)self.tableData[indexPath.row];
-    self.stock = stock;
+    if([self.stock.tickerSymbol isEqualToString:stock.tickerSymbol]) {
+        self.stock = nil;
+        [self.chart.chart removeFromSuperview];
+        self.priceLabel.text = @"";
+    }
+    else {
+        [self.chart.chart removeFromSuperview];
+        self.priceLabel.text = @"";
+        PerformanceWindow window;
+        switch (self.timePeriodPicker.selectedSegmentIndex) {
+            case 0:
+                window = PerformanceWindowOneDay;
+                break;
+            case 1:
+                window = PerformanceWindowOneMonth;
+                break;
+            case 2:
+                window = PerformanceWindowThreeMonth;
+                break;
+            case 3:
+                window = PerformanceWindowSixMonth;
+                break;
+            case 4:
+                window = PerformanceWindowOneYear;
+                break;
+            case 5:
+                window = PerformanceWindowTwoYear;
+                break;
+            default:
+                window = PerformanceWindowOneDay;
+                break;
+        }
+        stock.performanceWindow = window;
+        stock.delegate = self;
+        self.stock = stock;
+        [self.stock downloadStockData];
+    }
+    [self.tableView reloadData];
+}
+
+-(void)setTableDataFromCoreData
+{
+    NSArray *jsonDictionary = [self.coreDataLayer getRealStockJSON];
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for(int i=0; i<20; i++) {
+        NSDictionary *dict = jsonDictionary[i];
+        RealStock *stock =[[RealStock alloc] initWithTicker:[dict valueForKey:@"symbol"] performanceWindow:PerformanceWindowOneDay andDelegate:self];
+        [stock downloadCurrentData];
+        [array addObject:stock];
+    }
+    self.tableData = array;
     [self.tableView reloadData];
 }
 
@@ -79,6 +180,7 @@
 
 -(void)timePeriodChanged:(UISegmentedControl *)sender
 {
+    if(!self.stock) return;
     [UIView animateWithDuration:0.2 animations:^{
         self.stock.delegate = nil;
         self.chart.chart.alpha = 0;
@@ -113,7 +215,7 @@
                 window = PerformanceWindowOneDay;
                 break;
         }
-        self.stock = [[RealStock alloc] initWithTicker:[@"GOOG" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] performanceWindow:window andDelegate:self];
+        self.stock = [[RealStock alloc] initWithTicker:[self.stock.tickerSymbol stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] performanceWindow:window andDelegate:self];
         [self.stock downloadStockData];
     }];
 }
@@ -124,6 +226,7 @@
 {
     if(dataFetcher.fetchType==DataFetchTypeRealStockList) {
         [self.coreDataLayer saveRealStockJSON:dataFetcher.fetchedData];
+        [self setTableDataFromCoreData];
     }
     else {
         
@@ -139,6 +242,10 @@
 
 -(void)realStockDoneDownloading:(RealStock *)realStock
 {
+    if(![realStock.tickerSymbol isEqualToString:self.stock.tickerSymbol]) {
+        [self.tableView reloadData];
+        return;
+    }
     self.chart = [[CFStockChart alloc] initWithStock:realStock];
     self.chart.priceLabel = self.priceLabel;
     self.chart.chart.alpha = 0;
@@ -152,7 +259,7 @@
     [UIView animateWithDuration:0.2 animations:^{
         self.chart.chart.alpha = 1;
     }];
-    self.priceLabel.text = [NSString stringWithFormat:@"$%@",self.stock.currentValue];
+    self.priceLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:self.stock.currentValue]];
     [self.tableView reloadData];
 }
 

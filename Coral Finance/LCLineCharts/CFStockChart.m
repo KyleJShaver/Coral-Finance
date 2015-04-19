@@ -50,7 +50,7 @@
             NSString *label1;
             if(self.stock.performanceWindow != PerformanceWindowOneDay) label1 = [formatter stringFromDate:arr[item]];
             else label1 = [NSString stringWithFormat:@"%@ EST",[timeFormatter stringFromDate:arr[item]]];
-            NSString *label2 = [NSString stringWithFormat:@"$%.2f", y];
+            NSString *label2 = [NSString stringWithFormat:@"$%@",[Globals numberToString:[NSNumber numberWithDouble:y]]];
             return [LCLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
         };
         subdata;
@@ -61,7 +61,7 @@
     self.chart.yMax = [self.stock.currentHigh doubleValue] + (.10-fmod([self.stock.currentHigh doubleValue], .10));
     double difference = self.chart.yMax - self.chart.yMin;
     double diffStep = difference/3.0;
-    self.chart.ySteps = @[[NSString stringWithFormat:@"%.2f",self.chart.yMin], [NSString stringWithFormat:@"%.2f",self.chart.yMin+diffStep], [NSString stringWithFormat:@"%.2f",self.chart.yMin+(2*diffStep)], [NSString stringWithFormat:@"%.2f",self.chart.yMax]];
+    self.chart.ySteps = @[[Globals numberToString:[NSNumber numberWithDouble:self.chart.yMin]], [Globals numberToString:[NSNumber numberWithDouble:self.chart.yMin+diffStep]], [Globals numberToString:[NSNumber numberWithDouble:self.chart.yMin+(2*diffStep)]], [Globals numberToString:[NSNumber numberWithDouble:self.chart.yMax]]];
     self.chart.data = @[data];
     __weak typeof(self) weakSelf = self;
     self.chart.selectedItemCallback = ^(LCLineChartData *dat, NSUInteger item, CGPoint pos) {

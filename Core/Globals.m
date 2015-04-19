@@ -20,6 +20,11 @@
     return [UIColor colorWithRed:115.0/255.0 green:201.0/255.0 blue:191.0/255.0 alpha:1];
 }
 
++(UIColor *) darkBackgroundColor
+{
+    return [UIColor colorWithRed:74.0/255.0 green:152.0/255.0 blue:149.0/255.0 alpha:1];
+}
+
 +(UIColor *) positiveColor
 {
     return [UIColor colorWithRed:0.0/255.0 green:172.0/255.0 blue:131.0/255.0 alpha:1];
@@ -58,6 +63,13 @@
 +(UIFont *) canterLight:(CGFloat)fontSize
 {
     return [UIFont fontWithName:@"CanterLight" size:fontSize];
+}
+
++(NSString *)numberToString:(NSNumber *)number
+{
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setPositiveFormat:@"#,##0.00"];
+    return [formatter stringFromNumber:number];
 }
 
 @end
