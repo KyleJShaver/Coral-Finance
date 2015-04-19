@@ -24,7 +24,7 @@
     LCLineChartData *data = ({
         LCLineChartData *subdata = [LCLineChartData new];
         subdata.title = self.stock.tickerSymbol;
-        subdata.color = [UIColor colorWithRed:149.0/255.0 green:214.0/255.0 blue:131.0/255.0 alpha:1.0];
+        subdata.color = [Globals positiveColor];
         double stepper = ((double)self.stock.performanceValues.count)/40.0;
         if(stepper<1 || self.stock.performanceWindow != PerformanceWindowOneDay) stepper = 1.0;
         NSMutableArray *arr = [NSMutableArray array];
@@ -50,7 +50,7 @@
             NSString *label1;
             if(self.stock.performanceWindow != PerformanceWindowOneDay) label1 = [formatter stringFromDate:arr[item]];
             else label1 = [NSString stringWithFormat:@"%@ EST",[timeFormatter stringFromDate:arr[item]]];
-            NSString *label2 = [NSString stringWithFormat:@"%.2f", y];
+            NSString *label2 = [NSString stringWithFormat:@"$%.2f", y];
             return [LCLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
         };
         subdata;
@@ -63,12 +63,11 @@
     double diffStep = difference/3.0;
     self.chart.ySteps = @[[NSString stringWithFormat:@"%.2f",self.chart.yMin], [NSString stringWithFormat:@"%.2f",self.chart.yMin+diffStep], [NSString stringWithFormat:@"%.2f",self.chart.yMin+(2*diffStep)], [NSString stringWithFormat:@"%.2f",self.chart.yMax]];
     self.chart.data = @[data];
+    __weak typeof(self) weakSelf = self;
     self.chart.selectedItemCallback = ^(LCLineChartData *dat, NSUInteger item, CGPoint pos) {
-        if(dat == data && item == 2) {
-            //NSLog(@"User selected item 1 in 1st graph at position %@ in the graph view", NSStringFromCGPoint(pos));
-        }
+        //NSLog(@"User selected item 1 in 1st graph at position %@ in the graph view", NSStringFromCGPoint(pos));
+        weakSelf.priceLabel.text = data.getData(item).dataLabel;
     };
-
     return self;
 }
 

@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Globals.h"
+#import "PriceTime.h"
 
 @class LCLineChartDataItem;
 @class LCLineChartData;
@@ -63,6 +65,7 @@ typedef void(^LCLineChartDeselectedItem)();
 
 @property (strong) UIFont *scaleFont; /// Font in which scale markings are drawn. Defaults to [UIFont systemFontOfSize:10].
 @property (nonatomic,strong) UIColor *axisLabelColor;
+
 
 - (void)showLegend:(BOOL)show animated:(BOOL)animated;
 

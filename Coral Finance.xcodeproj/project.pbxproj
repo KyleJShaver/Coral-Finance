@@ -23,6 +23,28 @@
 		2777EF1B1AD0D90800E8D592 /* Coral_FinanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777EF1A1AD0D90800E8D592 /* Coral_FinanceTests.m */; };
 		2777EF271AD0D9D200E8D592 /* FakeStock.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777EF261AD0D9D200E8D592 /* FakeStock.m */; };
 		2777EF2A1AD0DA3C00E8D592 /* RealStock.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777EF291AD0DA3C00E8D592 /* RealStock.m */; };
+		277BF1E21AE171DD009E480C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 277BF1E01AE171DD009E480C /* Model.xcdatamodeld */; };
+		277BF1E41AE171F7009E480C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 277BF1E31AE171F7009E480C /* CoreData.framework */; };
+		277BF21C1AE17419009E480C /* DataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 277BF21B1AE17419009E480C /* DataFetcher.m */; };
+		277BF21F1AE179C0009E480C /* CoreDataLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 277BF21E1AE179C0009E480C /* CoreDataLayer.m */; };
+		277BF2221AE1991C009E480C /* RealStocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 277BF2211AE1991C009E480C /* RealStocks.m */; };
+		277BF2251AE1991D009E480C /* RealStockObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 277BF2241AE1991D009E480C /* RealStockObject.m */; };
+		277BF2281AE1991D009E480C /* RealStockWatchList.m in Sources */ = {isa = PBXBuildFile; fileRef = 277BF2271AE1991D009E480C /* RealStockWatchList.m */; };
+		27D980841AE358D600575325 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D980811AE358D600575325 /* search.png */; };
+		27D980851AE358D600575325 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D980821AE358D600575325 /* search@2x.png */; };
+		27D980861AE358D600575325 /* search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D980831AE358D600575325 /* search@3x.png */; };
+		27D9808A1AE35B3500575325 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D980871AE35B3500575325 /* menu.png */; };
+		27D9808B1AE35B3500575325 /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D980881AE35B3500575325 /* menu@2x.png */; };
+		27D9808C1AE35B3500575325 /* menu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D980891AE35B3500575325 /* menu@3x.png */; };
+		27D980941AE3696100575325 /* PortfolioVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D980931AE3696100575325 /* PortfolioVC.m */; };
+		27D980981AE3698400575325 /* StockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D980971AE3698400575325 /* StockCell.m */; };
+		27D9809B1AE3699500575325 /* ExpandedStockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D9809A1AE3699500575325 /* ExpandedStockCell.m */; };
+		27E39C701ADF763800654A97 /* Globals.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E39C6F1ADF763800654A97 /* Globals.m */; };
+		27E39C771ADF78CA00654A97 /* BebasNeue Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 27E39C721ADF78CA00654A97 /* BebasNeue Bold.otf */; };
+		27E39C781ADF78CA00654A97 /* BebasNeue Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 27E39C731ADF78CA00654A97 /* BebasNeue Book.otf */; };
+		27E39C791ADF78CA00654A97 /* BebasNeue Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 27E39C741ADF78CA00654A97 /* BebasNeue Light.otf */; };
+		27E39C7A1ADF78CA00654A97 /* BebasNeue Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 27E39C751ADF78CA00654A97 /* BebasNeue Regular.otf */; };
+		27E39C7B1ADF78CA00654A97 /* Canter Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 27E39C761ADF78CA00654A97 /* Canter Light.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +88,37 @@
 		2777EF261AD0D9D200E8D592 /* FakeStock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeStock.m; sourceTree = "<group>"; };
 		2777EF281AD0DA3C00E8D592 /* RealStock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealStock.h; sourceTree = "<group>"; };
 		2777EF291AD0DA3C00E8D592 /* RealStock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealStock.m; sourceTree = "<group>"; };
+		277BF1E11AE171DD009E480C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		277BF1E31AE171F7009E480C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		277BF21A1AE17419009E480C /* DataFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataFetcher.h; sourceTree = "<group>"; };
+		277BF21B1AE17419009E480C /* DataFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataFetcher.m; sourceTree = "<group>"; };
+		277BF21D1AE179C0009E480C /* CoreDataLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataLayer.h; sourceTree = "<group>"; };
+		277BF21E1AE179C0009E480C /* CoreDataLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataLayer.m; sourceTree = "<group>"; };
+		277BF2201AE1991C009E480C /* RealStocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RealStocks.h; path = Core/CoreDataClasses/RealStocks.h; sourceTree = SOURCE_ROOT; };
+		277BF2211AE1991C009E480C /* RealStocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RealStocks.m; path = Core/CoreDataClasses/RealStocks.m; sourceTree = SOURCE_ROOT; };
+		277BF2231AE1991D009E480C /* RealStockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RealStockObject.h; path = Core/CoreDataClasses/RealStockObject.h; sourceTree = SOURCE_ROOT; };
+		277BF2241AE1991D009E480C /* RealStockObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RealStockObject.m; path = Core/CoreDataClasses/RealStockObject.m; sourceTree = SOURCE_ROOT; };
+		277BF2261AE1991D009E480C /* RealStockWatchList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RealStockWatchList.h; path = Core/CoreDataClasses/RealStockWatchList.h; sourceTree = SOURCE_ROOT; };
+		277BF2271AE1991D009E480C /* RealStockWatchList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RealStockWatchList.m; path = Core/CoreDataClasses/RealStockWatchList.m; sourceTree = SOURCE_ROOT; };
+		27D980811AE358D600575325 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
+		27D980821AE358D600575325 /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
+		27D980831AE358D600575325 /* search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@3x.png"; sourceTree = "<group>"; };
+		27D980871AE35B3500575325 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
+		27D980881AE35B3500575325 /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
+		27D980891AE35B3500575325 /* menu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@3x.png"; sourceTree = "<group>"; };
+		27D980921AE3696100575325 /* PortfolioVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PortfolioVC.h; sourceTree = "<group>"; };
+		27D980931AE3696100575325 /* PortfolioVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PortfolioVC.m; sourceTree = "<group>"; };
+		27D980961AE3698400575325 /* StockCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockCell.h; sourceTree = "<group>"; };
+		27D980971AE3698400575325 /* StockCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockCell.m; sourceTree = "<group>"; };
+		27D980991AE3699500575325 /* ExpandedStockCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpandedStockCell.h; sourceTree = "<group>"; };
+		27D9809A1AE3699500575325 /* ExpandedStockCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpandedStockCell.m; sourceTree = "<group>"; };
+		27E39C6E1ADF763800654A97 /* Globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Globals.h; sourceTree = "<group>"; };
+		27E39C6F1ADF763800654A97 /* Globals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Globals.m; sourceTree = "<group>"; };
+		27E39C721ADF78CA00654A97 /* BebasNeue Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue Bold.otf"; sourceTree = "<group>"; };
+		27E39C731ADF78CA00654A97 /* BebasNeue Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue Book.otf"; sourceTree = "<group>"; };
+		27E39C741ADF78CA00654A97 /* BebasNeue Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue Light.otf"; sourceTree = "<group>"; };
+		27E39C751ADF78CA00654A97 /* BebasNeue Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue Regular.otf"; sourceTree = "<group>"; };
+		27E39C761ADF78CA00654A97 /* Canter Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Canter Light.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +126,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				277BF1E41AE171F7009E480C /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +170,7 @@
 		2777EEF21AD0D90800E8D592 = {
 			isa = PBXGroup;
 			children = (
+				277BF1E31AE171F7009E480C /* CoreData.framework */,
 				2777EEFD1AD0D90800E8D592 /* Coral Finance */,
 				2777EF171AD0D90800E8D592 /* Coral FinanceTests */,
 				2777EEFC1AD0D90800E8D592 /* Products */,
@@ -134,6 +189,10 @@
 		2777EEFD1AD0D90800E8D592 /* Coral Finance */ = {
 			isa = PBXGroup;
 			children = (
+				27D980951AE3696F00575325 /* Table View Cells */,
+				27D980911AE3696100575325 /* View Controllers */,
+				27D980801AE358D600575325 /* Icons and Images */,
+				27E39C6D1ADF761E00654A97 /* Core */,
 				272565201AD74427006078E3 /* LCLineCharts */,
 				270466AB1AD1E72B0058C008 /* TimeObjects */,
 				2777EF241AD0D9C500E8D592 /* Stock Objects */,
@@ -141,6 +200,7 @@
 				2777EF031AD0D90800E8D592 /* AppDelegate.m */,
 				2777EF051AD0D90800E8D592 /* ViewController.h */,
 				2777EF061AD0D90800E8D592 /* ViewController.m */,
+				277BF1E01AE171DD009E480C /* Model.xcdatamodeld */,
 				2777EF081AD0D90800E8D592 /* Main.storyboard */,
 				2777EF0B1AD0D90800E8D592 /* Images.xcassets */,
 				2777EF0D1AD0D90800E8D592 /* LaunchScreen.xib */,
@@ -152,6 +212,7 @@
 		2777EEFE1AD0D90800E8D592 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				27E39C711ADF78CA00654A97 /* Fonts */,
 				2777EEFF1AD0D90800E8D592 /* Info.plist */,
 				2777EF001AD0D90800E8D592 /* main.m */,
 			);
@@ -184,6 +245,78 @@
 				2777EF291AD0DA3C00E8D592 /* RealStock.m */,
 			);
 			path = "Stock Objects";
+			sourceTree = "<group>";
+		};
+		277BF2291AE19929009E480C /* Core Data Classes */ = {
+			isa = PBXGroup;
+			children = (
+				277BF2261AE1991D009E480C /* RealStockWatchList.h */,
+				277BF2271AE1991D009E480C /* RealStockWatchList.m */,
+				277BF2231AE1991D009E480C /* RealStockObject.h */,
+				277BF2241AE1991D009E480C /* RealStockObject.m */,
+				277BF2201AE1991C009E480C /* RealStocks.h */,
+				277BF2211AE1991C009E480C /* RealStocks.m */,
+			);
+			name = "Core Data Classes";
+			sourceTree = "<group>";
+		};
+		27D980801AE358D600575325 /* Icons and Images */ = {
+			isa = PBXGroup;
+			children = (
+				27D980871AE35B3500575325 /* menu.png */,
+				27D980881AE35B3500575325 /* menu@2x.png */,
+				27D980891AE35B3500575325 /* menu@3x.png */,
+				27D980811AE358D600575325 /* search.png */,
+				27D980821AE358D600575325 /* search@2x.png */,
+				27D980831AE358D600575325 /* search@3x.png */,
+			);
+			path = "Icons and Images";
+			sourceTree = "<group>";
+		};
+		27D980911AE3696100575325 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				27D980921AE3696100575325 /* PortfolioVC.h */,
+				27D980931AE3696100575325 /* PortfolioVC.m */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		27D980951AE3696F00575325 /* Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				27D980961AE3698400575325 /* StockCell.h */,
+				27D980971AE3698400575325 /* StockCell.m */,
+				27D980991AE3699500575325 /* ExpandedStockCell.h */,
+				27D9809A1AE3699500575325 /* ExpandedStockCell.m */,
+			);
+			path = "Table View Cells";
+			sourceTree = "<group>";
+		};
+		27E39C6D1ADF761E00654A97 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				277BF2291AE19929009E480C /* Core Data Classes */,
+				27E39C6E1ADF763800654A97 /* Globals.h */,
+				27E39C6F1ADF763800654A97 /* Globals.m */,
+				277BF21A1AE17419009E480C /* DataFetcher.h */,
+				277BF21B1AE17419009E480C /* DataFetcher.m */,
+				277BF21D1AE179C0009E480C /* CoreDataLayer.h */,
+				277BF21E1AE179C0009E480C /* CoreDataLayer.m */,
+			);
+			path = Core;
+			sourceTree = SOURCE_ROOT;
+		};
+		27E39C711ADF78CA00654A97 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				27E39C721ADF78CA00654A97 /* BebasNeue Bold.otf */,
+				27E39C731ADF78CA00654A97 /* BebasNeue Book.otf */,
+				27E39C741ADF78CA00654A97 /* BebasNeue Light.otf */,
+				27E39C751ADF78CA00654A97 /* BebasNeue Regular.otf */,
+				27E39C761ADF78CA00654A97 /* Canter Light.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,8 +399,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27E39C7A1ADF78CA00654A97 /* BebasNeue Regular.otf in Resources */,
+				27D9808B1AE35B3500575325 /* menu@2x.png in Resources */,
+				27D980851AE358D600575325 /* search@2x.png in Resources */,
+				27E39C791ADF78CA00654A97 /* BebasNeue Light.otf in Resources */,
+				27D9808A1AE35B3500575325 /* menu.png in Resources */,
+				27E39C781ADF78CA00654A97 /* BebasNeue Book.otf in Resources */,
+				27E39C771ADF78CA00654A97 /* BebasNeue Bold.otf in Resources */,
 				2777EF0A1AD0D90800E8D592 /* Main.storyboard in Resources */,
+				27D980841AE358D600575325 /* search.png in Resources */,
 				2777EF0F1AD0D90800E8D592 /* LaunchScreen.xib in Resources */,
+				27D9808C1AE35B3500575325 /* menu@3x.png in Resources */,
+				27E39C7B1ADF78CA00654A97 /* Canter Light.otf in Resources */,
+				27D980861AE358D600575325 /* search@3x.png in Resources */,
 				2725652E1AD7444B006078E3 /* LICENSE in Resources */,
 				2777EF0C1AD0D90800E8D592 /* Images.xcassets in Resources */,
 			);
@@ -289,14 +433,24 @@
 			files = (
 				2777EF2A1AD0DA3C00E8D592 /* RealStock.m in Sources */,
 				2725653D1AD7455C006078E3 /* CFStockChart.m in Sources */,
+				277BF2221AE1991C009E480C /* RealStocks.m in Sources */,
 				2725653A1AD744A1006078E3 /* UIKit+DrawingHelpers.m in Sources */,
+				277BF2281AE1991D009E480C /* RealStockWatchList.m in Sources */,
 				272565371AD744A1006078E3 /* LCInfoView.m in Sources */,
+				27E39C701ADF763800654A97 /* Globals.m in Sources */,
 				272565381AD744A1006078E3 /* LCLegendView.m in Sources */,
+				277BF2251AE1991D009E480C /* RealStockObject.m in Sources */,
 				2777EF071AD0D90800E8D592 /* ViewController.m in Sources */,
+				27D980981AE3698400575325 /* StockCell.m in Sources */,
 				270466AE1AD1E7440058C008 /* PriceTime.m in Sources */,
 				2777EF271AD0D9D200E8D592 /* FakeStock.m in Sources */,
 				2777EF041AD0D90800E8D592 /* AppDelegate.m in Sources */,
 				2777EF011AD0D90800E8D592 /* main.m in Sources */,
+				27D980941AE3696100575325 /* PortfolioVC.m in Sources */,
+				277BF21C1AE17419009E480C /* DataFetcher.m in Sources */,
+				277BF21F1AE179C0009E480C /* CoreDataLayer.m in Sources */,
+				277BF1E21AE171DD009E480C /* Model.xcdatamodeld in Sources */,
+				27D9809B1AE3699500575325 /* ExpandedStockCell.m in Sources */,
 				272565391AD744A1006078E3 /* LCLineChartView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -422,9 +576,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Coral Finance/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -433,9 +588,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Coral Finance/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -504,6 +660,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		277BF1E01AE171DD009E480C /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				277BF1E11AE171DD009E480C /* Model.xcdatamodel */,
+			);
+			currentVersion = 277BF1E11AE171DD009E480C /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 2777EEF31AD0D90800E8D592 /* Project object */;
 }

@@ -1,8 +1,8 @@
 //
-//  ViewController.h
+//  PortfolioVC.h
 //  Coral Finance
 //
-//  Created by Kyle Shaver on 4/4/15.
+//  Created by Kyle Shaver on 4/18/15.
 //  Copyright (c) 2015 Team Wireframe. All rights reserved.
 //
 
@@ -14,16 +14,21 @@
 #import "AppDelegate.h"
 #import "DataFetcher.h"
 #import "CoreDataLayer.h"
+#import "StockCell.h"
+#import "ExpandedStockCell.h"
 
-@interface ViewController : UIViewController <RealStockDelegate, UISearchBarDelegate, UISearchBarDelegate, DataFetcherDelegate>
+@interface PortfolioVC : UIViewController <RealStockDelegate, DataFetcherDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) RealStock *stock;
 @property (strong, nonatomic) CFStockChart *chart;
+@property (strong, nonatomic) NSArray *tableData;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *timePeriodPicker;
-@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *marketStatusLabel;
+@property (strong, nonatomic) IBOutlet UIView *chartContainer;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UILabel *priceLabel;
 @property (strong, nonatomic) CoreDataLayer *coreDataLayer;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end
-

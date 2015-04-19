@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3A9611B4-1077-42EF-9B43-F89F4E86F355</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Coral Finance</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>33C012E77C2A04244AF34D4BCA51E8C680BFBD5C</key>
+		<string>https://bitbucket.org/kyleshaver/coral-finance-alpha.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Coral Finance.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>33C012E77C2A04244AF34D4BCA51E8C680BFBD5C</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/kyleshaver/coral-finance-alpha.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>33C012E77C2A04244AF34D4BCA51E8C680BFBD5C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>33C012E77C2A04244AF34D4BCA51E8C680BFBD5C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Coral%20Finance</string>
+		</dict>
+	</array>
+</dict>
+</plist>

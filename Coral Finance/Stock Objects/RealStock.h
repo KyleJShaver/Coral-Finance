@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PriceTime.h"
+#import "RealStockObject.h"
 
 @class RealStock;
 
@@ -50,6 +51,9 @@ typedef NS_ENUM(NSUInteger, PerformanceWindow) {
 -(id)initWithDelegate:(id<RealStockDelegate>)delegate;
 -(id)initWithTicker:(NSString *)tickerSymbol andDelegate:(id<RealStockDelegate>)delegate;
 -(id)initWithTicker:(NSString *)tickerSymbol performanceWindow:(PerformanceWindow)performanceWindow andDelegate:(id<RealStockDelegate>)delegate;
++(instancetype) stockWithCDObject:(RealStockObject *)realStockObject andDelegate:(id<RealStockDelegate>)delegate;
 -(void)downloadStockData;
+-(void)downloadCurrentData;
+-(NSString *)dailyPerformancePercent;
 
 @end

@@ -8,11 +8,13 @@
 
 #import "LCLineChartView.h"
 #import "RealStock.h"
+#import "Globals.h"
 
-@interface CFStockChart : LCLineChartView
+@interface CFStockChart : LCLineChartView <UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) LCLineChartView *chart;
 @property (strong, nonatomic) RealStock *stock;
+@property (strong, nonatomic) UILabel *priceLabel;
 
 -(id)initWithStock:(RealStock *)stock;
 

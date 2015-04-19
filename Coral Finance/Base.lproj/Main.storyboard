@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dU9-mM-NW3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="zfl-u0-m1v">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="BebasNeue Bold.otf">
+            <string>BebasNeueBold</string>
+            <string>BebasNeueBold</string>
+            <string>BebasNeueBold</string>
+            <string>BebasNeueBold</string>
+            <string>BebasNeueBold</string>
+        </mutableArray>
+        <mutableArray key="BebasNeue Book.otf">
+            <string>BebasNeueBook</string>
+            <string>BebasNeueBook</string>
+            <string>BebasNeueBook</string>
+            <string>BebasNeueBook</string>
+            <string>BebasNeueBook</string>
+            <string>BebasNeueBook</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="Zd1-ds-SSO">
@@ -50,20 +67,31 @@
                                     <segment title="1 Yr"/>
                                     <segment title="2 Yr"/>
                                 </segments>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Eu-t6-eaU">
+                                <rect key="frame" x="5" y="100" width="590" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.22352941330000001" green="0.75294119120000003" blue="0.72941178080000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="SnV-eI-ANB" secondAttribute="trailing" constant="16" id="2QU-UH-B9z"/>
                             <constraint firstItem="SnV-eI-ANB" firstAttribute="top" secondItem="7MV-ue-bXV" secondAttribute="bottom" id="9b3-CG-4iy"/>
+                            <constraint firstItem="3Eu-t6-eaU" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="100" id="AmL-Nw-Mpp"/>
                             <constraint firstItem="SnV-eI-ANB" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="UGx-24-eAF"/>
+                            <constraint firstItem="3Eu-t6-eaU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="5" id="ib7-HV-ukk"/>
                             <constraint firstItem="7MV-ue-bXV" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20" id="kUi-nB-t18"/>
                             <constraint firstAttribute="trailing" secondItem="7MV-ue-bXV" secondAttribute="trailing" id="vb6-Ia-GcZ"/>
+                            <constraint firstAttribute="trailing" secondItem="3Eu-t6-eaU" secondAttribute="trailing" constant="5" id="wTv-e5-6XN"/>
                             <constraint firstItem="7MV-ue-bXV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="zLs-zs-DgI"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="9lT-yO-50J"/>
                     <connections>
+                        <outlet property="priceLabel" destination="3Eu-t6-eaU" id="qqf-fu-fO3"/>
                         <outlet property="searchBar" destination="7MV-ue-bXV" id="f4b-SD-gCM"/>
                         <outlet property="timePeriodPicker" destination="SnV-eI-ANB" id="3XQ-u8-P8O"/>
                     </connections>
@@ -71,5 +99,310 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
+        <!--PortfolioVC-->
+        <scene sceneID="oG7-Ec-Luw">
+            <objects>
+                <viewController storyboardIdentifier="home" id="zfl-u0-m1v" customClass="PortfolioVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qTE-kX-q9D"/>
+                        <viewControllerLayoutGuide type="bottom" id="6hW-Rw-1Os"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qL9-4U-F2X">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="portfolio" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbU-6G-Oms">
+                                <rect key="frame" x="16" y="31" width="568" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="P50-y6-bwO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="36"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="market closed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="peu-3D-KPz">
+                                <rect key="frame" x="0.0" y="576" width="600" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="dhU-3Q-5p4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PXG-2k-ce0">
+                                <rect key="frame" x="16" y="64" width="568" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="5aa-II-ezW"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJt-dl-RNt">
+                                <rect key="frame" x="550" y="26" width="34" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="34" id="QLg-4m-vXO"/>
+                                    <constraint firstAttribute="height" constant="34" id="iZ7-Tg-CA1"/>
+                                </constraints>
+                                <state key="normal" image="search.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KjH-sX-Qvv">
+                                <rect key="frame" x="16" y="26" width="34" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="34" id="8sO-Dg-IYk"/>
+                                    <constraint firstAttribute="height" constant="34" id="cas-Y2-jRD"/>
+                                </constraints>
+                                <state key="normal" image="menu.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="LWC-4i-UlR">
+                                <rect key="frame" x="0.0" y="72" width="600" height="276"/>
+                                <color key="backgroundColor" red="0.22352941330000001" green="0.75294119120000003" blue="0.72941178080000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="separatorInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="stockCell" rowHeight="47" id="Bca-2f-OWb" customClass="StockCell">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bca-2f-OWb" id="piV-cR-G7R">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CUDA" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tam-6k-QnH">
+                                                    <rect key="frame" x="8" y="10" width="111" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="t6Z-hL-7Tb"/>
+                                                        <constraint firstAttribute="width" constant="111" id="yam-TP-vlL"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="BebasNeueBook" family="Bebas Neue" pointSize="34"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$99.993.46" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="none" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8xE-we-g0q">
+                                                    <rect key="frame" x="373" y="10" width="121" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="1XW-Dm-ZQ7"/>
+                                                        <constraint firstAttribute="width" constant="121" id="xVG-9t-z3z"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="BebasNeueBook" family="Bebas Neue" pointSize="30"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eST-Zu-5Gy">
+                                                    <rect key="frame" x="502" y="6" width="90" height="30"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.70196078429999997" blue="0.51372549020000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="90" id="M0O-cO-CxI"/>
+                                                        <constraint firstAttribute="height" constant="30" id="bPm-ad-4aF"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="BebasNeueBook" family="Bebas Neue" pointSize="24"/>
+                                                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <inset key="contentEdgeInsets" minX="0.0" minY="3" maxX="0.0" maxY="0.0"/>
+                                                    <state key="normal" title="99.99%">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.22352941330000001" green="0.75294119120000003" blue="0.72941178080000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="Tam-6k-QnH" firstAttribute="leading" secondItem="piV-cR-G7R" secondAttribute="leading" constant="8" id="7LT-iu-mSI"/>
+                                                <constraint firstItem="Tam-6k-QnH" firstAttribute="top" secondItem="piV-cR-G7R" secondAttribute="top" constant="10" id="8n0-YS-X7x"/>
+                                                <constraint firstItem="8xE-we-g0q" firstAttribute="top" secondItem="piV-cR-G7R" secondAttribute="top" constant="10" id="PyB-vC-SZN"/>
+                                                <constraint firstItem="eST-Zu-5Gy" firstAttribute="leading" secondItem="8xE-we-g0q" secondAttribute="trailing" constant="8" id="Qlq-eP-YD3"/>
+                                                <constraint firstAttribute="trailing" secondItem="eST-Zu-5Gy" secondAttribute="trailing" constant="8" id="qTt-m1-4PY"/>
+                                                <constraint firstItem="eST-Zu-5Gy" firstAttribute="top" secondItem="piV-cR-G7R" secondAttribute="top" constant="6" id="xtN-EB-V4O"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="currentPriceLabel" destination="8xE-we-g0q" id="4dt-Ge-1JV"/>
+                                            <outlet property="performanceButton" destination="eST-Zu-5Gy" id="DAl-Xu-WAM"/>
+                                            <outlet property="tickerSymbolLabel" destination="Tam-6k-QnH" id="R8F-PV-xsW"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="expandedCell" rowHeight="139" id="pEr-uk-oLJ" customClass="ExpandedStockCell">
+                                        <rect key="frame" x="0.0" y="277" width="600" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pEr-uk-oLJ" id="P9L-tu-gNO">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CUDA" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OZC-31-YWO">
+                                                    <rect key="frame" x="8" y="10" width="111" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="111" id="bz9-KN-qIq"/>
+                                                        <constraint firstAttribute="height" constant="30" id="onw-NV-dSF"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="BebasNeueBook" family="Bebas Neue" pointSize="34"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$99.993.46" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="none" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Keu-GB-nRM">
+                                                    <rect key="frame" x="373" y="10" width="121" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="121" id="A0W-Ci-IfG"/>
+                                                        <constraint firstAttribute="height" constant="30" id="FK1-w6-nGc"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="BebasNeueBook" family="Bebas Neue" pointSize="30"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QAN-gK-koP">
+                                                    <rect key="frame" x="8" y="48" width="90" height="37"/>
+                                                    <color key="backgroundColor" red="0.97647058819999999" green="0.92941176469999998" blue="0.4941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="37" id="FbE-J3-C8g"/>
+                                                        <constraint firstAttribute="width" constant="90" id="xgF-DP-XED"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="18"/>
+                                                    <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="0.0"/>
+                                                    <state key="normal" title="BUY">
+                                                        <color key="titleColor" red="0.93725490199999995" green="0.35294117650000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="titleShadowColor" red="0.93725490199999995" green="0.35294117650000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dpa-uj-OCA">
+                                                    <rect key="frame" x="8" y="93" width="90" height="37"/>
+                                                    <color key="backgroundColor" red="0.97647058819999999" green="0.92941176469999998" blue="0.4941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="90" id="IeH-af-IrJ"/>
+                                                        <constraint firstAttribute="height" constant="37" id="SIp-ac-AP1"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="18"/>
+                                                    <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="0.0"/>
+                                                    <state key="normal" title="sell">
+                                                        <color key="titleColor" red="0.93725490199999995" green="0.35294117650000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="titleShadowColor" red="0.93725490199999995" green="0.35294117650000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A8e-Wa-O7B">
+                                                    <rect key="frame" x="502" y="10" width="90" height="30"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.70196078429999997" blue="0.51372549020000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="Vjv-pS-QGC"/>
+                                                        <constraint firstAttribute="width" constant="90" id="aTX-iV-Mul"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="BebasNeueBook" family="Bebas Neue" pointSize="24"/>
+                                                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <inset key="contentEdgeInsets" minX="0.0" minY="3" maxX="0.0" maxY="0.0"/>
+                                                    <state key="normal" title="99.99%">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.22352941330000001" green="0.75294119120000003" blue="0.72941178080000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="QAN-gK-koP" firstAttribute="top" secondItem="OZC-31-YWO" secondAttribute="bottom" constant="8" id="4EC-GD-zSe"/>
+                                                <constraint firstItem="A8e-Wa-O7B" firstAttribute="leading" secondItem="Keu-GB-nRM" secondAttribute="trailing" constant="8" id="CTZ-MJ-E8L"/>
+                                                <constraint firstItem="OZC-31-YWO" firstAttribute="leading" secondItem="P9L-tu-gNO" secondAttribute="leading" constant="8" id="GYr-Nx-6zy"/>
+                                                <constraint firstItem="A8e-Wa-O7B" firstAttribute="top" secondItem="P9L-tu-gNO" secondAttribute="top" constant="10" id="LB9-VD-H7J"/>
+                                                <constraint firstItem="QAN-gK-koP" firstAttribute="leading" secondItem="P9L-tu-gNO" secondAttribute="leading" constant="8" id="NHg-Dz-zOu"/>
+                                                <constraint firstItem="dpa-uj-OCA" firstAttribute="leading" secondItem="P9L-tu-gNO" secondAttribute="leading" constant="8" id="OnM-oL-j9w"/>
+                                                <constraint firstAttribute="trailing" secondItem="A8e-Wa-O7B" secondAttribute="trailing" constant="8" id="Tzy-9P-4cf"/>
+                                                <constraint firstItem="OZC-31-YWO" firstAttribute="top" secondItem="P9L-tu-gNO" secondAttribute="top" constant="10" id="YoH-Zf-3kB"/>
+                                                <constraint firstItem="Keu-GB-nRM" firstAttribute="top" secondItem="P9L-tu-gNO" secondAttribute="top" constant="10" id="ojv-Cg-YFo"/>
+                                                <constraint firstItem="dpa-uj-OCA" firstAttribute="top" secondItem="QAN-gK-koP" secondAttribute="bottom" constant="8" id="sXs-AS-fPL"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="zfl-u0-m1v" id="bME-m6-EfA"/>
+                                    <outlet property="delegate" destination="zfl-u0-m1v" id="Mug-CE-NRN"/>
+                                </connections>
+                            </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TjV-uB-Z51">
+                                <rect key="frame" x="16" y="542" width="568" height="29"/>
+                                <segments>
+                                    <segment title="1 Day"/>
+                                    <segment title="1 Month"/>
+                                    <segment title="3 Month"/>
+                                    <segment title="6 Month"/>
+                                    <segment title="1 Year"/>
+                                </segments>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </segmentedControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cR0-2w-GP0">
+                                <rect key="frame" x="0.0" y="356" width="600" height="180"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="POQ-Hv-jXT">
+                                        <rect key="frame" x="189" y="8" width="223" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="26" id="OIT-hT-W7o"/>
+                                            <constraint firstAttribute="width" constant="223" id="XVh-Wp-4lr"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="28"/>
+                                        <color key="textColor" red="0.22352941330000001" green="0.75294119120000003" blue="0.72941178080000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.97647058819999999" green="0.92941176469999998" blue="0.4941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="POQ-Hv-jXT" firstAttribute="top" secondItem="cR0-2w-GP0" secondAttribute="top" constant="8" id="X0h-ge-hp8"/>
+                                    <constraint firstAttribute="height" constant="180" id="Zp7-tC-VN7"/>
+                                    <constraint firstAttribute="centerX" secondItem="POQ-Hv-jXT" secondAttribute="centerX" constant="-0.5" id="gba-3T-E1L"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.22352941330000001" green="0.75294119120000003" blue="0.72941178080000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="BJt-dl-RNt" firstAttribute="top" secondItem="qL9-4U-F2X" secondAttribute="top" constant="26" id="3nm-ba-Unn"/>
+                            <constraint firstAttribute="trailing" secondItem="peu-3D-KPz" secondAttribute="trailing" id="6rL-PQ-qpp"/>
+                            <constraint firstItem="TjV-uB-Z51" firstAttribute="leading" secondItem="qL9-4U-F2X" secondAttribute="leading" constant="16" id="AJm-Fs-qMC"/>
+                            <constraint firstAttribute="bottom" secondItem="peu-3D-KPz" secondAttribute="bottom" id="KPU-FF-26X"/>
+                            <constraint firstItem="PXG-2k-ce0" firstAttribute="leading" secondItem="qL9-4U-F2X" secondAttribute="leading" constant="16" id="O4V-NJ-ok6"/>
+                            <constraint firstItem="TjV-uB-Z51" firstAttribute="top" secondItem="cR0-2w-GP0" secondAttribute="bottom" constant="6" id="TEJ-Im-mIN"/>
+                            <constraint firstAttribute="trailing" secondItem="TjV-uB-Z51" secondAttribute="trailing" constant="16" id="U6e-vJ-b0H"/>
+                            <constraint firstItem="PXG-2k-ce0" firstAttribute="top" secondItem="bbU-6G-Oms" secondAttribute="bottom" constant="-1" id="Xp1-mY-OYt"/>
+                            <constraint firstItem="bbU-6G-Oms" firstAttribute="top" secondItem="qL9-4U-F2X" secondAttribute="top" constant="31" id="XwX-S8-0Pd"/>
+                            <constraint firstItem="LWC-4i-UlR" firstAttribute="leading" secondItem="qL9-4U-F2X" secondAttribute="leading" id="bdY-16-p9W"/>
+                            <constraint firstAttribute="trailing" secondItem="BJt-dl-RNt" secondAttribute="trailing" constant="16" id="cZ6-gh-ICg"/>
+                            <constraint firstAttribute="trailing" secondItem="bbU-6G-Oms" secondAttribute="trailing" constant="16" id="fNy-Mk-xDp"/>
+                            <constraint firstItem="peu-3D-KPz" firstAttribute="leading" secondItem="qL9-4U-F2X" secondAttribute="leading" id="iNm-Rb-eKs"/>
+                            <constraint firstItem="LWC-4i-UlR" firstAttribute="top" secondItem="PXG-2k-ce0" secondAttribute="bottom" constant="7" id="kQj-fZ-zTg"/>
+                            <constraint firstAttribute="trailing" secondItem="LWC-4i-UlR" secondAttribute="trailing" id="orE-d0-gAa"/>
+                            <constraint firstItem="cR0-2w-GP0" firstAttribute="top" secondItem="LWC-4i-UlR" secondAttribute="bottom" constant="8" id="p3Z-rh-s74"/>
+                            <constraint firstItem="peu-3D-KPz" firstAttribute="top" secondItem="TjV-uB-Z51" secondAttribute="bottom" constant="6" id="qWo-FX-EEK"/>
+                            <constraint firstItem="KjH-sX-Qvv" firstAttribute="top" secondItem="qL9-4U-F2X" secondAttribute="top" constant="26" id="qiD-OB-AVj"/>
+                            <constraint firstItem="bbU-6G-Oms" firstAttribute="leading" secondItem="qL9-4U-F2X" secondAttribute="leading" constant="16" id="sxf-dw-Bgj"/>
+                            <constraint firstAttribute="trailing" secondItem="PXG-2k-ce0" secondAttribute="trailing" constant="16" id="t6M-rS-RyD"/>
+                            <constraint firstItem="cR0-2w-GP0" firstAttribute="leading" secondItem="qL9-4U-F2X" secondAttribute="leading" id="uoe-6k-xqo"/>
+                            <constraint firstAttribute="trailing" secondItem="cR0-2w-GP0" secondAttribute="trailing" id="vq6-7U-W46"/>
+                            <constraint firstItem="KjH-sX-Qvv" firstAttribute="leading" secondItem="qL9-4U-F2X" secondAttribute="leading" constant="16" id="xrI-ef-DHK"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="chartContainer" destination="cR0-2w-GP0" id="xhV-fa-Sgc"/>
+                        <outlet property="marketStatusLabel" destination="peu-3D-KPz" id="YAh-x1-c4M"/>
+                        <outlet property="priceLabel" destination="POQ-Hv-jXT" id="uv4-kS-GB7"/>
+                        <outlet property="tableView" destination="LWC-4i-UlR" id="7SP-KB-3bq"/>
+                        <outlet property="timePeriodPicker" destination="TjV-uB-Z51" id="NDc-fe-RDm"/>
+                        <outlet property="titleLabel" destination="bbU-6G-Oms" id="Csu-fo-XwF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tPc-8G-IZk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="245" y="996"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="CZy-vv-5so">
+            <objects>
+                <viewController id="Axl-yx-SX3" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Srf-qP-ZLu"/>
+                        <viewControllerLayoutGuide type="bottom" id="Wbh-O0-HHz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uDl-yP-P5R">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rV2-L5-RRR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="894" y="996"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="menu.png" width="34" height="34"/>
+        <image name="search.png" width="34" height="34"/>
+    </resources>
 </document>

@@ -89,7 +89,7 @@
     self.legendView.backgroundColor = [UIColor clearColor];
     [self addSubview:self.legendView];
     
-    self.axisLabelColor = [UIColor grayColor];
+    self.axisLabelColor = [UIColor colorWithWhite:0 alpha:0.2];
     
     self.xAxisLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
     self.xAxisLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
@@ -100,7 +100,7 @@
     self.xAxisLabel.backgroundColor = [UIColor clearColor];
     [self addSubview:self.xAxisLabel];
     
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [Globals buttonColor];
     self.scaleFont = [UIFont systemFontOfSize:10.0];
     
     self.autoresizesSubviews = YES;
@@ -193,7 +193,7 @@
     CGFloat xStart = PADDING + self.yAxisLabelsWidth;
     CGFloat yStart = 2*PADDING;
     
-    static CGFloat dashedPattern[] = {4,2};
+    static CGFloat dashedPattern[] = {2,20};
     
     // draw scale and horizontal lines
     CGFloat heightPerStep = self.ySteps == nil || [self.ySteps count] <= 1 ? availableHeight : (availableHeight / ([self.ySteps count] - 1));
@@ -212,7 +212,6 @@
         [step drawInRect:CGRectMake(yStart-10, y - h / 2, self.yAxisLabelsWidth - 6, h) withFont:self.scaleFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentRight];
 #pragma clagn diagnostic pop
         
-        [[UIColor colorWithWhite:0.9 alpha:1.0] set];
         CGContextSetLineDash(c, 0, dashedPattern, 2);
         CGContextMoveToPoint(c, xStart, round(y) + 0.5);
         CGContextAddLineToPoint(c, self.bounds.size.width - PADDING, round(y) + 0.5);
@@ -324,12 +323,14 @@
 }
 
 - (void)showIndicatorForTouch:(UITouch *)touch {
+    /*
     if(! self.infoView) {
         self.infoView = [[LCInfoView alloc] init];
         self.infoView.textColor = [UIColor blackColor];
         self.infoView.bgColor = [UIColor colorWithWhite:1.0 alpha:1];
         [self addSubview:self.infoView];
     }
+     */
     
     CGPoint pos = [touch locationInView:self];
     CGFloat xStart = PADDING + self.yAxisLabelsWidth;
@@ -375,7 +376,6 @@
     
     self.selectedData = closestData;
     self.selectedIdx = closestIdx;
-    
     self.infoView.infoLabel.text = closest.dataLabel;
     self.infoView.tapPoint = closestPos;
     [self.infoView sizeToFit];
