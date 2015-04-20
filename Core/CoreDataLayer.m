@@ -74,6 +74,98 @@
     [self save];
 }
 
+-(void)buyStock:(RealStock *)stock withQuantity:(int)quantity
+{
+    RealStockObject *purchasedStock = [NSEntityDescription insertNewObjectForEntityForName:@"RealStockObject" inManagedObjectContext:_managedObjectContext];
+    purchasedStock.companyName = stock.companyName;
+    purchasedStock.tickerSymbol = stock.tickerSymbol;
+    PurchasedRealStockObject *purchasedStockContainer = [NSEntityDescription insertNewObjectForEntityForName:@"PurchasedRealStockObject" inManagedObjectContext:_managedObjectContext];
+    purchasedStockContainer.purchaseDate = [NSDate date];
+    double amountPaid = [stock.currentValue doubleValue] * (double)quantity;
+    purchasedStockContainer.purchasePrice = [NSNumber numberWithDouble:amountPaid];
+    purchasedStockContainer.quantityPurchased = [NSNumber numberWithInt:quantity];
+    purchasedStockContainer.stock = purchasedStock;
+    OwnedRealStockList *ownedList = [self ownedRealStockList];
+    [ownedList addStocks:[NSSet setWithObject:purchasedStockContainer]];
+    [self save];
+}
+
+-(void)sellStock:(RealStock *)stock withQuantity:(int)quantity
+{
+    RealStockObject *purchasedStock = [NSEntityDescription insertNewObjectForEntityForName:@"RealStockObject" inManagedObjectContext:_managedObjectContext];
+    purchasedStock.companyName = stock.companyName;
+    purchasedStock.tickerSymbol = stock.tickerSymbol;
+    PurchasedRealStockObject *purchasedStockContainer = [NSEntityDescription insertNewObjectForEntityForName:@"PurchasedRealStockObject" inManagedObjectContext:_managedObjectContext];
+    purchasedStockContainer.purchaseDate = [NSDate date];
+    double amountPaid = [stock.currentValue doubleValue] * (double)quantity;
+    purchasedStockContainer.purchasePrice = [NSNumber numberWithDouble:amountPaid];
+    purchasedStockContainer.quantityPurchased = [NSNumber numberWithInt:quantity];
+    purchasedStockContainer.stock = purchasedStock;
+    OwnedRealStockList *ownedList = [self ownedRealStockList];
+    [ownedList addStocks:[NSSet setWithObject:purchasedStockContainer]];
+    [self save];
+}
+
+-(OwnedRealStockList *)ownedRealStockList
+{
+    RealStocks *realStocks = [self realStocks];
+    OwnedRealStockList *ownedList = realStocks.ownedStocks;
+    if(!ownedList) {
+        ownedList = [NSEntityDescription insertNewObjectForEntityForName:@"OwnedRealStockList" inManagedObjectContext:_managedObjectContext];
+        realStocks.ownedStocks = ownedList;
+        [self save];
+        return ownedList;
+    }
+    else return ownedList;
+}
+
+-(NSArray *)getOwnedStocksWithDelegate:(id<RealStockDelegate>)realStockDelegate
+{
+    OwnedRealStockList *ownedList = [self ownedRealStockList];
+    if(ownedList.stocks.count==0) {
+        return nil;
+    }
+    else {
+        NSMutableArray *array = [[NSMutableArray alloc] init];
+        for(PurchasedRealStockObject *purchasedStock in ownedList.stocks) {
+            BOOL exists = NO;
+            int qty = [purchasedStock.quantityPurchased intValue];
+            double pricePaid = [purchasedStock.purchasePrice doubleValue];
+            NSString *ticker = purchasedStock.stock.tickerSymbol;
+            for(RealStock *realStock in array) {
+                if([realStock.tickerSymbol isEqualToString:ticker]) {
+                    exists = YES;
+                    realStock.quantityOwned = [NSNumber numberWithInt:[realStock.quantityOwned intValue]+qty];
+                    realStock.totalSpent = [NSNumber numberWithDouble:[realStock.totalSpent doubleValue]+pricePaid];
+                };
+            }
+            if(!exists) {
+                RealStock *realStock = [RealStock stockWithCDObject:purchasedStock.stock andDelegate:realStockDelegate];
+                realStock.quantityOwned = [NSNumber numberWithInt:qty];
+                realStock.totalSpent = [NSNumber numberWithDouble:pricePaid];
+                [array addObject:realStock];
+            }
+        }
+        for(int i=(int)array.count-1; i>=0; i--) {
+            RealStock *stock = array[i];
+            if([stock.quantityOwned intValue]<=0)
+                [array removeObjectAtIndex:i];
+        }
+        return array;
+    };
+}
+
+-(NSArray *)getOwnedStockWithStock:(RealStock *)realStock andDelegate:(id<RealStockDelegate>)delegate
+{
+    NSArray *ownedStocks = [self getOwnedStocksWithDelegate:delegate];
+    for(RealStock *temp in ownedStocks) {
+        if([realStock.tickerSymbol isEqualToString:temp.tickerSymbol]) {
+            return @[temp];
+        }
+    }
+    return nil;
+}
+
 -(void)save
 {
     NSError *error;

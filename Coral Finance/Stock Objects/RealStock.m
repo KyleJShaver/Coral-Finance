@@ -24,6 +24,8 @@
 @synthesize yearLow = _yearLow;
 @synthesize performanceValues = _performanceValues;
 @synthesize performanceWindow = _performanceWindow;
+@synthesize quantityOwned = _quantityOwned;
+@synthesize totalSpent = _totalSpent;
 
 bool didGetRequested;
 bool didGetDay;
@@ -81,6 +83,15 @@ bool didGetYear;
     if(!_currentValue || !_openingValue) return nil;
     double difference = [_currentValue doubleValue] - [_openingValue doubleValue];
     difference /= [_openingValue doubleValue];
+    difference *= 100;
+    return [NSString stringWithFormat:@"%@%%",[self numberToString:[NSNumber numberWithDouble:difference]]];
+}
+
+-(NSString *)overallPerformancePercent
+{
+    if(!_totalSpent || !_quantityOwned || !_currentValue) return [NSString stringWithFormat:@"%@%%",[self numberToString:[NSNumber numberWithDouble:0]]];
+    double difference = ([_currentValue doubleValue] * (double)[_quantityOwned intValue]) - [_totalSpent doubleValue];
+    difference /= [_totalSpent doubleValue];
     difference *= 100;
     return [NSString stringWithFormat:@"%@%%",[self numberToString:[NSNumber numberWithDouble:difference]]];
 }
@@ -255,6 +266,10 @@ bool didGetYear;
 {
     if(didGetDay && didGetRequested && didGetYear)
         if(_delegate) [_delegate realStockDoneDownloading:self];
+}
+
+- (NSComparisonResult)compareSymbols:(RealStock *)otherObject {
+    return [self.tickerSymbol compare:otherObject.tickerSymbol];
 }
 
 @end

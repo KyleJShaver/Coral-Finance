@@ -100,7 +100,7 @@
     self.xAxisLabel.backgroundColor = [UIColor clearColor];
     [self addSubview:self.xAxisLabel];
     
-    self.backgroundColor = [Globals buttonColor];
+    self.backgroundColor = [UIColor clearColor];
     self.scaleFont = [UIFont systemFontOfSize:10.0];
     
     self.autoresizesSubviews = YES;
@@ -193,17 +193,18 @@
     CGFloat xStart = PADDING + self.yAxisLabelsWidth;
     CGFloat yStart = 2*PADDING;
     
-    static CGFloat dashedPattern[] = {2,20};
+    static CGFloat dashedPattern[] = {2,2};
     
     // draw scale and horizontal lines
     CGFloat heightPerStep = self.ySteps == nil || [self.ySteps count] <= 1 ? availableHeight : (availableHeight / ([self.ySteps count] - 1));
     
     NSUInteger i = 0;
     CGContextSaveGState(c);
-    CGContextSetLineWidth(c, 1.0);
+    CGContextSetLineWidth(c, 2.0);
     NSUInteger yCnt = [self.ySteps count];
-    for(NSString *step in self.ySteps) {
-        [self.axisLabelColor set];
+    NSString *step = self.ySteps[1];
+    i++;
+        [[Globals backgroundColor] set];
         CGFloat h = [self.scaleFont lineHeight];
         CGFloat y = yStart + heightPerStep * (yCnt - 1 - i);
         // TODO: replace with new text APIs in iOS 7 only version
@@ -218,7 +219,6 @@
         CGContextStrokePath(c);
         
         i++;
-    }
     
     NSUInteger xCnt = self.xStepsCount;
     if(xCnt > 1) {
@@ -228,7 +228,7 @@
         for(NSUInteger i = 0; i < xCnt; ++i) {
             CGFloat x = xStart + widthPerStep * (xCnt - 1 - i);
             
-            [[UIColor colorWithWhite:0.9 alpha:1.0] set];
+            [[Globals backgroundColor] set];
             CGContextMoveToPoint(c, round(x) + 0.5, PADDING);
             CGContextAddLineToPoint(c, round(x) + 0.5, yStart + availableHeight);
             CGContextStrokePath(c);

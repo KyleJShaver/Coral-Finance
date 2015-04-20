@@ -46,6 +46,8 @@ typedef NS_ENUM(NSUInteger, PerformanceWindow) {
 @property (strong, nonatomic) NSNumber *yearHigh;
 @property (strong, nonatomic) NSNumber *yearLow;
 @property (strong, nonatomic) NSArray *performanceValues;
+@property (strong, nonatomic) NSNumber *quantityOwned;
+@property (strong, nonatomic) NSNumber *totalSpent;
 @property PerformanceWindow performanceWindow;
 
 -(id)initWithDelegate:(id<RealStockDelegate>)delegate;
@@ -55,5 +57,7 @@ typedef NS_ENUM(NSUInteger, PerformanceWindow) {
 -(void)downloadStockData;
 -(void)downloadCurrentData;
 -(NSString *)dailyPerformancePercent;
+-(NSString *)overallPerformancePercent;
+- (NSComparisonResult)compareSymbols:(RealStock *)otherObject;
 
 @end

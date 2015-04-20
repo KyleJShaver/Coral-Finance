@@ -37,7 +37,7 @@
         for(NSUInteger i = 0; i < self.stock.performanceValues.count; i+=(int)stepper) {
             [arr2 addObject:@([((PriceTime *)self.stock.performanceValues[i]).price doubleValue])];
         }
-        if(!lastIncluded) {
+        if(!lastIncluded && self.stock.performanceValues) {
             [arr addObject:[((PriceTime *)self.stock.performanceValues.lastObject) timeAsDate]];
             [arr2 addObject:@([((PriceTime *)self.stock.performanceValues.lastObject).price doubleValue])];
         }
@@ -60,8 +60,8 @@
     self.chart.yMin = [self.stock.currentLow doubleValue] - fmod([self.stock.currentLow doubleValue], 0.1);
     self.chart.yMax = [self.stock.currentHigh doubleValue] + (.10-fmod([self.stock.currentHigh doubleValue], .10));
     double difference = self.chart.yMax - self.chart.yMin;
-    double diffStep = difference/3.0;
-    self.chart.ySteps = @[[Globals numberToString:[NSNumber numberWithDouble:self.chart.yMin]], [Globals numberToString:[NSNumber numberWithDouble:self.chart.yMin+diffStep]], [Globals numberToString:[NSNumber numberWithDouble:self.chart.yMin+(2*diffStep)]], [Globals numberToString:[NSNumber numberWithDouble:self.chart.yMax]]];
+    double diffStep = difference/2.0;
+    self.chart.ySteps = @[@"",@"",@""];
     self.chart.data = @[data];
     __weak typeof(self) weakSelf = self;
     self.chart.selectedItemCallback = ^(LCLineChartData *dat, NSUInteger item, CGPoint pos) {

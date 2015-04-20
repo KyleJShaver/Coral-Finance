@@ -14,4 +14,5 @@
 @property (strong, nonatomic) IBOutlet UILabel *currentPriceLabel;
 @property (strong, nonatomic) IBOutlet UIButton *performanceButton;
 
+
 @end

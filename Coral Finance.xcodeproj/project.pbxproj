@@ -14,9 +14,9 @@
 		272565391AD744A1006078E3 /* LCLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 272565341AD744A1006078E3 /* LCLineChartView.m */; };
 		2725653A1AD744A1006078E3 /* UIKit+DrawingHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 272565361AD744A1006078E3 /* UIKit+DrawingHelpers.m */; };
 		2725653D1AD7455C006078E3 /* CFStockChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 2725653C1AD7455C006078E3 /* CFStockChart.m */; };
+		2757DB431AE47CF100A89A52 /* StockCellWithName.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757DB421AE47CF100A89A52 /* StockCellWithName.m */; };
 		2777EF011AD0D90800E8D592 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777EF001AD0D90800E8D592 /* main.m */; };
 		2777EF041AD0D90800E8D592 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777EF031AD0D90800E8D592 /* AppDelegate.m */; };
-		2777EF071AD0D90800E8D592 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777EF061AD0D90800E8D592 /* ViewController.m */; };
 		2777EF0A1AD0D90800E8D592 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2777EF081AD0D90800E8D592 /* Main.storyboard */; };
 		2777EF0C1AD0D90800E8D592 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2777EF0B1AD0D90800E8D592 /* Images.xcassets */; };
 		2777EF0F1AD0D90800E8D592 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2777EF0D1AD0D90800E8D592 /* LaunchScreen.xib */; };
@@ -27,9 +27,21 @@
 		277BF1E41AE171F7009E480C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 277BF1E31AE171F7009E480C /* CoreData.framework */; };
 		277BF21C1AE17419009E480C /* DataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 277BF21B1AE17419009E480C /* DataFetcher.m */; };
 		277BF21F1AE179C0009E480C /* CoreDataLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 277BF21E1AE179C0009E480C /* CoreDataLayer.m */; };
-		277BF2221AE1991C009E480C /* RealStocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 277BF2211AE1991C009E480C /* RealStocks.m */; };
 		277BF2251AE1991D009E480C /* RealStockObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 277BF2241AE1991D009E480C /* RealStockObject.m */; };
 		277BF2281AE1991D009E480C /* RealStockWatchList.m in Sources */ = {isa = PBXBuildFile; fileRef = 277BF2271AE1991D009E480C /* RealStockWatchList.m */; };
+		27C154741AE4295200AA7BB5 /* OwnedRealStockList.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C154731AE4295200AA7BB5 /* OwnedRealStockList.m */; };
+		27C154771AE4295200AA7BB5 /* PurchasedRealStockObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C154761AE4295200AA7BB5 /* PurchasedRealStockObject.m */; };
+		27C1547E1AE42CDC00AA7BB5 /* RealStocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C1547D1AE42CDC00AA7BB5 /* RealStocks.m */; };
+		27C154821AE4672800AA7BB5 /* x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27C1547F1AE4672800AA7BB5 /* x.png */; };
+		27C154831AE4672800AA7BB5 /* x@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27C154801AE4672800AA7BB5 /* x@2x.png */; };
+		27C154841AE4672800AA7BB5 /* x@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27C154811AE4672800AA7BB5 /* x@3x.png */; };
+		27C154871AE469F500AA7BB5 /* MenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C154861AE469F500AA7BB5 /* MenuVC.m */; };
+		27C1548A1AE46D2200AA7BB5 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C154891AE46D2200AA7BB5 /* SearchVC.m */; };
+		27D16D241AE4952D00825BA1 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D16D231AE4952D00825BA1 /* Icon.png */; };
+		27D16D281AE495C500825BA1 /* Coral.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27D16D271AE495C500825BA1 /* Coral.xcassets */; };
+		27D16D2A1AE496B500825BA1 /* LoadingScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D16D291AE496B500825BA1 /* LoadingScreen.png */; };
+		27D16D2C1AE4A43600825BA1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27D16D2B1AE4A43600825BA1 /* QuartzCore.framework */; };
+		27D16D2E1AE4B6DC00825BA1 /* gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D16D2D1AE4B6DC00825BA1 /* gradient.png */; };
 		27D980841AE358D600575325 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D980811AE358D600575325 /* search.png */; };
 		27D980851AE358D600575325 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D980821AE358D600575325 /* search@2x.png */; };
 		27D980861AE358D600575325 /* search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D980831AE358D600575325 /* search@3x.png */; };
@@ -71,13 +83,13 @@
 		272565361AD744A1006078E3 /* UIKit+DrawingHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIKit+DrawingHelpers.m"; sourceTree = "<group>"; };
 		2725653B1AD7455C006078E3 /* CFStockChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFStockChart.h; sourceTree = "<group>"; };
 		2725653C1AD7455C006078E3 /* CFStockChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFStockChart.m; sourceTree = "<group>"; };
+		2757DB411AE47CF100A89A52 /* StockCellWithName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockCellWithName.h; sourceTree = "<group>"; };
+		2757DB421AE47CF100A89A52 /* StockCellWithName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockCellWithName.m; sourceTree = "<group>"; };
 		2777EEFB1AD0D90800E8D592 /* Coral Finance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coral Finance.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2777EEFF1AD0D90800E8D592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2777EF001AD0D90800E8D592 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2777EF021AD0D90800E8D592 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2777EF031AD0D90800E8D592 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		2777EF051AD0D90800E8D592 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		2777EF061AD0D90800E8D592 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		2777EF091AD0D90800E8D592 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2777EF0B1AD0D90800E8D592 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2777EF0E1AD0D90800E8D592 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -94,12 +106,28 @@
 		277BF21B1AE17419009E480C /* DataFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataFetcher.m; sourceTree = "<group>"; };
 		277BF21D1AE179C0009E480C /* CoreDataLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataLayer.h; sourceTree = "<group>"; };
 		277BF21E1AE179C0009E480C /* CoreDataLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataLayer.m; sourceTree = "<group>"; };
-		277BF2201AE1991C009E480C /* RealStocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RealStocks.h; path = Core/CoreDataClasses/RealStocks.h; sourceTree = SOURCE_ROOT; };
-		277BF2211AE1991C009E480C /* RealStocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RealStocks.m; path = Core/CoreDataClasses/RealStocks.m; sourceTree = SOURCE_ROOT; };
 		277BF2231AE1991D009E480C /* RealStockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RealStockObject.h; path = Core/CoreDataClasses/RealStockObject.h; sourceTree = SOURCE_ROOT; };
 		277BF2241AE1991D009E480C /* RealStockObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RealStockObject.m; path = Core/CoreDataClasses/RealStockObject.m; sourceTree = SOURCE_ROOT; };
 		277BF2261AE1991D009E480C /* RealStockWatchList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RealStockWatchList.h; path = Core/CoreDataClasses/RealStockWatchList.h; sourceTree = SOURCE_ROOT; };
 		277BF2271AE1991D009E480C /* RealStockWatchList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RealStockWatchList.m; path = Core/CoreDataClasses/RealStockWatchList.m; sourceTree = SOURCE_ROOT; };
+		27C154721AE4295200AA7BB5 /* OwnedRealStockList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OwnedRealStockList.h; path = CoreDataClasses/OwnedRealStockList.h; sourceTree = "<group>"; };
+		27C154731AE4295200AA7BB5 /* OwnedRealStockList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OwnedRealStockList.m; path = CoreDataClasses/OwnedRealStockList.m; sourceTree = "<group>"; };
+		27C154751AE4295200AA7BB5 /* PurchasedRealStockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PurchasedRealStockObject.h; path = CoreDataClasses/PurchasedRealStockObject.h; sourceTree = "<group>"; };
+		27C154761AE4295200AA7BB5 /* PurchasedRealStockObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PurchasedRealStockObject.m; path = CoreDataClasses/PurchasedRealStockObject.m; sourceTree = "<group>"; };
+		27C1547C1AE42CDC00AA7BB5 /* RealStocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RealStocks.h; path = Core/CoreDataClasses/RealStocks.h; sourceTree = SOURCE_ROOT; };
+		27C1547D1AE42CDC00AA7BB5 /* RealStocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RealStocks.m; path = Core/CoreDataClasses/RealStocks.m; sourceTree = SOURCE_ROOT; };
+		27C1547F1AE4672800AA7BB5 /* x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = x.png; sourceTree = "<group>"; };
+		27C154801AE4672800AA7BB5 /* x@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x@2x.png"; sourceTree = "<group>"; };
+		27C154811AE4672800AA7BB5 /* x@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x@3x.png"; sourceTree = "<group>"; };
+		27C154851AE469F500AA7BB5 /* MenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuVC.h; sourceTree = "<group>"; };
+		27C154861AE469F500AA7BB5 /* MenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuVC.m; sourceTree = "<group>"; };
+		27C154881AE46D2200AA7BB5 /* SearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchVC.h; sourceTree = "<group>"; };
+		27C154891AE46D2200AA7BB5 /* SearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchVC.m; sourceTree = "<group>"; };
+		27D16D231AE4952D00825BA1 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		27D16D271AE495C500825BA1 /* Coral.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Coral.xcassets; sourceTree = "<group>"; };
+		27D16D291AE496B500825BA1 /* LoadingScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoadingScreen.png; sourceTree = "<group>"; };
+		27D16D2B1AE4A43600825BA1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		27D16D2D1AE4B6DC00825BA1 /* gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gradient.png; sourceTree = "<group>"; };
 		27D980811AE358D600575325 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		27D980821AE358D600575325 /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
 		27D980831AE358D600575325 /* search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@3x.png"; sourceTree = "<group>"; };
@@ -126,6 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27D16D2C1AE4A43600825BA1 /* QuartzCore.framework in Frameworks */,
 				277BF1E41AE171F7009E480C /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -170,6 +199,7 @@
 		2777EEF21AD0D90800E8D592 = {
 			isa = PBXGroup;
 			children = (
+				27D16D2B1AE4A43600825BA1 /* QuartzCore.framework */,
 				277BF1E31AE171F7009E480C /* CoreData.framework */,
 				2777EEFD1AD0D90800E8D592 /* Coral Finance */,
 				2777EF171AD0D90800E8D592 /* Coral FinanceTests */,
@@ -198,8 +228,6 @@
 				2777EF241AD0D9C500E8D592 /* Stock Objects */,
 				2777EF021AD0D90800E8D592 /* AppDelegate.h */,
 				2777EF031AD0D90800E8D592 /* AppDelegate.m */,
-				2777EF051AD0D90800E8D592 /* ViewController.h */,
-				2777EF061AD0D90800E8D592 /* ViewController.m */,
 				277BF1E01AE171DD009E480C /* Model.xcdatamodeld */,
 				2777EF081AD0D90800E8D592 /* Main.storyboard */,
 				2777EF0B1AD0D90800E8D592 /* Images.xcassets */,
@@ -250,12 +278,16 @@
 		277BF2291AE19929009E480C /* Core Data Classes */ = {
 			isa = PBXGroup;
 			children = (
+				27C154751AE4295200AA7BB5 /* PurchasedRealStockObject.h */,
+				27C154761AE4295200AA7BB5 /* PurchasedRealStockObject.m */,
+				27C154721AE4295200AA7BB5 /* OwnedRealStockList.h */,
+				27C154731AE4295200AA7BB5 /* OwnedRealStockList.m */,
 				277BF2261AE1991D009E480C /* RealStockWatchList.h */,
 				277BF2271AE1991D009E480C /* RealStockWatchList.m */,
 				277BF2231AE1991D009E480C /* RealStockObject.h */,
 				277BF2241AE1991D009E480C /* RealStockObject.m */,
-				277BF2201AE1991C009E480C /* RealStocks.h */,
-				277BF2211AE1991C009E480C /* RealStocks.m */,
+				27C1547C1AE42CDC00AA7BB5 /* RealStocks.h */,
+				27C1547D1AE42CDC00AA7BB5 /* RealStocks.m */,
 			);
 			name = "Core Data Classes";
 			sourceTree = "<group>";
@@ -263,6 +295,13 @@
 		27D980801AE358D600575325 /* Icons and Images */ = {
 			isa = PBXGroup;
 			children = (
+				27D16D2D1AE4B6DC00825BA1 /* gradient.png */,
+				27D16D291AE496B500825BA1 /* LoadingScreen.png */,
+				27D16D271AE495C500825BA1 /* Coral.xcassets */,
+				27D16D231AE4952D00825BA1 /* Icon.png */,
+				27C1547F1AE4672800AA7BB5 /* x.png */,
+				27C154801AE4672800AA7BB5 /* x@2x.png */,
+				27C154811AE4672800AA7BB5 /* x@3x.png */,
 				27D980871AE35B3500575325 /* menu.png */,
 				27D980881AE35B3500575325 /* menu@2x.png */,
 				27D980891AE35B3500575325 /* menu@3x.png */,
@@ -278,6 +317,10 @@
 			children = (
 				27D980921AE3696100575325 /* PortfolioVC.h */,
 				27D980931AE3696100575325 /* PortfolioVC.m */,
+				27C154851AE469F500AA7BB5 /* MenuVC.h */,
+				27C154861AE469F500AA7BB5 /* MenuVC.m */,
+				27C154881AE46D2200AA7BB5 /* SearchVC.h */,
+				27C154891AE46D2200AA7BB5 /* SearchVC.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -285,6 +328,8 @@
 		27D980951AE3696F00575325 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
+				2757DB411AE47CF100A89A52 /* StockCellWithName.h */,
+				2757DB421AE47CF100A89A52 /* StockCellWithName.m */,
 				27D980961AE3698400575325 /* StockCell.h */,
 				27D980971AE3698400575325 /* StockCell.m */,
 				27D980991AE3699500575325 /* ExpandedStockCell.h */,
@@ -400,18 +445,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27C154821AE4672800AA7BB5 /* x.png in Resources */,
+				27D16D2E1AE4B6DC00825BA1 /* gradient.png in Resources */,
 				27E39C7A1ADF78CA00654A97 /* BebasNeue Regular.otf in Resources */,
+				27C154841AE4672800AA7BB5 /* x@3x.png in Resources */,
+				27D16D281AE495C500825BA1 /* Coral.xcassets in Resources */,
 				27D9808B1AE35B3500575325 /* menu@2x.png in Resources */,
 				27D980851AE358D600575325 /* search@2x.png in Resources */,
 				27E39C791ADF78CA00654A97 /* BebasNeue Light.otf in Resources */,
+				27D16D2A1AE496B500825BA1 /* LoadingScreen.png in Resources */,
 				27D9808A1AE35B3500575325 /* menu.png in Resources */,
 				27E39C781ADF78CA00654A97 /* BebasNeue Book.otf in Resources */,
 				27E39C771ADF78CA00654A97 /* BebasNeue Bold.otf in Resources */,
 				2777EF0A1AD0D90800E8D592 /* Main.storyboard in Resources */,
+				27D16D241AE4952D00825BA1 /* Icon.png in Resources */,
 				27D980841AE358D600575325 /* search.png in Resources */,
 				2777EF0F1AD0D90800E8D592 /* LaunchScreen.xib in Resources */,
 				27D9808C1AE35B3500575325 /* menu@3x.png in Resources */,
 				27E39C7B1ADF78CA00654A97 /* Canter Light.otf in Resources */,
+				27C154831AE4672800AA7BB5 /* x@2x.png in Resources */,
 				27D980861AE358D600575325 /* search@3x.png in Resources */,
 				2725652E1AD7444B006078E3 /* LICENSE in Resources */,
 				2777EF0C1AD0D90800E8D592 /* Images.xcassets in Resources */,
@@ -434,19 +486,23 @@
 			files = (
 				2777EF2A1AD0DA3C00E8D592 /* RealStock.m in Sources */,
 				2725653D1AD7455C006078E3 /* CFStockChart.m in Sources */,
-				277BF2221AE1991C009E480C /* RealStocks.m in Sources */,
+				27C154771AE4295200AA7BB5 /* PurchasedRealStockObject.m in Sources */,
 				2725653A1AD744A1006078E3 /* UIKit+DrawingHelpers.m in Sources */,
+				27C1548A1AE46D2200AA7BB5 /* SearchVC.m in Sources */,
 				277BF2281AE1991D009E480C /* RealStockWatchList.m in Sources */,
 				272565371AD744A1006078E3 /* LCInfoView.m in Sources */,
 				27E39C701ADF763800654A97 /* Globals.m in Sources */,
 				272565381AD744A1006078E3 /* LCLegendView.m in Sources */,
 				277BF2251AE1991D009E480C /* RealStockObject.m in Sources */,
-				2777EF071AD0D90800E8D592 /* ViewController.m in Sources */,
+				27C154741AE4295200AA7BB5 /* OwnedRealStockList.m in Sources */,
+				27C154871AE469F500AA7BB5 /* MenuVC.m in Sources */,
+				27C1547E1AE42CDC00AA7BB5 /* RealStocks.m in Sources */,
 				27D980981AE3698400575325 /* StockCell.m in Sources */,
 				270466AE1AD1E7440058C008 /* PriceTime.m in Sources */,
 				2777EF271AD0D9D200E8D592 /* FakeStock.m in Sources */,
 				2777EF041AD0D90800E8D592 /* AppDelegate.m in Sources */,
 				2777EF011AD0D90800E8D592 /* main.m in Sources */,
+				2757DB431AE47CF100A89A52 /* StockCellWithName.m in Sources */,
 				27D980941AE3696100575325 /* PortfolioVC.m in Sources */,
 				277BF21C1AE17419009E480C /* DataFetcher.m in Sources */,
 				277BF21F1AE179C0009E480C /* CoreDataLayer.m in Sources */,

@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "RealStock.h"
 #import "RealStocks.h"
 #import "RealStockWatchList.h"
 #import "RealStockObject.h"
+#import "OwnedRealStockList.h"
+#import "PurchasedRealStockObject.h"
 
 @interface CoreDataLayer : NSObject
 
@@ -19,5 +22,8 @@
 -(id)initWithContext:(NSManagedObjectContext *)context;
 -(NSArray *)getRealStockJSON;
 -(void)saveRealStockJSON:(NSData *)jsonData;
+-(void)buyStock:(RealStock *)stock withQuantity:(int)quantity;
+-(NSArray *)getOwnedStocksWithDelegate:(id<RealStockDelegate>)realStockDelegate;
+-(NSArray *)getOwnedStockWithStock:(RealStock *)realStock andDelegate:(id<RealStockDelegate>)delegate;
 
 @end

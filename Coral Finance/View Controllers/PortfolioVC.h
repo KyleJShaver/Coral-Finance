@@ -16,6 +16,8 @@
 #import "CoreDataLayer.h"
 #import "StockCell.h"
 #import "ExpandedStockCell.h"
+#import "MenuVC.h"
+#import "SearchVC.h"
 
 @interface PortfolioVC : UIViewController <RealStockDelegate, DataFetcherDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -28,7 +30,17 @@
 @property (strong, nonatomic) IBOutlet UIView *chartContainer;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UILabel *priceLabel;
+@property (strong, nonatomic) IBOutlet UIButton *menuButton;
+@property (strong, nonatomic) IBOutlet UIButton *searchButton;
 @property (strong, nonatomic) CoreDataLayer *coreDataLayer;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (assign, nonatomic) BOOL isChildViewController;
+@property (assign, nonatomic) BOOL didCheckOwned;
+
+-(void)checkViewControllerStatus;
+-(void)resetPrice;
+-(void)setTableDataFromCoreData;
+-(IBAction)showMenu:(id)sender;
+-(IBAction)showSearch:(id)sender;
 
 @end

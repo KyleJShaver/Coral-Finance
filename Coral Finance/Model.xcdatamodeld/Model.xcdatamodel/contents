@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D136" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="OwnedRealStockList" representedClassName="OwnedRealStockList" syncable="YES">
+        <relationship name="stocks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PurchasedRealStockObject" syncable="YES"/>
+    </entity>
+    <entity name="PurchasedRealStockObject" representedClassName="PurchasedRealStockObject" syncable="YES">
+        <attribute name="purchaseDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="purchasePrice" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="quantityPurchased" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="stock" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RealStockObject" syncable="YES"/>
+    </entity>
     <entity name="RealStockObject" representedClassName="RealStockObject" syncable="YES">
         <attribute name="companyName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tickerSymbol" optional="YES" attributeType="String" syncable="YES"/>
@@ -7,6 +16,7 @@
     <entity name="RealStocks" representedClassName="RealStocks" syncable="YES">
         <attribute name="dateUpdated" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="rawJSON" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ownedStocks" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OwnedRealStockList" syncable="YES"/>
         <relationship name="stocks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RealStockObject" syncable="YES"/>
         <relationship name="watchList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RealStockWatchList" syncable="YES"/>
     </entity>
@@ -14,8 +24,10 @@
         <relationship name="stocks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RealStockObject" syncable="YES"/>
     </entity>
     <elements>
-        <element name="RealStocks" positionX="-63" positionY="-18" width="128" height="103"/>
-        <element name="RealStockWatchList" positionX="-63" positionY="174" width="128" height="58"/>
-        <element name="RealStockObject" positionX="241" positionY="96" width="128" height="73"/>
+        <element name="RealStockObject" positionX="304" positionY="-18" width="128" height="73"/>
+        <element name="RealStocks" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="RealStockWatchList" positionX="144" positionY="99" width="128" height="58"/>
+        <element name="OwnedRealStockList" positionX="-63" positionY="126" width="128" height="58"/>
+        <element name="PurchasedRealStockObject" positionX="243" positionY="198" width="164" height="103"/>
     </elements>
 </model>

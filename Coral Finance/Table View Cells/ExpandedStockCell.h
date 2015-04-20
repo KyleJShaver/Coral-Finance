@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreDataLayer.h"
+#import "RealStock.h"
+
+@class PortfolioVC;
 
 @interface ExpandedStockCell : UITableViewCell
 
@@ -19,5 +23,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *performanceButton;
 @property (strong, nonatomic) IBOutlet UIButton *buyButton;
 @property (strong, nonatomic) IBOutlet UIButton *sellButton;
+@property (strong, nonatomic) RealStock *stock;
+@property (strong, nonatomic) CoreDataLayer *coreDataLayer;
+@property (strong, nonatomic) PortfolioVC *parent;
 
 @end

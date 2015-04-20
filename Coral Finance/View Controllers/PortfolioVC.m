@@ -16,11 +16,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.isChildViewController = NO;
     self.coreDataLayer = [[CoreDataLayer alloc] initWithContext:((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext];
     self.tableData = @[];
     [self.timePeriodPicker addTarget:self action:@selector(timePeriodChanged:) forControlEvents:UIControlEventValueChanged];
     [self.timePeriodPicker setSelectedSegmentIndex:0];
     [self timePeriodChanged:self.timePeriodPicker];
+    self.priceLabel.font = [Globals bebasLight:40];
     NSArray *jsonDictionary = [self.coreDataLayer getRealStockJSON];
     if(!jsonDictionary || jsonDictionary.count==0) [[DataFetcher dataFetchWithType:DataFetchTypeRealStockList andDelegate:self] fetch];
     else {
@@ -32,6 +34,22 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if(!self.isChildViewController) {
+        [self setTableDataFromCoreData];
+    }
+}
+
+-(void)checkViewControllerStatus
+{
+    if(self.isChildViewController) {
+        [self.menuButton setImage:[UIImage imageNamed:@"x.png"] forState:UIControlStateNormal];
+        self.searchButton.alpha = 0;
+    }
 }
 
 -(void)checkExchangeOpen
@@ -54,6 +72,12 @@
     else {
         self.marketStatusLabel.text = @"market closed";
     }
+}
+
+-(void)resetPrice
+{
+    if(!self.stock || !self.stock.currentValue) self.priceLabel.text = @"";
+    else self.priceLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:self.stock.currentValue]];
 }
 
 #pragma mark - UITableViewDataSource
@@ -80,6 +104,7 @@
         if(stock.currentValue)
             cell.currentPriceLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:stock.currentValue]];
         else cell.currentPriceLabel.text = @"";
+        cell.currentPriceLabel.font = [Globals bebasLight:30];
         NSString *performance = [stock dailyPerformancePercent];
         if(performance && [performance rangeOfString:@"-"].location!=NSNotFound)
             cell.performanceButton.backgroundColor = [Globals negativeColor];
@@ -96,6 +121,7 @@
         cell.tickerSymbolLabel.text = stock.tickerSymbol;
         if(stock.currentValue) {
             cell.currentPriceLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:stock.currentValue]];
+            cell.currentPriceLabel.font = [Globals bebasLight:30];
             NSString *performance = [stock dailyPerformancePercent];
             if(performance && [performance rangeOfString:@"-"].location!=NSNotFound)
                 cell.performanceButton.backgroundColor = [Globals negativeColor];
@@ -103,24 +129,41 @@
                 cell.performanceButton.backgroundColor = [Globals positiveColor];
             [cell.performanceButton setTitle:performance forState:UIControlStateNormal];
             cell.companyNameLabel.text = stock.companyName;
+            cell.coreDataLayer = self.coreDataLayer;
+            cell.stock = stock;
+            cell.parent = self;
+            cell.sharesOwnedLabel.text = [NSString stringWithFormat:@"%d",[stock.quantityOwned intValue]];
+            double equityValue = [stock.currentValue doubleValue]*(double)[stock.quantityOwned intValue];
+            cell.equityValueLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:[NSNumber numberWithDouble:equityValue]]];
+            cell.returnPercentLabel.text = [stock overallPerformancePercent];
         }
         else {
             cell.currentPriceLabel.text = @"";
             [cell.performanceButton setTitle:@"" forState:UIControlStateNormal];
             cell.companyNameLabel.text = @"";
+            cell.coreDataLayer = nil;
+            cell.stock = nil;
+            cell.parent = nil;
         }
         
         cell.performanceButton.layer.cornerRadius = 5;
         cell.buyButton.layer.cornerRadius = 5;
         cell.sellButton.layer.cornerRadius = 5;
-        cell.selectedBackgroundView = [UIView new];
-        cell.selectedBackgroundView.backgroundColor = [Globals darkBackgroundColor];
+        if(!self.isChildViewController) {
+            cell.selectedBackgroundView = [UIView new];
+            cell.selectedBackgroundView.backgroundColor = [Globals darkBackgroundColor];
+        }
+        else {
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        }
         return cell;
     }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(self.isChildViewController) return;
+    [self clearAllCharts];
     RealStock *stock = (RealStock *)self.tableData[indexPath.row];
     if([self.stock.tickerSymbol isEqualToString:stock.tickerSymbol]) {
         self.stock = nil;
@@ -164,16 +207,77 @@
 
 -(void)setTableDataFromCoreData
 {
-    NSArray *jsonDictionary = [self.coreDataLayer getRealStockJSON];
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    for(int i=0; i<20; i++) {
-        NSDictionary *dict = jsonDictionary[i];
-        RealStock *stock =[[RealStock alloc] initWithTicker:[dict valueForKey:@"symbol"] performanceWindow:PerformanceWindowOneDay andDelegate:self];
-        [stock downloadCurrentData];
-        [array addObject:stock];
+    self.chart = nil;
+    if(!self.isChildViewController) {
+        self.tableData = [self.coreDataLayer getOwnedStocksWithDelegate:self];
     }
-    self.tableData = array;
+    else {
+        NSArray *owned = [self.coreDataLayer getOwnedStockWithStock:self.stock andDelegate:self];
+        if(self.didCheckOwned) {
+            self.tableData = owned;
+        }
+        self.didCheckOwned = YES;
+    }
+    BOOL tableDataHasStock = NO;
+    for(int i=0; i<self.tableData.count; i++) {
+        RealStock *stock = self.tableData[i];
+        if([stock.tickerSymbol isEqualToString:self.stock.tickerSymbol]) {
+            tableDataHasStock = YES;
+        }
+        PerformanceWindow window;
+        switch (self.timePeriodPicker.selectedSegmentIndex) {
+            case 0:
+                window = PerformanceWindowOneDay;
+                break;
+            case 1:
+                window = PerformanceWindowOneMonth;
+                break;
+            case 2:
+                window = PerformanceWindowThreeMonth;
+                break;
+            case 3:
+                window = PerformanceWindowSixMonth;
+                break;
+            case 4:
+                window = PerformanceWindowOneYear;
+                break;
+            case 5:
+                window = PerformanceWindowTwoYear;
+                break;
+            default:
+                window = PerformanceWindowOneDay;
+                break;
+        }
+        stock.performanceWindow = window;
+        [stock downloadCurrentData];
+    }
+    if(!tableDataHasStock) {
+        self.stock = nil;
+        [self clearAllCharts];
+        if(self.isChildViewController) {
+            [self showMenu:self];
+        }
+    }
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tickerSymbol"
+                                                 ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    self.tableData = [self.tableData sortedArrayUsingDescriptors:sortDescriptors];
     [self.tableView reloadData];
+}
+
+#pragma mark - Chart Stuff
+
+-(void)clearAllCharts
+{
+    for(int i=0; i<self.chartContainer.subviews.count; i++) {
+        UIView *view = self.chartContainer.subviews[i];
+        if([view isKindOfClass:[LCLineChartView class]]) {
+            [view removeFromSuperview];
+            view.frame = CGRectMake(0, 0, 0, 0);
+            view = nil;
+        }
+    }
 }
 
 #pragma mark - UISegmentedControl
@@ -249,13 +353,21 @@
     self.chart = [[CFStockChart alloc] initWithStock:realStock];
     self.chart.priceLabel = self.priceLabel;
     self.chart.chart.alpha = 0;
-    CGRect frame = self.chartContainer.frame;
+    CGRect frame = self.chartContainer.bounds;
     frame.origin.y += 36;
     frame.size.height -= 36;
-    frame.size.width -= 40;
+    frame.size.width -= 50;
     frame.origin.x += 20;
     self.chart.chart.frame = frame;
-    [self.view addSubview:self.chart.chart];
+    NSMutableArray *array = [[self.chartContainer subviews] mutableCopy];
+    for(int i=(int)array.count-1; i>=0; i--) {
+        UIView *view = array[i];
+        if(![view isKindOfClass:[LCLineChartView class]]) {
+            [array removeObjectAtIndex:i];
+        }
+    }
+    [array makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.chartContainer addSubview:self.chart.chart];
     [UIView animateWithDuration:0.2 animations:^{
         self.chart.chart.alpha = 1;
     }];
@@ -283,6 +395,47 @@
 -(IBAction)update:(id)sender
 {
     [self.tableView reloadData];
+}
+
+-(IBAction)showMenu:(id)sender
+{
+    if(self.isChildViewController) {
+        [UIView animateWithDuration:0.4 animations:^{
+            self.view.alpha = 0;
+        } completion:^(BOOL finished) {
+            [self willMoveToParentViewController:nil];
+            [self.view removeFromSuperview];
+            [self removeFromParentViewController];
+        }];
+        return;
+    }
+    MenuVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"menu"];
+    vc.view.frame = self.view.frame;
+    vc.view.alpha = 0;
+    [self.view addSubview:vc.view];
+    [self addChildViewController:vc];
+    [vc didMoveToParentViewController:self];
+    [UIView animateWithDuration:0.4 animations:^{
+        vc.view.alpha = 1;
+    } completion:^(BOOL finished) {
+        vc.view.alpha = 1;
+    }];
+}
+
+-(IBAction)showSearch:(id)sender
+{
+    SearchVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"search"];
+    vc.coreDataLayer = self.coreDataLayer;
+    vc.view.frame = self.view.frame;
+    vc.view.alpha = 0;
+    [self.view addSubview:vc.view];
+    [self addChildViewController:vc];
+    [vc didMoveToParentViewController:self];
+    [UIView animateWithDuration:0.4 animations:^{
+        vc.view.alpha = 1;
+    } completion:^(BOOL finished) {
+        vc.view.alpha = 1;
+    }];
 }
 
 
