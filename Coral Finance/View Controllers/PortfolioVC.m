@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isChildViewController = NO;
+    self.showPercentages = NO;
     self.coreDataLayer = [[CoreDataLayer alloc] initWithContext:((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext];
     self.tableData = @[];
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:[Globals bebasBook:16]
@@ -109,7 +110,8 @@
             cell.currentPriceLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:stock.currentValue]];
         else cell.currentPriceLabel.text = @"";
         cell.currentPriceLabel.font = [Globals bebasLight:30];
-        NSString *performance = [stock dailyPerformancePercent];
+        NSString *performance = [stock dailyPerformanceValue];
+        if(self.showPercentages) performance = [stock dailyPerformancePercent];
         if(performance && [performance rangeOfString:@"-"].location!=NSNotFound)
             cell.performanceButton.backgroundColor = [Globals negativeColor];
         else
@@ -118,6 +120,7 @@
         cell.performanceButton.layer.cornerRadius = 5;
         cell.selectedBackgroundView = [UIView new];
         cell.selectedBackgroundView.backgroundColor = [Globals darkBackgroundColor];
+        [cell.performanceButton setUserInteractionEnabled:NO];
         return cell;
     }
     else {
@@ -126,11 +129,20 @@
         if(stock.currentValue) {
             cell.currentPriceLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:stock.currentValue]];
             cell.currentPriceLabel.font = [Globals bebasLight:30];
-            NSString *performance = [stock dailyPerformancePercent];
+            NSString *performance = [stock dailyPerformanceValue];
+            if(self.showPercentages) performance = [stock dailyPerformancePercent];
             if(performance && [performance rangeOfString:@"-"].location!=NSNotFound)
                 cell.performanceButton.backgroundColor = [Globals negativeColor];
             else
                 cell.performanceButton.backgroundColor = [Globals positiveColor];
+            if(!self.showPercentages) {
+                cell.returnPercentDescLabel.text = @"Return Value";
+                cell.returnPercentLabel.text = [stock overallPerformanceValue];
+            }
+            else {
+                cell.returnPercentDescLabel.text = @"Return Percent";
+                cell.returnPercentLabel.text = [stock overallPerformancePercent];
+            }
             [cell.performanceButton setTitle:performance forState:UIControlStateNormal];
             cell.companyNameLabel.text = stock.companyName;
             cell.coreDataLayer = self.coreDataLayer;
@@ -139,17 +151,17 @@
             cell.sharesOwnedLabel.text = [NSString stringWithFormat:@"%d",[stock.quantityOwned intValue]];
             double equityValue = [stock.currentValue doubleValue]*(double)[stock.quantityOwned intValue];
             cell.equityValueLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:[NSNumber numberWithDouble:equityValue]]];
-            cell.returnPercentLabel.text = [stock overallPerformancePercent];
+            //cell.returnPercentLabel.text = [stock overallPerformancePercent];
         }
         else {
             cell.currentPriceLabel.text = @"";
-            [cell.performanceButton setTitle:@"" forState:UIControlStateNormal];
+            //[cell.performanceButton setTitle:@"" forState:UIControlStateNormal];
             cell.companyNameLabel.text = @"";
             cell.coreDataLayer = nil;
             cell.stock = nil;
             cell.parent = nil;
         }
-        
+        [cell.performanceButton setUserInteractionEnabled:YES];
         cell.performanceButton.layer.cornerRadius = 5;
         cell.buyButton.layer.cornerRadius = 5;
         cell.sellButton.layer.cornerRadius = 5;
@@ -270,10 +282,18 @@
     [self.tableView reloadData];
 }
 
+-(void)toggleShowPercent
+{
+    if(self.showPercentages) self.showPercentages = NO;
+    else self.showPercentages = YES;
+    [self.tableView reloadData];
+}
+
 #pragma mark - Chart Stuff
 
 -(void)clearAllCharts
 {
+    self.priceLabel.text = @"";
     NSMutableArray *array = [[self.chartContainer subviews] mutableCopy];
     for(int i=(int)array.count-1; i>=0; i--) {
         UIView *view = array[i];

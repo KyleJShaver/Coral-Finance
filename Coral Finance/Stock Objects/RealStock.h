@@ -56,7 +56,9 @@ typedef NS_ENUM(NSUInteger, PerformanceWindow) {
 +(instancetype) stockWithCDObject:(RealStockObject *)realStockObject andDelegate:(id<RealStockDelegate>)delegate;
 -(void)downloadStockData;
 -(void)downloadCurrentData;
+-(NSString *)dailyPerformanceValue;
 -(NSString *)dailyPerformancePercent;
+-(NSString *)overallPerformanceValue;
 -(NSString *)overallPerformancePercent;
 - (NSComparisonResult)compareSymbols:(RealStock *)otherObject;
 

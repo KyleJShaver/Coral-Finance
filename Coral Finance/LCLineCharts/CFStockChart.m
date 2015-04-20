@@ -14,7 +14,7 @@
 -(id)initWithStock:(RealStock *)stock
 {
     self = [super init];
-    if(stock==nil) return nil;
+    if(!stock.performanceValues) return nil;
     self.stock = stock;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:[NSDateFormatter dateFormatFromTemplate:@"yyyyMMMd" options:0 locale:[NSLocale currentLocale]]];
@@ -28,14 +28,16 @@
         double stepper = ((double)self.stock.performanceValues.count)/40.0;
         if(stepper<1 || self.stock.performanceWindow != PerformanceWindowOneDay) stepper = 1.0;
         NSMutableArray *arr = [NSMutableArray array];
-        BOOL lastIncluded = NO;
-        for(NSUInteger i = 0; i < self.stock.performanceValues.count; i+=(int)stepper) {
-            [arr addObject:[((PriceTime *)self.stock.performanceValues[i]) timeAsDate]];
-            if(i==self.stock.performanceValues.count-1) lastIncluded = YES;
-        };
         NSMutableArray *arr2 = [NSMutableArray array];
-        for(NSUInteger i = 0; i < self.stock.performanceValues.count; i+=(int)stepper) {
-            [arr2 addObject:@([((PriceTime *)self.stock.performanceValues[i]).price doubleValue])];
+        BOOL lastIncluded = NO;
+        if(self.stock.performanceValues) {
+            for(NSUInteger i = 0; i < self.stock.performanceValues.count; i+=(int)stepper) {
+                [arr addObject:[((PriceTime *)self.stock.performanceValues[i]) timeAsDate]];
+                if(i==self.stock.performanceValues.count-1) lastIncluded = YES;
+            };
+            for(NSUInteger i = 0; i < self.stock.performanceValues.count; i+=(int)stepper) {
+                [arr2 addObject:@([((PriceTime *)self.stock.performanceValues[i]).price doubleValue])];
+            }
         }
         if(!lastIncluded && self.stock.performanceValues) {
             [arr addObject:[((PriceTime *)self.stock.performanceValues.lastObject) timeAsDate]];

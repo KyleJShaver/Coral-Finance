@@ -39,4 +39,9 @@
     [self.parent setTableDataFromCoreData];
 }
 
+-(IBAction)toggle:(id)sender
+{
+    [self.parent toggleShowPercent];
+}
+
 @end

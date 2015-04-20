@@ -36,9 +36,11 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (assign, nonatomic) BOOL isChildViewController;
 @property (assign, nonatomic) BOOL didCheckOwned;
+@property (assign, nonatomic) BOOL showPercentages;
 
 -(void)checkViewControllerStatus;
 -(void)resetPrice;
+-(void)toggleShowPercent;
 -(void)setTableDataFromCoreData;
 -(IBAction)showMenu:(id)sender;
 -(IBAction)showSearch:(id)sender;

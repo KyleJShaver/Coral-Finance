@@ -78,6 +78,13 @@ bool didGetYear;
     return [NSString stringWithFormat:@"$%@",[self numberToString:self.currentValue]];
 }
 
+-(NSString *)dailyPerformanceValue
+{
+    if(!_currentValue || !_openingValue) return nil;
+    double difference = [_currentValue doubleValue] - [_openingValue doubleValue];
+    return [NSString stringWithFormat:@"$%@",[self numberToString:[NSNumber numberWithDouble:difference]]];
+}
+
 -(NSString *)dailyPerformancePercent
 {
     if(!_currentValue || !_openingValue) return nil;
@@ -85,6 +92,13 @@ bool didGetYear;
     difference /= [_openingValue doubleValue];
     difference *= 100;
     return [NSString stringWithFormat:@"%@%%",[self numberToString:[NSNumber numberWithDouble:difference]]];
+}
+
+-(NSString *)overallPerformanceValue
+{
+    if(!_totalSpent || !_quantityOwned || !_currentValue) return [NSString stringWithFormat:@"$%@",[self numberToString:[NSNumber numberWithDouble:0]]];
+    double difference = ([_currentValue doubleValue] * (double)[_quantityOwned intValue]) - [_totalSpent doubleValue];
+    return [NSString stringWithFormat:@"$%@",[self numberToString:[NSNumber numberWithDouble:difference]]];
 }
 
 -(NSString *)overallPerformancePercent
