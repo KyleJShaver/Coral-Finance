@@ -195,30 +195,25 @@
     
     static CGFloat dashedPattern[] = {2,2};
     
-    // draw scale and horizontal lines
-    CGFloat heightPerStep = self.ySteps == nil || [self.ySteps count] <= 1 ? availableHeight : (availableHeight / ([self.ySteps count] - 1));
-    
-    NSUInteger i = 0;
+    // draw scale and horizontal lines    
     CGContextSaveGState(c);
     CGContextSetLineWidth(c, 2.0);
-    NSUInteger yCnt = [self.ySteps count];
-    NSString *step = self.ySteps[1];
-    i++;
+    NSNumber *step = self.ySteps[0];
         [[Globals backgroundColor] set];
         CGFloat h = [self.scaleFont lineHeight];
-        CGFloat y = yStart + heightPerStep * (yCnt - 1 - i);
+    CGFloat yRangeLen = self.yMax - self.yMin;
+        CGFloat y = yStart + round((1.0 - ([step doubleValue] - self.yMin) / yRangeLen) * availableHeight);
         // TODO: replace with new text APIs in iOS 7 only version
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        [step drawInRect:CGRectMake(yStart-10, y - h / 2, self.yAxisLabelsWidth - 6, h) withFont:self.scaleFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentRight];
+        [@"close" drawInRect:CGRectMake(yStart-10, y - h / 2, self.yAxisLabelsWidth - 6, h) withFont:self.scaleFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentRight];
 #pragma clagn diagnostic pop
         
         CGContextSetLineDash(c, 0, dashedPattern, 2);
         CGContextMoveToPoint(c, xStart, round(y) + 0.5);
         CGContextAddLineToPoint(c, self.bounds.size.width - PADDING, round(y) + 0.5);
         CGContextStrokePath(c);
-        
-        i++;
+    
     
     NSUInteger xCnt = self.xStepsCount;
     if(xCnt > 1) {
@@ -242,7 +237,6 @@
         NSLog(@"You configured LineChartView to draw neither lines nor data points. No data will be visible. This is most likely not what you wanted. (But we aren't judging you, so here's your chart background.)");
     } // warn if no data will be drawn
     
-    CGFloat yRangeLen = self.yMax - self.yMin;
     if(yRangeLen == 0) yRangeLen = 1;
     for(LCLineChartData *data in self.data) {
         if (self.drawsDataLines) {
@@ -452,10 +446,8 @@
 // TODO: This should really be a cached value. Invalidated iff ySteps changes.
 - (CGFloat)yAxisLabelsWidth {
     double maxV = 0;
-    for(NSString *label in self.ySteps) {
-        CGSize labelSize = [label sizeWithFont:self.scaleFont];
-        if(labelSize.width > maxV) maxV = labelSize.width;
-    }
+    CGSize labelSize = [@"prev" sizeWithFont:self.scaleFont];
+    if(labelSize.width > maxV) maxV = labelSize.width;
     return maxV + PADDING;
 }
 

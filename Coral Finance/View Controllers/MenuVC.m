@@ -16,6 +16,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:[Globals bebasBook:16]
+                                                           forKey:NSFontAttributeName];
+    [self.segmentedControl setTitleTextAttributes:attributes
+                                         forState:UIControlStateNormal];
     // Do any additional setup after loading the view.
 }
 

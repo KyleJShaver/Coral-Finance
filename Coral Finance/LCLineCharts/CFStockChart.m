@@ -57,11 +57,10 @@
     });
     self.chart = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, 200, 370, 150)];
     [self.chart showLegend:NO animated:NO];
-    self.chart.yMin = [self.stock.currentLow doubleValue] - fmod([self.stock.currentLow doubleValue], 0.1);
+    double lowest = ([self.stock.currentLow doubleValue] > [self.stock.openingValue doubleValue]) ? [self.stock.openingValue doubleValue] : [self.stock.currentLow doubleValue];
+    self.chart.yMin = lowest - fmod(lowest, 0.1);
     self.chart.yMax = [self.stock.currentHigh doubleValue] + (.10-fmod([self.stock.currentHigh doubleValue], .10));
-    double difference = self.chart.yMax - self.chart.yMin;
-    double diffStep = difference/2.0;
-    self.chart.ySteps = @[@"",@"",@""];
+    self.chart.ySteps = @[self.stock.openingValue];
     self.chart.data = @[data];
     __weak typeof(self) weakSelf = self;
     self.chart.selectedItemCallback = ^(LCLineChartData *dat, NSUInteger item, CGPoint pos) {

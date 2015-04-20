@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Globals.h"
 
 @interface MenuVC : UIViewController
+
+@property (strong, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
 -(IBAction)close:(id)sender;
 

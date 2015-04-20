@@ -19,6 +19,10 @@
     self.isChildViewController = NO;
     self.coreDataLayer = [[CoreDataLayer alloc] initWithContext:((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext];
     self.tableData = @[];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:[Globals bebasBook:16]
+                                                           forKey:NSFontAttributeName];
+    [self.timePeriodPicker setTitleTextAttributes:attributes
+                                    forState:UIControlStateNormal];
     [self.timePeriodPicker addTarget:self action:@selector(timePeriodChanged:) forControlEvents:UIControlEventValueChanged];
     [self.timePeriodPicker setSelectedSegmentIndex:0];
     [self timePeriodChanged:self.timePeriodPicker];
@@ -63,10 +67,10 @@
     if(comps.weekday != 1 && comps.day != 7) {
         int hourInt = [[hour stringFromDate:now] intValue];
         if(hourInt < 9) self.marketStatusLabel.text = @"market closed";
-        else if(hourInt == 4) {
-            if(comps.minute >= 30) self.marketStatusLabel.text = @"market closed";
+        else if(hourInt == 9) {
+            if(comps.minute <= 30) self.marketStatusLabel.text = @"market closed";
         }
-        else if(hourInt > 4) self.marketStatusLabel.text = @"market closed";
+        else if(hourInt > 16) self.marketStatusLabel.text = @"market closed";
         else self.marketStatusLabel.text = @"market open";
     }
     else {
@@ -167,11 +171,11 @@
     RealStock *stock = (RealStock *)self.tableData[indexPath.row];
     if([self.stock.tickerSymbol isEqualToString:stock.tickerSymbol]) {
         self.stock = nil;
-        [self.chart.chart removeFromSuperview];
+        [self clearAllCharts];
         self.priceLabel.text = @"";
     }
     else {
-        [self.chart.chart removeFromSuperview];
+        [self clearAllCharts];
         self.priceLabel.text = @"";
         PerformanceWindow window;
         switch (self.timePeriodPicker.selectedSegmentIndex) {
@@ -213,7 +217,7 @@
     }
     else {
         NSArray *owned = [self.coreDataLayer getOwnedStockWithStock:self.stock andDelegate:self];
-        if(self.didCheckOwned) {
+        if(self.didCheckOwned || owned!=nil) {
             self.tableData = owned;
         }
         self.didCheckOwned = YES;
@@ -270,14 +274,14 @@
 
 -(void)clearAllCharts
 {
-    for(int i=0; i<self.chartContainer.subviews.count; i++) {
-        UIView *view = self.chartContainer.subviews[i];
-        if([view isKindOfClass:[LCLineChartView class]]) {
-            [view removeFromSuperview];
-            view.frame = CGRectMake(0, 0, 0, 0);
-            view = nil;
+    NSMutableArray *array = [[self.chartContainer subviews] mutableCopy];
+    for(int i=(int)array.count-1; i>=0; i--) {
+        UIView *view = array[i];
+        if(![view isKindOfClass:[LCLineChartView class]]) {
+            [array removeObjectAtIndex:i];
         }
     }
+    [array makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
 
 #pragma mark - UISegmentedControl
@@ -289,11 +293,7 @@
         self.stock.delegate = nil;
         self.chart.chart.alpha = 0;
     } completion:^(BOOL finished) {
-        for(int i=(int)self.view.subviews.count-1; i>=0; i--) {
-            UIView *temp = self.view.subviews[i];
-            if([temp isKindOfClass:[LCLineChartView class]]) [temp removeFromSuperview];
-        }
-        [self.chart.chart removeFromSuperview];
+        [self clearAllCharts];
         self.chart = nil;
         PerformanceWindow window;
         switch (self.timePeriodPicker.selectedSegmentIndex) {
@@ -359,14 +359,7 @@
     frame.size.width -= 50;
     frame.origin.x += 20;
     self.chart.chart.frame = frame;
-    NSMutableArray *array = [[self.chartContainer subviews] mutableCopy];
-    for(int i=(int)array.count-1; i>=0; i--) {
-        UIView *view = array[i];
-        if(![view isKindOfClass:[LCLineChartView class]]) {
-            [array removeObjectAtIndex:i];
-        }
-    }
-    [array makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self clearAllCharts];
     [self.chartContainer addSubview:self.chart.chart];
     [UIView animateWithDuration:0.2 animations:^{
         self.chart.chart.alpha = 1;
