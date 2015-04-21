@@ -62,7 +62,7 @@
     NSDate *now = [NSDate date];
     NSDateComponents *comps = [[NSCalendar currentCalendar] components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitWeekday) fromDate:now];
     NSDateFormatter *hour = [[NSDateFormatter alloc] init];
-    [hour setDateFormat:[NSDateFormatter dateFormatFromTemplate:@"hh" options:0 locale:[NSLocale currentLocale]]];
+    [hour setDateFormat:[NSDateFormatter dateFormatFromTemplate:@"HH" options:0 locale:[NSLocale currentLocale]]];
     [hour setTimeZone:[NSTimeZone timeZoneWithName:@"America/New_York"]];
     
     if(comps.weekday != 1 && comps.day != 7) {
