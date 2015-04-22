@@ -381,6 +381,9 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <sections/>
+                                <variation key="heightClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="72" width="600" height="76"/>
+                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="zfl-u0-m1v" id="bME-m6-EfA"/>
                                     <outlet property="delegate" destination="zfl-u0-m1v" id="Mug-CE-NRN"/>
@@ -459,9 +462,21 @@
                             <constraint firstItem="cR0-2w-GP0" firstAttribute="leading" secondItem="qL9-4U-F2X" secondAttribute="leading" id="uoe-6k-xqo"/>
                             <constraint firstAttribute="trailing" secondItem="cR0-2w-GP0" secondAttribute="trailing" id="vq6-7U-W46"/>
                             <constraint firstItem="KjH-sX-Qvv" firstAttribute="leading" secondItem="qL9-4U-F2X" secondAttribute="leading" constant="16" id="xrI-ef-DHK"/>
+                            <constraint firstItem="cR0-2w-GP0" firstAttribute="top" secondItem="PXG-2k-ce0" secondAttribute="bottom" constant="-1" id="yfP-c3-UJW"/>
                             <constraint firstItem="Lhy-Wl-KH3" firstAttribute="top" secondItem="qL9-4U-F2X" secondAttribute="top" id="zAc-mQ-9BT"/>
                             <constraint firstItem="aIa-HW-Emb" firstAttribute="top" secondItem="POQ-Hv-jXT" secondAttribute="bottom" constant="-44" id="zkR-Jd-B39"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="yfP-c3-UJW"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact">
+                            <mask key="constraints">
+                                <exclude reference="p3Z-rh-s74"/>
+                                <include reference="yfP-c3-UJW"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="chartContainer" destination="cR0-2w-GP0" id="xhV-fa-Sgc"/>

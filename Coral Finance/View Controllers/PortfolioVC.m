@@ -50,6 +50,52 @@
     }
 }
 
+-(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    if(size.height<size.width) {
+        NSString *title = @"Pick a stock";
+        if(self.stock) title = self.stock.tickerSymbol;
+        [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+            self.titleLabel.text = title;
+            self.menuButton.alpha = 0;
+            self.searchButton.alpha = 0;
+        } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+            self.titleLabel.text = title;
+            self.menuButton.alpha = 0;
+            self.searchButton.alpha = 0;
+        }];
+    }
+    else {
+        NSString *title = @"My Stocks";
+        if(self.isChildViewController) title = @"View Stock";
+        [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+            self.titleLabel.text = title;
+            self.menuButton.alpha = 1;
+            self.searchButton.alpha = 1;
+        } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+            self.titleLabel.text = title;
+            self.menuButton.alpha = 1;
+            self.searchButton.alpha = 1;
+        }];
+    }
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        CGRect frame = self.chartContainer.bounds;
+        frame.origin.y += 36;
+        frame.size.height -= 36;
+        frame.size.width -= 50;
+        frame.origin.x += 20;
+        self.chart.chart.frame = frame;
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        CGRect frame = self.chartContainer.bounds;
+        frame.origin.y += 36;
+        frame.size.height -= 36;
+        frame.size.width -= 50;
+        frame.origin.x += 20;
+        self.chart.chart.frame = frame;
+    }];
+    
+}
+
 -(void)checkViewControllerStatus
 {
     if(self.isChildViewController) {
