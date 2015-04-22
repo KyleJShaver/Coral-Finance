@@ -18,7 +18,8 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 -(id)initWithContext:(NSManagedObjectContext *)context;
-//-(NSArray *)getRealStockJSON;
+-(BOOL)isInFakeStockMode;
+-(BOOL)setIsInFakeStockMode:(BOOL)isInFakeStockMode;
 -(NSArray *)getStockObjects;
 -(void)saveRealStockJSON:(NSData *)jsonData;
 -(RealStock *)buyStock:(RealStock *)stock withQuantity:(int)quantity;

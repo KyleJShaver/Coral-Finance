@@ -18,25 +18,40 @@
     _managedObjectContext = context;
     return self;
 }
-/*
--(NSArray *)getRealStockJSON
-{
-    NSError *error;
-    RealStocks *realStocks = [self realStocks];
-    if(!realStocks) return nil;
-    NSArray *retVal = [NSJSONSerialization JSONObjectWithData:[realStocks.rawJSON dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
-    if(error) {
-        NSLog(@"%@",error.description);
-        return nil;
-    }
-    return retVal;
-}
-*/
+
 -(NSArray *)getStockObjects
 {
     return [CoreStockObject allObjectsWithContext:_managedObjectContext];
 }
 
+-(BOOL)isInFakeStockMode
+{
+    CoreSettings *settings = [CoreSettings fetchWithContext:_managedObjectContext];
+    if(!settings) {
+        settings = [CoreSettings newWithContext:_managedObjectContext];
+        settings.isModeFakeStocks = [NSNumber numberWithBool:NO];
+        settings.dateUpdated = [NSDate date];
+        [self save];
+        return NO;
+    }
+    BOOL retVal = [settings.isModeFakeStocks boolValue];
+    return retVal;
+}
+
+-(BOOL)setIsInFakeStockMode:(BOOL)isInFakeStockMode
+{
+    CoreSettings *settings = [CoreSettings fetchWithContext:_managedObjectContext];
+    if(!settings) {
+        settings = [CoreSettings newWithContext:_managedObjectContext];
+        settings.isModeFakeStocks = [NSNumber numberWithBool:isInFakeStockMode];
+        settings.dateUpdated = [NSDate date];
+        [self save];
+        return isInFakeStockMode;
+    }
+    settings.isModeFakeStocks = [NSNumber numberWithBool:isInFakeStockMode];
+    [self save];
+    return isInFakeStockMode;
+}
 
 -(void)saveRealStockJSON:(NSData *)jsonData
 {

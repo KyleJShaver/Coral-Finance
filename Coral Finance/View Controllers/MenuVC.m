@@ -7,6 +7,7 @@
 //
 
 #import "MenuVC.h"
+#import "PortfolioVC.h"
 
 @interface MenuVC ()
 
@@ -20,12 +21,25 @@
                                                            forKey:NSFontAttributeName];
     [self.segmentedControl setTitleTextAttributes:attributes
                                          forState:UIControlStateNormal];
-    // Do any additional setup after loading the view.
+    [self.segmentedControl addTarget:self action:@selector(toggleFakeStockMode) forControlEvents:UIControlEventValueChanged];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    if(self.isInFakeStockMode) [self.segmentedControl setSelectedSegmentIndex:1];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)toggleFakeStockMode
+{
+    self.isInFakeStockMode = (self.segmentedControl.selectedSegmentIndex == 1) ? YES : NO;
+    [self.coreDataLayer setIsInFakeStockMode:self.isInFakeStockMode];
+    self.parent.isInFakeStockMode = self.isInFakeStockMode;
+    [self.parent changeRealFakeStocks];
 }
 
 -(IBAction)close:(id)sender

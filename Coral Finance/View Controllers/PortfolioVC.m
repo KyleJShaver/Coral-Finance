@@ -20,6 +20,7 @@
     self.isChildViewController = NO;
     self.showPercentages = NO;
     self.coreDataLayer = [[CoreDataLayer alloc] initWithContext:((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext];
+    self.isInFakeStockMode = [self.coreDataLayer isInFakeStockMode];
     self.tableData = @[];
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:[Globals bebasBook:16]
                                                            forKey:NSFontAttributeName];
@@ -82,14 +83,22 @@
         frame.size.height -= 36;
         frame.size.width -= 50;
         frame.origin.x += 20;
-        self.chart.chart.frame = frame;
+        for(UIView *view in [[self.chartContainer subviews] mutableCopy]) {
+            if([view isKindOfClass:[LCLineChartView class]]) {
+                view.frame = frame;
+            }
+        }
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         CGRect frame = self.chartContainer.bounds;
         frame.origin.y += 36;
         frame.size.height -= 36;
         frame.size.width -= 50;
         frame.origin.x += 20;
-        self.chart.chart.frame = frame;
+        for(UIView *view in [[self.chartContainer subviews] mutableCopy]) {
+            if([view isKindOfClass:[LCLineChartView class]]) {
+                view.frame = frame;
+            }
+        }
     }];
     
 }
@@ -112,6 +121,11 @@
 {
     if(!self.stock || !self.stock.currentValue) self.priceLabel.text = @"";
     else self.priceLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:self.stock.currentValue]];
+}
+
+-(void)changeRealFakeStocks
+{
+    
 }
 
 #pragma mark - UITableViewDataSource
@@ -258,19 +272,12 @@
 
 -(void)setTableDataFromCoreData
 {
-    self.chart = nil;
     if(!self.isChildViewController) {
+        self.chart = nil;
         self.tableData = [self.coreDataLayer getOwnedStocksWithDelegate:self];
         for(RealStock *stock in self.tableData) {
             [stock downloadCurrentData];
         }
-    }
-    else {
-        NSArray *owned = [self.coreDataLayer getOwnedStockWithStock:self.stock andDelegate:self];
-        if(self.didCheckOwned || owned!=nil) {
-            self.tableData = owned;
-        }
-        self.didCheckOwned = YES;
     }
 }
 
@@ -421,6 +428,8 @@
     [self.view addSubview:vc.view];
     [self addChildViewController:vc];
     [vc didMoveToParentViewController:self];
+    vc.coreDataLayer = self.coreDataLayer;
+    vc.isInFakeStockMode = [self.coreDataLayer isInFakeStockMode];
     [UIView animateWithDuration:0.4 animations:^{
         vc.view.alpha = 1;
     } completion:^(BOOL finished) {

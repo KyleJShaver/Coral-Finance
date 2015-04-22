@@ -8,10 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "Globals.h"
+#import "CoreDataLayer.h"
+
+@class PortfolioVC;
 
 @interface MenuVC : UIViewController
 
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+@property (strong, nonatomic) CoreDataLayer *coreDataLayer;
+@property (strong, nonatomic) PortfolioVC *parent;
+@property (assign, nonatomic) BOOL isInFakeStockMode;
 
 -(IBAction)close:(id)sender;
 

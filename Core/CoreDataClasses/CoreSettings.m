@@ -14,4 +14,22 @@
 @dynamic isModeFakeStocks;
 @dynamic dateUpdated;
 
++(instancetype)fetchWithContext:(NSManagedObjectContext *)managedObjectContext
+{
+    NSError *error;
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
+    NSArray *object = [managedObjectContext executeFetchRequest:request error:&error];
+    if(error) {
+        NSLog(@"%@",error.description);
+        return nil;
+    }
+    if(object.count==0) return nil;
+    return object[0];
+}
+
++(instancetype)newWithContext:(NSManagedObjectContext *)managedObjectContext
+{
+    return [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:managedObjectContext];
+}
+
 @end

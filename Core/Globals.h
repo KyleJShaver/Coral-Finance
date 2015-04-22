@@ -24,5 +24,6 @@
 +(UIFont *) canterLight:(CGFloat)fontSize;
 +(NSString *)numberToString:(NSNumber *)number;
 +(BOOL)isRealExchangeOpen;
++(BOOL)isFakeExchangeOpen;
 
 @end

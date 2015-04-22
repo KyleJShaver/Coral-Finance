@@ -15,4 +15,7 @@
 @property (nonatomic, retain) NSNumber * isModeFakeStocks;
 @property (nonatomic, retain) NSDate * dateUpdated;
 
++(instancetype)fetchWithContext:(NSManagedObjectContext *)managedObjectContext;
++(instancetype)newWithContext:(NSManagedObjectContext *)managedObjectContext;
+
 @end

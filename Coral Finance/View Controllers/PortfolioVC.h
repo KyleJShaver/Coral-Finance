@@ -35,11 +35,13 @@
 @property (strong, nonatomic) CoreDataLayer *coreDataLayer;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (assign, nonatomic) BOOL isChildViewController;
+@property (assign, nonatomic) BOOL isInFakeStockMode;
 @property (assign, nonatomic) BOOL didCheckOwned;
 @property (assign, nonatomic) BOOL showPercentages;
 
 -(void)checkViewControllerStatus;
 -(void)resetPrice;
+-(void)changeRealFakeStocks;
 -(void)toggleShowPercent;
 -(void)setTableDataFromCoreData;
 -(void)clearAllCharts;
