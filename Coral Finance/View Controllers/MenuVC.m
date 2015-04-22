@@ -40,6 +40,21 @@
     
 }
 
+-(IBAction)bubbles:(id)sender
+{
+    MenuVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"bubbles"];
+    vc.view.frame = self.view.frame;
+    vc.view.alpha = 0;
+    [self.view addSubview:vc.view];
+    [self addChildViewController:vc];
+    [vc didMoveToParentViewController:self];
+    [UIView animateWithDuration:0.4 animations:^{
+        vc.view.alpha = 1;
+    } completion:^(BOOL finished) {
+        vc.view.alpha = 1;
+    }];
+}
+
 /*
 #pragma mark - Navigation
 

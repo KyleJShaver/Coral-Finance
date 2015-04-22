@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Globals.h"
 #import "CoreDataLayer.h"
+#import "CoreStockObject.h"
 #import "StockCellWithName.h"
 
 @interface SearchVC : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, RealStockDelegate>

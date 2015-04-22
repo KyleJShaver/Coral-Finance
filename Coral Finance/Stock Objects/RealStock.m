@@ -56,13 +56,14 @@ bool didGetYear;
     return self;
 }
 
-+(instancetype) stockWithCDObject:(RealStockObject *)realStockObject andDelegate:(id<RealStockDelegate>)delegate
++(instancetype) stockWithCoreStockObject:(CoreStockObject *)coreStockObject andDelegate:(id<RealStockDelegate>)delegate
 {
     RealStock *stock = [[RealStock alloc] init];
     stock.delegate = delegate;
-    stock.tickerSymbol = realStockObject.tickerSymbol;
-    stock.companyName = realStockObject.companyName;
-    [stock downloadStockData];
+    stock.tickerSymbol = coreStockObject.tickerSymbol;
+    stock.companyName = coreStockObject.companyName;
+    stock.quantityOwned = coreStockObject.quantityOwned;
+    stock.totalSpent = coreStockObject.totalPaid;
     return stock;
 }
 
@@ -98,6 +99,7 @@ bool didGetYear;
 {
     if(!_totalSpent || !_quantityOwned || !_currentValue) return [NSString stringWithFormat:@"$%@",[self numberToString:[NSNumber numberWithDouble:0]]];
     double difference = ([_currentValue doubleValue] * (double)[_quantityOwned intValue]) - [_totalSpent doubleValue];
+    
     return [NSString stringWithFormat:@"$%@",[self numberToString:[NSNumber numberWithDouble:difference]]];
 }
 

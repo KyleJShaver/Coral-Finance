@@ -7,6 +7,7 @@
 //
 
 #import "PortfolioVC.h"
+#import "CoreStockObject.h"
 
 @interface PortfolioVC ()
 
@@ -16,6 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(NSStringFromClass([self class]));
     self.isChildViewController = NO;
     self.showPercentages = NO;
     self.coreDataLayer = [[CoreDataLayer alloc] initWithContext:((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext];
@@ -28,8 +30,7 @@
     [self.timePeriodPicker setSelectedSegmentIndex:0];
     [self timePeriodChanged:self.timePeriodPicker];
     self.priceLabel.font = [Globals bebasLight:40];
-    NSArray *jsonDictionary = [self.coreDataLayer getRealStockJSON];
-    if(!jsonDictionary || jsonDictionary.count==0) [[DataFetcher dataFetchWithType:DataFetchTypeRealStockList andDelegate:self] fetch];
+    if([self.coreDataLayer getStockObjects].count==0) [[DataFetcher dataFetchWithType:DataFetchTypeRealStockList andDelegate:self] fetch];
     else {
         [self setTableDataFromCoreData];
     }
@@ -156,10 +157,12 @@
         else {
             cell.currentPriceLabel.text = @"";
             //[cell.performanceButton setTitle:@"" forState:UIControlStateNormal];
-            cell.companyNameLabel.text = @"";
+            cell.stock = self.stock;
+            cell.parent = self;
+            cell.companyNameLabel.text = self.stock.companyName;
+            cell.tickerSymbolLabel.text = self.stock.tickerSymbol;
             cell.coreDataLayer = nil;
-            cell.stock = nil;
-            cell.parent = nil;
+            [self.stock downloadCurrentData];
         }
         [cell.performanceButton setUserInteractionEnabled:YES];
         cell.performanceButton.layer.cornerRadius = 5;
@@ -183,11 +186,9 @@
     RealStock *stock = (RealStock *)self.tableData[indexPath.row];
     if([self.stock.tickerSymbol isEqualToString:stock.tickerSymbol]) {
         self.stock = nil;
-        [self clearAllCharts];
         self.priceLabel.text = @"";
     }
     else {
-        [self clearAllCharts];
         self.priceLabel.text = @"";
         PerformanceWindow window;
         switch (self.timePeriodPicker.selectedSegmentIndex) {
@@ -226,6 +227,9 @@
     self.chart = nil;
     if(!self.isChildViewController) {
         self.tableData = [self.coreDataLayer getOwnedStocksWithDelegate:self];
+        for(RealStock *stock in self.tableData) {
+            [stock downloadCurrentData];
+        }
     }
     else {
         NSArray *owned = [self.coreDataLayer getOwnedStockWithStock:self.stock andDelegate:self];
@@ -234,52 +238,6 @@
         }
         self.didCheckOwned = YES;
     }
-    BOOL tableDataHasStock = NO;
-    for(int i=0; i<self.tableData.count; i++) {
-        RealStock *stock = self.tableData[i];
-        if([stock.tickerSymbol isEqualToString:self.stock.tickerSymbol]) {
-            tableDataHasStock = YES;
-        }
-        PerformanceWindow window;
-        switch (self.timePeriodPicker.selectedSegmentIndex) {
-            case 0:
-                window = PerformanceWindowOneDay;
-                break;
-            case 1:
-                window = PerformanceWindowOneMonth;
-                break;
-            case 2:
-                window = PerformanceWindowThreeMonth;
-                break;
-            case 3:
-                window = PerformanceWindowSixMonth;
-                break;
-            case 4:
-                window = PerformanceWindowOneYear;
-                break;
-            case 5:
-                window = PerformanceWindowTwoYear;
-                break;
-            default:
-                window = PerformanceWindowOneDay;
-                break;
-        }
-        stock.performanceWindow = window;
-        [stock downloadCurrentData];
-    }
-    if(!tableDataHasStock) {
-        self.stock = nil;
-        [self clearAllCharts];
-        if(self.isChildViewController) {
-            [self showMenu:self];
-        }
-    }
-    NSSortDescriptor *sortDescriptor;
-    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tickerSymbol"
-                                                 ascending:YES];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    self.tableData = [self.tableData sortedArrayUsingDescriptors:sortDescriptors];
-    [self.tableView reloadData];
 }
 
 -(void)toggleShowPercent

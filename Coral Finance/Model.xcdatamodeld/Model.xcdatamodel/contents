@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D136" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="CorePortfolioPerformance" representedClassName="CorePortfolioPerformance" syncable="YES">
+        <attribute name="amountBalance" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="amountReturn" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="amountSpent" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="dateUpdated" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="isFakeStock" optional="YES" attributeType="Boolean" syncable="YES"/>
+    </entity>
+    <entity name="CoreSettings" representedClassName="CoreSettings" syncable="YES">
+        <attribute name="dateUpdated" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="isModeFakeStocks" optional="YES" attributeType="Boolean" syncable="YES"/>
+    </entity>
+    <entity name="CoreStockObject" representedClassName="CoreStockObject" syncable="YES">
+        <attribute name="annualPerformance" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="companyName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dailyPerformance" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateUpdated" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="isFakeStock" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isOnWatchList" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="quantityOwned" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="tickerSymbol" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="totalPaid" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+    </entity>
     <entity name="OwnedRealStockList" representedClassName="OwnedRealStockList" syncable="YES">
         <relationship name="stocks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PurchasedRealStockObject" syncable="YES"/>
     </entity>
@@ -24,10 +46,13 @@
         <relationship name="stocks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RealStockObject" syncable="YES"/>
     </entity>
     <elements>
+        <element name="CorePortfolioPerformance" positionX="279" positionY="315" width="162" height="118"/>
+        <element name="CoreSettings" positionX="135" positionY="315" width="128" height="73"/>
+        <element name="CoreStockObject" positionX="-11" positionY="315" width="128" height="180"/>
+        <element name="OwnedRealStockList" positionX="-63" positionY="140" width="128" height="58"/>
+        <element name="PurchasedRealStockObject" positionX="243" positionY="189" width="164" height="105"/>
         <element name="RealStockObject" positionX="304" positionY="-18" width="128" height="73"/>
         <element name="RealStocks" positionX="-63" positionY="-18" width="128" height="118"/>
         <element name="RealStockWatchList" positionX="144" positionY="99" width="128" height="58"/>
-        <element name="OwnedRealStockList" positionX="-63" positionY="126" width="128" height="58"/>
-        <element name="PurchasedRealStockObject" positionX="243" positionY="198" width="164" height="103"/>
     </elements>
 </model>

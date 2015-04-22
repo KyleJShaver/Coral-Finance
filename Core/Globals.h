@@ -23,5 +23,6 @@
 +(UIFont *) bebasRegular:(CGFloat)fontSize;
 +(UIFont *) canterLight:(CGFloat)fontSize;
 +(NSString *)numberToString:(NSNumber *)number;
++(BOOL)isRealExchangeOpen;
 
 @end

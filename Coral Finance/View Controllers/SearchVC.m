@@ -19,14 +19,7 @@
     [super viewDidLoad];
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setDefaultTextAttributes:@{NSFontAttributeName: [Globals bebasRegular:26.0]}];
     [[UITextField appearanceWhenContainedIn:[UISearchBar class] , nil] setTextColor:[UIColor whiteColor]];
-    NSArray *jsonDictionary = [self.coreDataLayer getRealStockJSON];
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    for(NSDictionary *dict in jsonDictionary) {
-        RealStock *stock =[[RealStock alloc] initWithTicker:[dict valueForKey:@"symbol"] performanceWindow:PerformanceWindowOneDay andDelegate:nil];
-        stock.companyName = [dict valueForKey:@"name"];
-        [array addObject:stock];
-    }
-    self.rawArray = array;
+    self.rawArray = [self.coreDataLayer getStockObjects];
     [self.tableView reloadData];
     //[self registerForKeyboardNotifications];
     // Do any additional setup after loading the view.
@@ -86,7 +79,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self.searchBar resignFirstResponder];
-    RealStock* stock = self.tableData[indexPath.row];
+    RealStock* stock = [RealStock stockWithCoreStockObject:self.tableData[indexPath.row] andDelegate:nil];
     PortfolioVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"home"];
     [self addChildViewController:vc];
     vc.view.alpha = 0;
@@ -107,7 +100,7 @@
     stock.delegate = vc;
     vc.didCheckOwned = NO;
     [vc setTableDataFromCoreData];
-    vc.titleLabel.text = @"View Stock";
+    vc.titleLabel.text = @"view stock";
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -130,7 +123,7 @@
     }
     else {
         NSMutableArray *array = [[NSMutableArray alloc] init];
-        for(RealStock *realStock in self.rawArray) {
+        for(CoreStockObject *realStock in self.rawArray) {
             if([[realStock.tickerSymbol lowercaseString] containsString:[searchText lowercaseString]] || [[realStock.companyName lowercaseString] containsString:[searchText lowercaseString]]) {
                 [array addObject:realStock];
             }

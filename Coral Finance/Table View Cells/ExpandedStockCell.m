@@ -22,21 +22,32 @@
 }
 
 -(IBAction)buy:(id)sender {
-    [self.coreDataLayer buyStock:self.stock withQuantity:1];
-    for(RealStock *realStock in self.parent.tableData) {
-        if([realStock.tickerSymbol isEqualToString:self.stock.tickerSymbol]) {
-            realStock.quantityOwned = [NSNumber numberWithInt:[realStock.quantityOwned intValue]+1];
-            realStock.totalSpent = [NSNumber numberWithDouble:[realStock.totalSpent doubleValue]+[self.stock.currentValue doubleValue]];
-        }
+    NSMutableArray *tableData = [self.parent.tableData mutableCopy];
+    NSUInteger index = [tableData indexOfObjectIdenticalTo:self.stock];
+    self.stock = [self.coreDataLayer buyStock:self.stock withQuantity:1];
+    self.parent.stock = self.stock;
+    if(tableData.count>1) {
+        [tableData removeObjectAtIndex:index];
+        [tableData insertObject:self.stock atIndex:index];
+        self.parent.tableData = tableData;
     }
+    else self.parent.tableData = @[self.stock];
     [self.parent.tableView reloadData];
 }
 
 -(IBAction)sell:(id)sender
 {
-    [self.coreDataLayer buyStock:self.stock withQuantity:-1];
-    [self.parent.chart.chart removeFromSuperview];
-    [self.parent setTableDataFromCoreData];
+    NSMutableArray *tableData = [self.parent.tableData mutableCopy];
+    NSUInteger index = [tableData indexOfObjectIdenticalTo:self.stock];
+    self.stock = [self.coreDataLayer sellStock:self.stock withQuantity:1];
+    self.parent.stock = self.stock;
+    if(tableData.count>1) {
+        [tableData removeObjectAtIndex:index];
+        [tableData insertObject:self.stock atIndex:index];
+        self.parent.tableData = tableData;
+    }
+    else self.parent.tableData = @[self.stock];
+    [self.parent.tableView reloadData];
 }
 
 -(IBAction)toggle:(id)sender
