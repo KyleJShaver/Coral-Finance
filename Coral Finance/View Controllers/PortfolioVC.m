@@ -54,11 +54,11 @@
         NSString *title = @"Pick a stock";
         if(self.stock) title = self.stock.tickerSymbol;
         [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-            self.titleLabel.text = title;
+            if(!self.isChildViewController) self.titleLabel.text = title;
             self.menuButton.alpha = 0;
             self.searchButton.alpha = 0;
         } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-            self.titleLabel.text = title;
+            if(!self.isChildViewController) self.titleLabel.text = title;
             self.menuButton.alpha = 0;
             self.searchButton.alpha = 0;
         }];

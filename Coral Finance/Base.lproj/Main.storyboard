@@ -411,10 +411,22 @@
                                 <constraints>
                                     <constraint firstItem="aIa-HW-Emb" firstAttribute="top" secondItem="cR0-2w-GP0" secondAttribute="top" id="VKH-Si-raR"/>
                                     <constraint firstAttribute="bottom" secondItem="aIa-HW-Emb" secondAttribute="bottom" id="ZFV-X3-5VM"/>
-                                    <constraint firstAttribute="height" constant="180" id="Zp7-tC-VN7"/>
+                                    <constraint firstAttribute="height" constant="380" id="Zp7-tC-VN7"/>
                                     <constraint firstAttribute="trailing" secondItem="aIa-HW-Emb" secondAttribute="trailing" id="eyA-Sd-yA7"/>
+                                    <constraint firstAttribute="height" constant="180" id="gwJ-Bc-YcG"/>
                                     <constraint firstItem="aIa-HW-Emb" firstAttribute="leading" secondItem="cR0-2w-GP0" secondAttribute="leading" id="nCV-hg-MCA"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Zp7-tC-VN7"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="Zp7-tC-VN7"/>
+                                        <exclude reference="gwJ-Bc-YcG"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lhy-Wl-KH3">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
@@ -667,7 +679,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jjg-sn-3bZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="391" y="1664"/>
+            <point key="canvasLocation" x="239" y="1747"/>
         </scene>
         <!--SearchVC-->
         <scene sceneID="c9M-zD-s4u">
