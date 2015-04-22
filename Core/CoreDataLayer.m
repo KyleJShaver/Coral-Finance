@@ -48,8 +48,8 @@
     }
     for(NSDictionary *tempDict in jsonArray) {
         CoreStockObject *stockObj = [CoreStockObject newWithContext:_managedObjectContext];
-        stockObj.companyName = [tempDict valueForKey:@"name"];
-        stockObj.tickerSymbol = [tempDict valueForKey:@"symbol"];
+        stockObj.companyName = [[tempDict valueForKey:@"name"] stringByReplacingOccurrencesOfString:@"&#39;" withString:@"'"];
+        stockObj.tickerSymbol = [[tempDict valueForKey:@"symbol"] stringByRemovingPercentEncoding];
         stockObj.isFakeStock = [NSNumber numberWithBool:NO];
     }
     [self save];
@@ -61,7 +61,9 @@
     purchasedStock.totalPaid = [NSNumber numberWithDouble:([purchasedStock.totalPaid doubleValue]+[stock.currentValue  doubleValue])];
     purchasedStock.quantityOwned = [NSNumber numberWithInt:[purchasedStock.quantityOwned intValue] + quantity];
     [self save];
-    return [RealStock stockWithCoreStockObject:purchasedStock andDelegate:stock.delegate];
+    stock.quantityOwned = purchasedStock.quantityOwned;
+    stock.totalSpent = purchasedStock.totalPaid;
+    return stock;
 }
 
 -(RealStock *)sellStock:(RealStock *)stock withQuantity:(int)quantity
@@ -74,7 +76,9 @@
     purchasedStock.totalPaid = newAmtPaid;
     purchasedStock.quantityOwned = [NSNumber numberWithInt:[purchasedStock.quantityOwned intValue] - quantity];
     [self save];
-    return [RealStock stockWithCoreStockObject:purchasedStock andDelegate:stock.delegate];
+    stock.quantityOwned = purchasedStock.quantityOwned;
+    stock.totalSpent = purchasedStock.totalPaid;
+    return stock;
 }
 
 -(NSArray *)getOwnedStocksWithDelegate:(id<RealStockDelegate>)realStockDelegate

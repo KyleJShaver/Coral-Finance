@@ -13,6 +13,14 @@
 @synthesize price = _price;
 @synthesize utcTime = _utcTime;
 
++(instancetype) priceTimeFromCoreDataDictionary:(NSDictionary *)priceTimeDictionary
+{
+    PriceTime *retVal = [[PriceTime alloc] init];
+    retVal.utcTime = [NSNumber numberWithDouble:[[priceTimeDictionary valueForKey:@"time"] doubleValue]];
+    retVal.price = [NSNumber numberWithDouble:[[priceTimeDictionary valueForKey:@"price"] doubleValue]];
+    return retVal;
+}
+
 -(id)initWithDictionary:(NSDictionary *)inputDictionary;
 {
     self = [super init];
@@ -50,6 +58,11 @@
     [components setTimeZone:[NSTimeZone timeZoneWithName:@"America/New_York"]];
     NSDate *date = [calendar dateFromComponents:components];
     return [NSNumber numberWithLong:[date timeIntervalSince1970]];
+}
+
+-(NSDictionary *)dictionaryValue
+{
+    return @{@"price":[NSString stringWithFormat:@"%f",[self.price doubleValue]], @"time":[NSString stringWithFormat:@"%f",[self.utcTime doubleValue]]};
 }
 
 @end

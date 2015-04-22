@@ -13,7 +13,9 @@
 @property (strong, nonatomic) NSNumber *utcTime;
 @property (strong, nonatomic) NSNumber *price;
 
++(instancetype) priceTimeFromCoreDataDictionary:(NSDictionary *)priceTimeDictionary;
 -(id)initWithDictionary:(NSDictionary *)inputDictionary;
 -(NSDate *)timeAsDate;
+-(NSDictionary *)dictionaryValue;
 
 @end

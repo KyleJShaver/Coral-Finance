@@ -23,6 +23,8 @@
 @synthesize yearHigh = _yearHigh;
 @synthesize yearLow = _yearLow;
 @synthesize performanceValues = _performanceValues;
+@synthesize performanceValuesDay = _performanceValuesDay;
+@synthesize performanceValuesYear = _performanceValuesYear;
 @synthesize performanceWindow = _performanceWindow;
 @synthesize quantityOwned = _quantityOwned;
 @synthesize totalSpent = _totalSpent;
@@ -99,14 +101,16 @@ bool didGetYear;
 {
     if(!_totalSpent || !_quantityOwned || !_currentValue) return [NSString stringWithFormat:@"$%@",[self numberToString:[NSNumber numberWithDouble:0]]];
     double difference = ([_currentValue doubleValue] * (double)[_quantityOwned intValue]) - [_totalSpent doubleValue];
-    
-    return [NSString stringWithFormat:@"$%@",[self numberToString:[NSNumber numberWithDouble:difference]]];
+    difference = ([[self numberToString:[NSNumber numberWithDouble:difference]] doubleValue]==0) ? 0.0 : difference;
+    if(difference>=0) return [NSString stringWithFormat:@"$%@",[self numberToString:[NSNumber numberWithDouble:difference]]];
+    else return [NSString stringWithFormat:@"-$%@",[self numberToString:[NSNumber numberWithDouble:(difference*-1.0)]]];
 }
 
 -(NSString *)overallPerformancePercent
 {
-    if(!_totalSpent || !_quantityOwned || !_currentValue) return [NSString stringWithFormat:@"%@%%",[self numberToString:[NSNumber numberWithDouble:0]]];
+    if(!_totalSpent || !_quantityOwned || !_currentValue || [_totalSpent doubleValue]==0 || [_quantityOwned intValue]==0) return [NSString stringWithFormat:@"%@%%",[self numberToString:[NSNumber numberWithDouble:0]]];
     double difference = ([_currentValue doubleValue] * (double)[_quantityOwned intValue]) - [_totalSpent doubleValue];
+    difference = ([[self numberToString:[NSNumber numberWithDouble:difference]] doubleValue]==0) ? 0.0 : difference;
     difference /= [_totalSpent doubleValue];
     difference *= 100;
     return [NSString stringWithFormat:@"%@%%",[self numberToString:[NSNumber numberWithDouble:difference]]];
@@ -177,11 +181,13 @@ bool didGetYear;
             didGetRequested = YES;
             if(_delegate) [_delegate realStockDidDownloadRequestedInformation:self];
             if(_performanceWindow == PerformanceWindowOneDay) {
+                _performanceValuesDay = _performanceValues;
                 _currentValue = ((PriceTime *)[_performanceValues lastObject]).price;
                 didGetDay = YES;
                 if(_delegate) [_delegate realStockDidDownloadCurrentInformation:self];
             }
             else if(_performanceWindow == PerformanceWindowOneYear) {
+                _performanceValuesYear = _performanceValues;
                 _yearHigh = _currentHigh;
                 _yearLow = _currentLow;
                 didGetYear = YES;
@@ -203,6 +209,12 @@ bool didGetYear;
             if(!error) {
                 _yearHigh = [NSNumber numberWithDouble:[[[[jsonYearDictionary valueForKey:@"ranges"] valueForKey:@"high"] valueForKey:@"max"] doubleValue]];
                 _yearLow = [NSNumber numberWithDouble:[[[[jsonYearDictionary valueForKey:@"ranges"] valueForKey:@"low"] valueForKey:@"min"] doubleValue]];
+                NSMutableArray *performanceValuesTemp = [[NSMutableArray alloc] init];
+                NSArray *performanceValuesTempJson = [jsonYearDictionary valueForKey:@"series"];
+                for(NSDictionary *tempDictionary in performanceValuesTempJson) {
+                    [performanceValuesTemp addObject:[[PriceTime alloc] initWithDictionary:tempDictionary]];
+                }
+                _performanceValuesYear = performanceValuesTemp;
                 didGetYear = YES;
                 if(_delegate) [_delegate realStockDidDownloadYearInformation:self];
                 [self checkDoneDownloading];
@@ -227,6 +239,11 @@ bool didGetYear;
                 PriceTime *currentPrice = [[PriceTime alloc] initWithDictionary:[performanceValuesDayTempJson lastObject]];
                 _currentValue = currentPrice.price;
                 didGetDay = YES;
+                NSMutableArray *performanceValuesTemp = [[NSMutableArray alloc] init];
+                for(NSDictionary *tempDictionary in performanceValuesDayTempJson) {
+                    [performanceValuesTemp addObject:[[PriceTime alloc] initWithDictionary:tempDictionary]];
+                }
+                _performanceValuesDay = performanceValuesTemp;
                 if(_delegate) [_delegate realStockDidDownloadCurrentInformation:self];
                 [self checkDoneDownloading];
             }
@@ -282,6 +299,22 @@ bool didGetYear;
 {
     if(didGetDay && didGetRequested && didGetYear)
         if(_delegate) [_delegate realStockDoneDownloading:self];
+}
+
+-(NSString *)peformanceToJSON
+{
+    NSError *error;
+    NSMutableArray *array = [NSMutableArray array];
+    for(PriceTime *pt in self.performanceValues) {
+        [array addObject:[pt dictionaryValue]];
+    }
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:&error];
+    if(error) {
+        NSLog(@"%@",error.description);
+        return nil;
+    }
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    return jsonString;
 }
 
 - (NSComparisonResult)compareSymbols:(RealStock *)otherObject {

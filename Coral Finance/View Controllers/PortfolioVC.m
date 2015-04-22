@@ -17,7 +17,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(NSStringFromClass([self class]));
     self.isChildViewController = NO;
     self.showPercentages = NO;
     self.coreDataLayer = [[CoreDataLayer alloc] initWithContext:((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext];
@@ -30,10 +29,6 @@
     [self.timePeriodPicker setSelectedSegmentIndex:0];
     [self timePeriodChanged:self.timePeriodPicker];
     self.priceLabel.font = [Globals bebasLight:40];
-    if([self.coreDataLayer getStockObjects].count==0) [[DataFetcher dataFetchWithType:DataFetchTypeRealStockList andDelegate:self] fetch];
-    else {
-        [self setTableDataFromCoreData];
-    }
     [self checkExchangeOpen];
 }
 
@@ -46,7 +41,10 @@
 {
     [super viewDidAppear:animated];
     if(!self.isChildViewController) {
-        [self setTableDataFromCoreData];
+        if([self.coreDataLayer getStockObjects].count==0) [[DataFetcher dataFetchWithType:DataFetchTypeRealStockList andDelegate:self] fetch];
+        else {
+            [self setTableDataFromCoreData];
+        }
     }
 }
 
@@ -193,6 +191,7 @@
             cell.parent = self;
             cell.companyNameLabel.text = self.stock.companyName;
             cell.tickerSymbolLabel.text = self.stock.tickerSymbol;
+            cell.sharesOwnedLabel.text = [NSString stringWithFormat:@"%d",[stock.quantityOwned intValue]];
             cell.coreDataLayer = nil;
             [cell.buyButton setUserInteractionEnabled:NO];
             [cell.sellButton setUserInteractionEnabled:NO];
@@ -378,6 +377,7 @@
         self.chart.chart.alpha = 1;
     }];
     self.priceLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:self.stock.currentValue]];
+    NSString *test = [realStock peformanceToJSON];
     [self.tableView reloadData];
 }
 

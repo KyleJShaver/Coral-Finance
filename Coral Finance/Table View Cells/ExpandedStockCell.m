@@ -43,10 +43,20 @@
     self.parent.stock = self.stock;
     if(tableData.count>1) {
         [tableData removeObjectAtIndex:index];
-        [tableData insertObject:self.stock atIndex:index];
+        if([self.stock.quantityOwned intValue]>0)
+            [tableData insertObject:self.stock atIndex:index];
+        else [self.parent clearAllCharts];
         self.parent.tableData = tableData;
     }
-    else self.parent.tableData = @[self.stock];
+    else if([self.stock.quantityOwned intValue]>0)
+        self.parent.tableData = @[self.stock];
+    else {
+        self.parent.tableData = @[];
+        [self.parent clearAllCharts];
+        if([self.parent isChildViewController]) {
+            [self.parent showMenu:self.parent];
+        }
+    }
     [self.parent.tableView reloadData];
 }
 

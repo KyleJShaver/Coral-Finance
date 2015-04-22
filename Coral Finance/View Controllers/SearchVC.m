@@ -99,7 +99,6 @@
     vc.stock = stock;
     stock.delegate = vc;
     vc.didCheckOwned = NO;
-    [vc setTableDataFromCoreData];
     vc.titleLabel.text = @"view stock";
 }
 

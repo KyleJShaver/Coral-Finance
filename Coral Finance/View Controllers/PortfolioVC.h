@@ -42,6 +42,7 @@
 -(void)resetPrice;
 -(void)toggleShowPercent;
 -(void)setTableDataFromCoreData;
+-(void)clearAllCharts;
 -(IBAction)showMenu:(id)sender;
 -(IBAction)showSearch:(id)sender;
 

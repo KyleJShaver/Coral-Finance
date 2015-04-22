@@ -46,6 +46,8 @@ typedef NS_ENUM(NSUInteger, PerformanceWindow) {
 @property (strong, nonatomic) NSNumber *yearHigh;
 @property (strong, nonatomic) NSNumber *yearLow;
 @property (strong, nonatomic) NSArray *performanceValues;
+@property (strong, nonatomic) NSArray *performanceValuesDay;
+@property (strong, nonatomic) NSArray *performanceValuesYear;
 @property (strong, nonatomic) NSNumber *quantityOwned;
 @property (strong, nonatomic) NSNumber *totalSpent;
 @property PerformanceWindow performanceWindow;
@@ -60,6 +62,8 @@ typedef NS_ENUM(NSUInteger, PerformanceWindow) {
 -(NSString *)dailyPerformancePercent;
 -(NSString *)overallPerformanceValue;
 -(NSString *)overallPerformancePercent;
-- (NSComparisonResult)compareSymbols:(RealStock *)otherObject;
+-(NSString *)peformanceToJSON;
+-(NSComparisonResult)compareSymbols:(RealStock *)otherObject;
+
 
 @end

@@ -69,6 +69,10 @@
         //NSLog(@"User selected item 1 in 1st graph at position %@ in the graph view", NSStringFromCGPoint(pos));
         weakSelf.priceLabel.text = data.getData(item).dataLabel;
     };
+    self.chart.deselectedItemCallback = ^(LCLineChartData *dat, NSUInteger item, CGPoint pos) {
+        //NSLog(@"User selected item 1 in 1st graph at position %@ in the graph view", NSStringFromCGPoint(pos));
+        weakSelf.priceLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:weakSelf.stock.currentValue]];
+    };
     return self;
 }
 
