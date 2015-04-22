@@ -106,24 +106,8 @@
 
 -(void)checkExchangeOpen
 {
-    NSDate *now = [NSDate date];
-    NSDateComponents *comps = [[NSCalendar currentCalendar] components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitWeekday) fromDate:now];
-    NSDateFormatter *hour = [[NSDateFormatter alloc] init];
-    [hour setDateFormat:[NSDateFormatter dateFormatFromTemplate:@"HH" options:0 locale:[NSLocale currentLocale]]];
-    [hour setTimeZone:[NSTimeZone timeZoneWithName:@"America/New_York"]];
-    
-    if(comps.weekday != 1 && comps.day != 7) {
-        int hourInt = [[hour stringFromDate:now] intValue];
-        if(hourInt < 9) self.marketStatusLabel.text = @"market closed";
-        else if(hourInt == 9) {
-            if(comps.minute <= 30) self.marketStatusLabel.text = @"market closed";
-        }
-        else if(hourInt > 16) self.marketStatusLabel.text = @"market closed";
-        else self.marketStatusLabel.text = @"market open";
-    }
-    else {
-        self.marketStatusLabel.text = @"market closed";
-    }
+    if([Globals isRealExchangeOpen]) self.marketStatusLabel.text = @"market open";
+    else self.marketStatusLabel.text = @"market closed";
 }
 
 -(void)resetPrice

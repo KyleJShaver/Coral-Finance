@@ -85,13 +85,13 @@
         if(hourInt < 9 || hourInt > 16) return NO;
         else if(hourInt == 9) {
             if(comps.minute <= 30) return NO;
+            else return YES;
         }
         else return YES;
     }
     else {
         return NO;
     }
-    return NO;
 }
 
 
