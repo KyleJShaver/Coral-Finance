@@ -120,6 +120,7 @@
 {
     if([searchText isEqualToString:@""]) {
         self.tableData = nil;
+        [self.tableView reloadData];
     }
     else {
         NSMutableArray *array = [[NSMutableArray alloc] init];

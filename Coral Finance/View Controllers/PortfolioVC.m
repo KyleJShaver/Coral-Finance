@@ -152,6 +152,8 @@
             cell.sharesOwnedLabel.text = [NSString stringWithFormat:@"%d",[stock.quantityOwned intValue]];
             double equityValue = [stock.currentValue doubleValue]*(double)[stock.quantityOwned intValue];
             cell.equityValueLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:[NSNumber numberWithDouble:equityValue]]];
+            [cell.buyButton setUserInteractionEnabled:YES];
+            [cell.sellButton setUserInteractionEnabled:YES];
             //cell.returnPercentLabel.text = [stock overallPerformancePercent];
         }
         else {
@@ -162,6 +164,8 @@
             cell.companyNameLabel.text = self.stock.companyName;
             cell.tickerSymbolLabel.text = self.stock.tickerSymbol;
             cell.coreDataLayer = nil;
+            [cell.buyButton setUserInteractionEnabled:NO];
+            [cell.sellButton setUserInteractionEnabled:NO];
             [self.stock downloadCurrentData];
         }
         [cell.performanceButton setUserInteractionEnabled:YES];
@@ -217,6 +221,7 @@
         stock.performanceWindow = window;
         stock.delegate = self;
         self.stock = stock;
+        [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
         [self.stock downloadStockData];
     }
     [self.tableView reloadData];
