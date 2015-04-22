@@ -59,6 +59,21 @@
     return object;
 }
 
++(NSArray *)allFakeObjectsWithContext:(NSManagedObjectContext *)managedObjectContext
+{
+    NSError *error;
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tickerSymbol" ascending:YES];
+    [request setSortDescriptors:@[sortDescriptor]];
+    NSArray *object = [managedObjectContext executeFetchRequest:request error:&error];
+    if(error) {
+        NSLog(@"%@",error.description);
+        return nil;
+    }
+    if(object.count==0) return nil;
+    return object;
+}
+
 +(NSArray *)fetchPurchasedWithContext:(NSManagedObjectContext *)managedObjectContext
 {
     NSError *error;

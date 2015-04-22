@@ -24,6 +24,11 @@
     return [CoreStockObject allObjectsWithContext:_managedObjectContext];
 }
 
+-(NSArray *)getFakeStockObjects
+{
+    return [CoreStockObject allFakeObjectsWithContext:_managedObjectContext];
+}
+
 -(BOOL)isInFakeStockMode
 {
     CoreSettings *settings = [CoreSettings fetchWithContext:_managedObjectContext];
@@ -67,13 +72,23 @@
         stockObj.tickerSymbol = [[tempDict valueForKey:@"symbol"] stringByRemovingPercentEncoding];
         stockObj.isFakeStock = [NSNumber numberWithBool:NO];
     }
+    /*
+    for(int i=0; i<jsonArray.count; i++) {
+        CoreStockObject *stockObj = [CoreStockObject newWithContext:_managedObjectContext];
+        switch(i%3) {
+            case 0: stockObj.companyName = @"Crazy String Garments"; stockObj.tickerSymbol = @"~ZCSG"; break;
+            case 1: stockObj.companyName = @"Vaheh Industry"; stockObj.tickerSymbol = @"~ZVHI"; break;
+            case 2: stockObj.companyName = @"Ray's Design Corp"; stockObj.tickerSymbol = @"~ZRDC"; break;
+        }
+    }
+    */
     [self save];
 }
 
 -(RealStock *)buyStock:(RealStock *)stock withQuantity:(int)quantity
 {
     CoreStockObject *purchasedStock = [CoreStockObject fetchWithContext:_managedObjectContext predicateFormat:[NSString stringWithFormat:@"tickerSymbol = '%@'",stock.tickerSymbol]];
-    purchasedStock.totalPaid = [NSNumber numberWithDouble:([purchasedStock.totalPaid doubleValue]+[stock.currentValue  doubleValue])];
+    purchasedStock.totalPaid = [NSNumber numberWithDouble:([purchasedStock.totalPaid doubleValue]+[stock.currentValue  doubleValue]-(((double)arc4random_uniform(200))/100.0))];
     purchasedStock.quantityOwned = [NSNumber numberWithInt:[purchasedStock.quantityOwned intValue] + quantity];
     [self save];
     stock.quantityOwned = purchasedStock.quantityOwned;

@@ -25,6 +25,7 @@
 +(instancetype)fetchWithContext:(NSManagedObjectContext *)managedObjectContext predicateFormat:(NSString *)predicateFormat;
 +(instancetype)newWithContext:(NSManagedObjectContext *)managedObjectContext;
 +(NSArray *)allObjectsWithContext:(NSManagedObjectContext *)managedObjectContext;
++(NSArray *)allFakeObjectsWithContext:(NSManagedObjectContext *)managedObjectContext;
 +(NSArray *)fetchPurchasedWithContext:(NSManagedObjectContext *)managedObjectContext;
 
 @end

@@ -164,6 +164,12 @@
         cell.selectedBackgroundView = [UIView new];
         cell.selectedBackgroundView.backgroundColor = [Globals darkBackgroundColor];
         [cell.performanceButton setUserInteractionEnabled:NO];
+        /*
+        switch(indexPath.row%3) {
+            case 0: cell.tickerSymbolLabel.text = @"~ZCSG"; break;
+            case 1: cell.tickerSymbolLabel.text = @"~ZVHI"; break;
+            case 2: cell.tickerSymbolLabel.text = @"~ZRDC"; break;
+        }*/
         return cell;
     }
     else {
@@ -196,6 +202,12 @@
             cell.equityValueLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:[NSNumber numberWithDouble:equityValue]]];
             [cell.buyButton setUserInteractionEnabled:YES];
             [cell.sellButton setUserInteractionEnabled:YES];
+            /*
+            switch(indexPath.row%3) {
+                case 0: cell.companyNameLabel.text = @"Crazy String Garments"; cell.tickerSymbolLabel.text = @"~ZCSG"; break;
+                case 1: cell.companyNameLabel.text = @"Vaheh Industry"; cell.tickerSymbolLabel.text = @"~ZVHI"; break;
+                case 2: cell.companyNameLabel.text = @"Ray's Design Corp"; cell.tickerSymbolLabel.text = @"~ZRDC"; break;
+            }*/
             //cell.returnPercentLabel.text = [stock overallPerformancePercent];
         }
         else {
