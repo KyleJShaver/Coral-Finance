@@ -18,6 +18,8 @@
 @property (nonatomic, retain) NSNumber * amountSpent;
 @property (nonatomic, retain) NSNumber * amountBalance;
 
-+(instancetype)objWithContext:(NSManagedObjectContext *)managedObjectContext;
++(instancetype)newWithContext:(NSManagedObjectContext *)managedObjectContext;
++(CorePortfolioPerformance *)realObjectWithContext:(NSManagedObjectContext *)managedObjectContext;
++(CorePortfolioPerformance *)fakeObjectWithContext:(NSManagedObjectContext *)managedObjectContext;
 
 @end

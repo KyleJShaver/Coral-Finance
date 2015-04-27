@@ -36,15 +36,17 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (assign, nonatomic) BOOL isChildViewController;
 @property (assign, nonatomic) BOOL isInFakeStockMode;
+@property (assign, nonatomic) BOOL isInPorfolioOverviewMode;
 @property (assign, nonatomic) BOOL didCheckOwned;
 @property (assign, nonatomic) BOOL showPercentages;
 
 -(void)checkViewControllerStatus;
--(void)resetPrice;
 -(void)changeRealFakeStocks;
+-(void)checkExchangeOpen;
 -(void)toggleShowPercent;
 -(void)setTableDataFromCoreData;
 -(void)clearAllCharts;
+-(void)overviewMode;
 -(IBAction)showMenu:(id)sender;
 -(IBAction)showSearch:(id)sender;
 

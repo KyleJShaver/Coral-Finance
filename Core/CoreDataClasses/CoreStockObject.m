@@ -50,6 +50,7 @@
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tickerSymbol" ascending:YES];
     [request setSortDescriptors:@[sortDescriptor]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"isFakeStock == NO"]];
     NSArray *object = [managedObjectContext executeFetchRequest:request error:&error];
     if(error) {
         NSLog(@"%@",error.description);
@@ -65,6 +66,7 @@
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tickerSymbol" ascending:YES];
     [request setSortDescriptors:@[sortDescriptor]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"isFakeStock == YES"]];
     NSArray *object = [managedObjectContext executeFetchRequest:request error:&error];
     if(error) {
         NSLog(@"%@",error.description);
@@ -80,7 +82,23 @@
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tickerSymbol" ascending:YES];
     [request setSortDescriptors:@[sortDescriptor]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"quantityOwned > 0"]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"(quantityOwned > 0) AND (isFakeStock == NO)"]];
+    NSArray *object = [managedObjectContext executeFetchRequest:request error:&error];
+    if(error) {
+        NSLog(@"%@",error.description);
+        return nil;
+    }
+    if(object.count==0) return nil;
+    return object;
+}
+
++(NSArray *)fetchFakePurchasedWithContext:(NSManagedObjectContext *)managedObjectContext
+{
+    NSError *error;
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tickerSymbol" ascending:YES];
+    [request setSortDescriptors:@[sortDescriptor]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"(quantityOwned > 0) AND (isFakeStock == YES)"]];
     NSArray *object = [managedObjectContext executeFetchRequest:request error:&error];
     if(error) {
         NSLog(@"%@",error.description);

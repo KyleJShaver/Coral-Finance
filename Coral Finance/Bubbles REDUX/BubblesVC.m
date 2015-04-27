@@ -1,13 +1,12 @@
 //
-//  GameViewController.m
-//  BubbleAnimations
+//  BubblesVC.m
+//  Coral Finance
 //
-//  Created by Kyle Shaver on 4/11/15.
+//  Created by Kyle Shaver on 4/22/15.
 //  Copyright (c) 2015 Team Wireframe. All rights reserved.
 //
 
-#import "GameViewController.h"
-#import "GameScene.h"
+#import "BubblesVC.h"
 
 @implementation SKScene (Unarchive)
 
@@ -28,12 +27,12 @@
 
 @end
 
-@implementation GameViewController
+@implementation BubblesVC
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     // Configure the view.
     SKView * skView = (SKView *)self.view;
     //skView.showsFPS = YES;
@@ -42,21 +41,16 @@
     skView.ignoresSiblingOrder = YES;
     
     // Create and configure the scene.
-    GameScene *scene = [GameScene unarchiveFromFile:@"GameScene"];
+    BubblesScene *scene = [BubblesScene unarchiveFromFile:@"MyScene"];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.
     [skView presentScene:scene];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return YES;
+    // Dispose of any resources that can be recreated.
 }
 
 -(IBAction)close:(id)sender
@@ -68,6 +62,17 @@
         [self.view removeFromSuperview];
         [self removeFromParentViewController];
     }];
+    
 }
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

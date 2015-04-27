@@ -50,6 +50,7 @@ typedef NS_ENUM(NSUInteger, PerformanceWindow) {
 @property (strong, nonatomic) NSArray *performanceValuesYear;
 @property (strong, nonatomic) NSNumber *quantityOwned;
 @property (strong, nonatomic) NSNumber *totalSpent;
+@property (assign, nonatomic) BOOL isFakeStock;
 @property PerformanceWindow performanceWindow;
 
 -(id)initWithDelegate:(id<RealStockDelegate>)delegate;

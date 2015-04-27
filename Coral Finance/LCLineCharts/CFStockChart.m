@@ -60,8 +60,9 @@
     self.chart = [[LCLineChartView alloc] initWithFrame:CGRectMake(0, 200, 370, 150)];
     [self.chart showLegend:NO animated:NO];
     double lowest = ([self.stock.currentLow doubleValue] > [self.stock.openingValue doubleValue]) ? [self.stock.openingValue doubleValue] : [self.stock.currentLow doubleValue];
+    double highest = ([self.stock.currentHigh doubleValue] < [self.stock.openingValue doubleValue]) ? [self.stock.openingValue doubleValue] : [self.stock.currentHigh doubleValue];
     self.chart.yMin = lowest - fmod(lowest, 0.1);
-    self.chart.yMax = [self.stock.currentHigh doubleValue] + (.10-fmod([self.stock.currentHigh doubleValue], .10));
+    self.chart.yMax = highest + (.10-fmod(highest, 0.1));
     self.chart.ySteps = @[self.stock.openingValue];
     self.chart.data = @[data];
     __weak typeof(self) weakSelf = self;

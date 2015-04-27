@@ -40,6 +40,7 @@
     [self.coreDataLayer setIsInFakeStockMode:self.isInFakeStockMode];
     self.parent.isInFakeStockMode = self.isInFakeStockMode;
     [self.parent changeRealFakeStocks];
+    [self close:self];
 }
 
 -(IBAction)close:(id)sender
@@ -50,13 +51,39 @@
         [self willMoveToParentViewController:nil];
         [self.view removeFromSuperview];
         [self removeFromParentViewController];
+        [self.parent checkExchangeOpen];
     }];
     
 }
 
+-(IBAction)portfolio:(id)sender
+{
+    PortfolioVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"home"];
+    [self addChildViewController:vc];
+    vc.view.alpha = 0;
+    [self.view addSubview:vc.view];
+    vc.isInFakeStockMode = self.isInFakeStockMode;
+    [vc.tableView reloadData];
+    [UIView animateWithDuration:0.4 animations:^{
+        self.view.alpha = 1;
+        vc.view.alpha = 1;
+    } completion:^(BOOL finished) {
+        vc.view.alpha = 1;
+        self.view.alpha = 1;
+    }];
+    vc.isChildViewController = YES;
+    [vc overviewMode];
+    [vc checkViewControllerStatus];
+    [vc.tableView setUserInteractionEnabled:YES];
+    [vc.tableView setScrollEnabled:NO];
+    vc.tableData = @[];
+    vc.stock = nil;
+    vc.didCheckOwned = NO;
+}
+
 -(IBAction)bubbles:(id)sender
 {
-    MenuVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"bubbles"];
+    BubblesVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"bubbles"];
     vc.view.frame = self.view.frame;
     vc.view.alpha = 0;
     [self.view addSubview:vc.view];

@@ -21,10 +21,14 @@
 -(BOOL)isInFakeStockMode;
 -(BOOL)setIsInFakeStockMode:(BOOL)isInFakeStockMode;
 -(NSArray *)getStockObjects;
+-(NSArray *)getFakeStockObjects;
 -(void)saveRealStockJSON:(NSData *)jsonData;
+-(void)saveFakeStockJSON:(NSData *)jsonData;
 -(RealStock *)buyStock:(RealStock *)stock withQuantity:(int)quantity;
 -(RealStock *)sellStock:(RealStock *)stock withQuantity:(int)quantity;
 -(NSArray *)getOwnedStocksWithDelegate:(id<RealStockDelegate>)realStockDelegate;
+-(NSArray *)getOwnedFakeStocksWithDelegate:(id<RealStockDelegate>)realStockDelegate;
 -(NSArray *)getOwnedStockWithStock:(RealStock *)realStock andDelegate:(id<RealStockDelegate>)delegate;
+-(NSArray *)portfolioPerformanceWithDelegate:(id<RealStockDelegate>)delegate;
 
 @end

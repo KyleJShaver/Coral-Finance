@@ -19,7 +19,9 @@
 @property (strong, nonatomic) NSArray *tableData;
 @property (strong, nonatomic) NSArray *rawArray;
 @property (strong, nonatomic) CoreDataLayer *coreDataLayer;
+@property (assign, nonatomic) BOOL isInFakeStockMode;
 
+-(void)loadData;
 -(IBAction)close:(id)sender;
 
 @end

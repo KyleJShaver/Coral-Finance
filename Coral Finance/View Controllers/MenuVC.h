@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Globals.h"
 #import "CoreDataLayer.h"
+#import "BubblesVC.h"
 
 @class PortfolioVC;
 

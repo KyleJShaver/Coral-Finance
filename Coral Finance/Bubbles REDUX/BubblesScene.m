@@ -1,49 +1,20 @@
 //
-//  GameScene.m
-//  BubbleAnimations
+//  BubblesScene.m
+//  Coral Finance
 //
-//  Created by Kyle Shaver on 4/11/15.
+//  Created by Kyle Shaver on 4/22/15.
 //  Copyright (c) 2015 Team Wireframe. All rights reserved.
 //
 
-#import "GameScene.h"
+#import "BubblesScene.h"
 
-@implementation GameScene
-
--(void)didMoveToView:(SKView *)view {
-    /* Setup your scene here */
-    /*
-    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-    
-    myLabel.text = @"Hello, World!";
-    myLabel.fontSize = 65;
-    myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
-                                   CGRectGetMidY(self.frame));
-    
-    [self addChild:myLabel];
-     */
-}
+@implementation BubblesScene
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /* Called when a touch begins */
     
     for (UITouch *touch in touches) {
         CGPoint location = [touch locationInNode:self];
-        
-        
-        /*
-        CGRect circle = CGRectMake(location.x-20, location.y-20, 20.0, 20.0);
-        SKShapeNode *shapeNode = [[SKShapeNode alloc] init];
-        shapeNode.path = [UIBezierPath bezierPathWithOvalInRect:circle].CGPath;
-        shapeNode.fillColor = [SKColor clearColor];
-        shapeNode.lineWidth = 4;
-        shapeNode.antialiased = YES;
-        [self addChild:shapeNode];
-        //SKAction *grow = [SKAction scaleTo:1.5 duration:0.5];
-         */
-        
-        
-        // CREATE BUBBLES ON TAP!
         for(int i=0; i<3; i++) {
             int offset = arc4random() % 20;
             int posNeg = arc4random() % 2 == 0 ? 1: -1;
@@ -71,21 +42,6 @@
             [shapeNode runAction:moveYForever];
             [shapeNode runAction:initialX];
         }
-        
-        
-        /*
-        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
-        
-        sprite.xScale = 0.5;
-        sprite.yScale = 0.5;
-        sprite.position = location;
-        
-        SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
-        
-        [sprite runAction:[SKAction repeatActionForever:action]];
-        
-        [self addChild:sprite];
-         */
     }
 }
 
@@ -95,10 +51,8 @@
         BOOL isVisible = positionInScene.y - child.frame.size.height*2 < (self.view.frame.size.height);
         if(!isVisible) {
             [child removeFromParent];
-            NSLog(@"Removed");
         }
     }
 }
-
 
 @end

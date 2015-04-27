@@ -18,6 +18,9 @@
 		274286DC1AE6FD58004238B4 /* CoreSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 274286DB1AE6FD58004238B4 /* CoreSettings.m */; };
 		274286DF1AE6FD58004238B4 /* CorePortfolioPerformance.m in Sources */ = {isa = PBXBuildFile; fileRef = 274286DE1AE6FD58004238B4 /* CorePortfolioPerformance.m */; };
 		2757DB431AE47CF100A89A52 /* StockCellWithName.m in Sources */ = {isa = PBXBuildFile; fileRef = 2757DB421AE47CF100A89A52 /* StockCellWithName.m */; };
+		275EAD821AE896A7005D7776 /* MyScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 275EAD811AE896A7005D7776 /* MyScene.sks */; };
+		275EAD851AE897CC005D7776 /* BubblesScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 275EAD841AE897CC005D7776 /* BubblesScene.m */; };
+		275EAD881AE89844005D7776 /* BubblesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 275EAD871AE89844005D7776 /* BubblesVC.m */; };
 		2777EF011AD0D90800E8D592 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777EF001AD0D90800E8D592 /* main.m */; };
 		2777EF041AD0D90800E8D592 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777EF031AD0D90800E8D592 /* AppDelegate.m */; };
 		2777EF0A1AD0D90800E8D592 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2777EF081AD0D90800E8D592 /* Main.storyboard */; };
@@ -55,9 +58,6 @@
 		27E39C791ADF78CA00654A97 /* BebasNeue Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 27E39C741ADF78CA00654A97 /* BebasNeue Light.otf */; };
 		27E39C7A1ADF78CA00654A97 /* BebasNeue Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 27E39C751ADF78CA00654A97 /* BebasNeue Regular.otf */; };
 		27E39C7B1ADF78CA00654A97 /* Canter Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 27E39C761ADF78CA00654A97 /* Canter Light.otf */; };
-		27F0627A1AE74A980010F12D /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F062761AE74A980010F12D /* GameScene.m */; };
-		27F0627B1AE74A980010F12D /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 27F062771AE74A980010F12D /* GameScene.sks */; };
-		27F0627C1AE74A980010F12D /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F062791AE74A980010F12D /* GameViewController.m */; };
 		27F0627E1AE74C0D0010F12D /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F0627D1AE74C0D0010F12D /* SpriteKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +93,11 @@
 		274286DE1AE6FD58004238B4 /* CorePortfolioPerformance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CorePortfolioPerformance.m; path = Core/CoreDataClasses/CorePortfolioPerformance.m; sourceTree = SOURCE_ROOT; };
 		2757DB411AE47CF100A89A52 /* StockCellWithName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockCellWithName.h; sourceTree = "<group>"; };
 		2757DB421AE47CF100A89A52 /* StockCellWithName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockCellWithName.m; sourceTree = "<group>"; };
+		275EAD811AE896A7005D7776 /* MyScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyScene.sks; sourceTree = "<group>"; };
+		275EAD831AE897CC005D7776 /* BubblesScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BubblesScene.h; path = "Bubbles REDUX/BubblesScene.h"; sourceTree = "<group>"; };
+		275EAD841AE897CC005D7776 /* BubblesScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BubblesScene.m; path = "Bubbles REDUX/BubblesScene.m"; sourceTree = "<group>"; };
+		275EAD871AE89844005D7776 /* BubblesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BubblesVC.m; path = "Bubbles REDUX/BubblesVC.m"; sourceTree = "<group>"; };
+		275EAD8B1AE89B57005D7776 /* BubblesVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BubblesVC.h; sourceTree = "<group>"; };
 		2777EEFB1AD0D90800E8D592 /* Coral Finance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coral Finance.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2777EEFF1AD0D90800E8D592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2777EF001AD0D90800E8D592 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -145,11 +150,6 @@
 		27E39C741ADF78CA00654A97 /* BebasNeue Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue Light.otf"; sourceTree = "<group>"; };
 		27E39C751ADF78CA00654A97 /* BebasNeue Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue Regular.otf"; sourceTree = "<group>"; };
 		27E39C761ADF78CA00654A97 /* Canter Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Canter Light.otf"; sourceTree = "<group>"; };
-		27F062751AE74A980010F12D /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
-		27F062761AE74A980010F12D /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
-		27F062771AE74A980010F12D /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		27F062781AE74A980010F12D /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
-		27F062791AE74A980010F12D /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		27F0627D1AE74C0D0010F12D /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -201,6 +201,18 @@
 			path = LCLineCharts;
 			sourceTree = "<group>";
 		};
+		275EAD801AE8968A005D7776 /* BubblesREDUX */ = {
+			isa = PBXGroup;
+			children = (
+				275EAD811AE896A7005D7776 /* MyScene.sks */,
+				275EAD8B1AE89B57005D7776 /* BubblesVC.h */,
+				275EAD871AE89844005D7776 /* BubblesVC.m */,
+				275EAD831AE897CC005D7776 /* BubblesScene.h */,
+				275EAD841AE897CC005D7776 /* BubblesScene.m */,
+			);
+			name = BubblesREDUX;
+			sourceTree = "<group>";
+		};
 		2777EEF21AD0D90800E8D592 = {
 			isa = PBXGroup;
 			children = (
@@ -225,7 +237,7 @@
 		2777EEFD1AD0D90800E8D592 /* Coral Finance */ = {
 			isa = PBXGroup;
 			children = (
-				27F062741AE74A980010F12D /* Bubbles */,
+				275EAD801AE8968A005D7776 /* BubblesREDUX */,
 				27D980951AE3696F00575325 /* Table View Cells */,
 				27D980911AE3696100575325 /* View Controllers */,
 				27D980801AE358D600575325 /* Icons and Images */,
@@ -367,18 +379,6 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		27F062741AE74A980010F12D /* Bubbles */ = {
-			isa = PBXGroup;
-			children = (
-				27F062751AE74A980010F12D /* GameScene.h */,
-				27F062761AE74A980010F12D /* GameScene.m */,
-				27F062771AE74A980010F12D /* GameScene.sks */,
-				27F062781AE74A980010F12D /* GameViewController.h */,
-				27F062791AE74A980010F12D /* GameViewController.m */,
-			);
-			path = Bubbles;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -463,7 +463,6 @@
 				27C154821AE4672800AA7BB5 /* x.png in Resources */,
 				27D16D2E1AE4B6DC00825BA1 /* gradient.png in Resources */,
 				27E39C7A1ADF78CA00654A97 /* BebasNeue Regular.otf in Resources */,
-				27F0627B1AE74A980010F12D /* GameScene.sks in Resources */,
 				27C154841AE4672800AA7BB5 /* x@3x.png in Resources */,
 				27D16D281AE495C500825BA1 /* Coral.xcassets in Resources */,
 				27D9808B1AE35B3500575325 /* menu@2x.png in Resources */,
@@ -482,6 +481,7 @@
 				27C154831AE4672800AA7BB5 /* x@2x.png in Resources */,
 				27D980861AE358D600575325 /* search@3x.png in Resources */,
 				2725652E1AD7444B006078E3 /* LICENSE in Resources */,
+				275EAD821AE896A7005D7776 /* MyScene.sks in Resources */,
 				2777EF0C1AD0D90800E8D592 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -504,10 +504,10 @@
 				2725653D1AD7455C006078E3 /* CFStockChart.m in Sources */,
 				2725653A1AD744A1006078E3 /* UIKit+DrawingHelpers.m in Sources */,
 				27C1548A1AE46D2200AA7BB5 /* SearchVC.m in Sources */,
+				275EAD881AE89844005D7776 /* BubblesVC.m in Sources */,
 				272565371AD744A1006078E3 /* LCInfoView.m in Sources */,
 				27E39C701ADF763800654A97 /* Globals.m in Sources */,
 				272565381AD744A1006078E3 /* LCLegendView.m in Sources */,
-				27F0627C1AE74A980010F12D /* GameViewController.m in Sources */,
 				27C154871AE469F500AA7BB5 /* MenuVC.m in Sources */,
 				27D980981AE3698400575325 /* StockCell.m in Sources */,
 				274286DF1AE6FD58004238B4 /* CorePortfolioPerformance.m in Sources */,
@@ -521,9 +521,9 @@
 				277BF21F1AE179C0009E480C /* CoreDataLayer.m in Sources */,
 				274286D91AE6FD58004238B4 /* CoreStockObject.m in Sources */,
 				277BF1E21AE171DD009E480C /* Model.xcdatamodeld in Sources */,
-				27F0627A1AE74A980010F12D /* GameScene.m in Sources */,
 				274286DC1AE6FD58004238B4 /* CoreSettings.m in Sources */,
 				27D9809B1AE3699500575325 /* ExpandedStockCell.m in Sources */,
+				275EAD851AE897CC005D7776 /* BubblesScene.m in Sources */,
 				272565391AD744A1006078E3 /* LCLineChartView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -647,7 +647,7 @@
 		2777EF1F1AD0D90800E8D592 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Coral Finance/Info.plist";
@@ -662,7 +662,7 @@
 		2777EF201AD0D90800E8D592 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Coral Finance/Info.plist";

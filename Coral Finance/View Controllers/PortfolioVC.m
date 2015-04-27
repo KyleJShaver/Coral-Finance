@@ -41,12 +41,8 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if(!self.isChildViewController) {
-        if([self.coreDataLayer getStockObjects].count==0) [[DataFetcher dataFetchWithType:DataFetchTypeRealStockList andDelegate:self] fetch];
-        else {
-            [self setTableDataFromCoreData];
-        }
-    }
+    [self changeRealFakeStocks];
+    [self checkExchangeOpen];
 }
 
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
@@ -67,6 +63,7 @@
     else {
         NSString *title = @"My Stocks";
         if(self.isChildViewController) title = @"View Stock";
+        if(self.isInPorfolioOverviewMode) title = @"Portfolio Overview";
         [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
             self.titleLabel.text = title;
             self.menuButton.alpha = 1;
@@ -111,21 +108,33 @@
     }
 }
 
--(void)checkExchangeOpen
+-(void)overviewMode
 {
-    if([Globals isRealExchangeOpen]) self.marketStatusLabel.text = @"market open";
-    else self.marketStatusLabel.text = @"market closed";
+    self.isInPorfolioOverviewMode = YES;
+    self.titleLabel.text = @"portfolio";
+    
 }
 
--(void)resetPrice
+-(void)checkExchangeOpen
 {
-    if(!self.stock || !self.stock.currentValue) self.priceLabel.text = @"";
-    else self.priceLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:self.stock.currentValue]];
+    if(!self.isInFakeStockMode && [Globals isRealExchangeOpen]) self.marketStatusLabel.text = @"market open";
+    else if(self.isInFakeStockMode && [Globals isFakeExchangeOpen]) self.marketStatusLabel.text = @"market open";
+    else self.marketStatusLabel.text = @"market closed";
 }
 
 -(void)changeRealFakeStocks
 {
-    
+    if(!self.isChildViewController) {
+        self.stock = nil;
+        [self clearAllCharts];
+        if(!self.isInFakeStockMode && [self.coreDataLayer getStockObjects].count==0)
+            [[DataFetcher dataFetchWithType:DataFetchTypeRealStockList andDelegate:self] fetch];
+        else if(self.isInFakeStockMode && [self.coreDataLayer getFakeStockObjects].count==0)
+            [[DataFetcher dataFetchWithType:DataFetchTypeFakeStockList andDelegate:self] fetch];
+        else {
+            [self setTableDataFromCoreData];
+        }
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -148,7 +157,8 @@
     RealStock *stock = (RealStock *)self.tableData[indexPath.row];
     if(!self.stock || ![self.stock.tickerSymbol isEqualToString:stock.tickerSymbol]) {
         StockCell *cell = [tableView dequeueReusableCellWithIdentifier:@"stockCell"];
-        cell.tickerSymbolLabel.text = stock.tickerSymbol;
+        if(!stock.isFakeStock) cell.tickerSymbolLabel.text = stock.tickerSymbol;
+        else cell.tickerSymbolLabel.text = [NSString stringWithFormat:@"~%@",stock.tickerSymbol];
         if(stock.currentValue)
             cell.currentPriceLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:stock.currentValue]];
         else cell.currentPriceLabel.text = @"";
@@ -164,17 +174,12 @@
         cell.selectedBackgroundView = [UIView new];
         cell.selectedBackgroundView.backgroundColor = [Globals darkBackgroundColor];
         [cell.performanceButton setUserInteractionEnabled:NO];
-        /*
-        switch(indexPath.row%3) {
-            case 0: cell.tickerSymbolLabel.text = @"~ZCSG"; break;
-            case 1: cell.tickerSymbolLabel.text = @"~ZVHI"; break;
-            case 2: cell.tickerSymbolLabel.text = @"~ZRDC"; break;
-        }*/
         return cell;
     }
     else {
         ExpandedStockCell *cell = [tableView dequeueReusableCellWithIdentifier:@"expandedCell"];
-        cell.tickerSymbolLabel.text = stock.tickerSymbol;
+        if(!stock.isFakeStock) cell.tickerSymbolLabel.text = stock.tickerSymbol;
+        else cell.tickerSymbolLabel.text = [NSString stringWithFormat:@"~%@",stock.tickerSymbol];
         if(stock.currentValue) {
             cell.currentPriceLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:stock.currentValue]];
             cell.currentPriceLabel.font = [Globals bebasLight:30];
@@ -201,22 +206,29 @@
             double equityValue = [stock.currentValue doubleValue]*(double)[stock.quantityOwned intValue];
             cell.equityValueLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:[NSNumber numberWithDouble:equityValue]]];
             [cell.buyButton setUserInteractionEnabled:YES];
-            [cell.sellButton setUserInteractionEnabled:YES];
-            /*
-            switch(indexPath.row%3) {
-                case 0: cell.companyNameLabel.text = @"Crazy String Garments"; cell.tickerSymbolLabel.text = @"~ZCSG"; break;
-                case 1: cell.companyNameLabel.text = @"Vaheh Industry"; cell.tickerSymbolLabel.text = @"~ZVHI"; break;
-                case 2: cell.companyNameLabel.text = @"Ray's Design Corp"; cell.tickerSymbolLabel.text = @"~ZRDC"; break;
-            }*/
+            cell.buyButton.alpha = 1;
+            if([self.stock.quantityOwned intValue]>0){
+                [cell.sellButton setUserInteractionEnabled:YES];
+                cell.sellButton.alpha = 1;
+            }
+            else {
+                [cell.sellButton setUserInteractionEnabled:NO];
+                cell.sellButton.alpha = 0.2;
+            }
             //cell.returnPercentLabel.text = [stock overallPerformancePercent];
         }
         else {
             cell.currentPriceLabel.text = @"";
+            [cell.buyButton setUserInteractionEnabled:NO];
+            cell.buyButton.alpha = 0.2;
+            [cell.sellButton setUserInteractionEnabled:NO];
+            cell.sellButton.alpha = 0.2;
             //[cell.performanceButton setTitle:@"" forState:UIControlStateNormal];
             cell.stock = self.stock;
             cell.parent = self;
             cell.companyNameLabel.text = self.stock.companyName;
-            cell.tickerSymbolLabel.text = self.stock.tickerSymbol;
+            if(!stock.isFakeStock) cell.tickerSymbolLabel.text = stock.tickerSymbol;
+            else cell.tickerSymbolLabel.text = [NSString stringWithFormat:@"~%@",stock.tickerSymbol];
             cell.sharesOwnedLabel.text = [NSString stringWithFormat:@"%d",[stock.quantityOwned intValue]];
             cell.coreDataLayer = nil;
             [cell.buyButton setUserInteractionEnabled:NO];
@@ -277,7 +289,8 @@
         stock.delegate = self;
         self.stock = stock;
         [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-        [self.stock downloadStockData];
+        if(!self.stock.isFakeStock) [self.stock downloadStockData];
+        else [self.stock downloadCurrentData];
     }
     [self.tableView reloadData];
 }
@@ -286,10 +299,14 @@
 {
     if(!self.isChildViewController) {
         self.chart = nil;
-        self.tableData = [self.coreDataLayer getOwnedStocksWithDelegate:self];
+        if(!self.isInFakeStockMode)
+            self.tableData = [self.coreDataLayer getOwnedStocksWithDelegate:self];
+        else
+            self.tableData = [self.coreDataLayer getOwnedFakeStocksWithDelegate:self];
         for(RealStock *stock in self.tableData) {
             [stock downloadCurrentData];
         }
+        [self.tableView reloadData];
     }
 }
 
@@ -364,7 +381,8 @@
         [self setTableDataFromCoreData];
     }
     else {
-        
+        [self.coreDataLayer saveFakeStockJSON:dataFetcher.fetchedData];
+        [self setTableDataFromCoreData];
     }
 }
 
@@ -441,6 +459,7 @@
     [self addChildViewController:vc];
     [vc didMoveToParentViewController:self];
     vc.coreDataLayer = self.coreDataLayer;
+    vc.parent = self;
     vc.isInFakeStockMode = [self.coreDataLayer isInFakeStockMode];
     [UIView animateWithDuration:0.4 animations:^{
         vc.view.alpha = 1;
@@ -458,6 +477,8 @@
     [self.view addSubview:vc.view];
     [self addChildViewController:vc];
     [vc didMoveToParentViewController:self];
+    vc.isInFakeStockMode = self.isInFakeStockMode;
+    [vc loadData];
     [UIView animateWithDuration:0.4 animations:^{
         vc.view.alpha = 1;
     } completion:^(BOOL finished) {

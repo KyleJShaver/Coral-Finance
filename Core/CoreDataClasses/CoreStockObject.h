@@ -27,5 +27,6 @@
 +(NSArray *)allObjectsWithContext:(NSManagedObjectContext *)managedObjectContext;
 +(NSArray *)allFakeObjectsWithContext:(NSManagedObjectContext *)managedObjectContext;
 +(NSArray *)fetchPurchasedWithContext:(NSManagedObjectContext *)managedObjectContext;
++(NSArray *)fetchFakePurchasedWithContext:(NSManagedObjectContext *)managedObjectContext;
 
 @end

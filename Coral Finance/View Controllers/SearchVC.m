@@ -19,8 +19,6 @@
     [super viewDidLoad];
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setDefaultTextAttributes:@{NSFontAttributeName: [Globals bebasRegular:26.0]}];
     [[UITextField appearanceWhenContainedIn:[UISearchBar class] , nil] setTextColor:[UIColor whiteColor]];
-    self.rawArray = [self.coreDataLayer getStockObjects];
-    [self.tableView reloadData];
     //[self registerForKeyboardNotifications];
     // Do any additional setup after loading the view.
 }
@@ -28,6 +26,16 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)loadData
+{
+    if(!self.isInFakeStockMode) self.rawArray = [self.coreDataLayer getStockObjects];
+    else {
+        self.rawArray = [self.coreDataLayer getFakeStockObjects];
+        self.tableData = self.rawArray;
+    }
+    [self.tableView reloadData];
 }
 
 #pragma mark - Keyboard Stuff
@@ -71,7 +79,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if([self.searchBar.text isEqualToString:@""]) return 0;
+    if([self.searchBar.text isEqualToString:@""] && !self.isInFakeStockMode) return 0;
     return self.tableData.count;
 }
 
@@ -84,6 +92,8 @@
     [self addChildViewController:vc];
     vc.view.alpha = 0;
     [self.view addSubview:vc.view];
+    vc.isInFakeStockMode = YES;
+    [vc.tableView reloadData];
     [UIView animateWithDuration:0.4 animations:^{
         self.view.alpha = 1;
         vc.view.alpha = 1;
@@ -106,7 +116,8 @@
 {
     RealStock *stock = (RealStock *)self.tableData[indexPath.row];
     StockCellWithName *cell = [tableView dequeueReusableCellWithIdentifier:@"stockCell"];
-    cell.tickerSymbolLabel.text = stock.tickerSymbol;
+    if(!self.isInFakeStockMode) cell.tickerSymbolLabel.text = stock.tickerSymbol;
+    else cell.tickerSymbolLabel.text = [NSString stringWithFormat:@"~%@",stock.tickerSymbol];
     cell.companyNameLabel.text = stock.companyName;
     cell.selectedBackgroundView = [UIView new];
     cell.selectedBackgroundView.backgroundColor = [Globals backgroundColor];
@@ -117,8 +128,12 @@
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    if([searchText isEqualToString:@""]) {
+    if([searchText isEqualToString:@""] && !self.isInFakeStockMode) {
         self.tableData = nil;
+        [self.tableView reloadData];
+    }
+    else if([searchText isEqualToString:@""] && self.isInFakeStockMode) {
+        self.tableData = self.rawArray;
         [self.tableView reloadData];
     }
     else {

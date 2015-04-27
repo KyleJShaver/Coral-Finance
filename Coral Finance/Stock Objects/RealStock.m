@@ -9,6 +9,7 @@
 #import "RealStock.h"
 
 #define URL @"http://chartapi.finance.yahoo.com/instrument/1.1/[TICKER]/chartdata;type=quote;range=[DATERANGE]/json/"
+#define FAKE_URL @"http://coral.finance/api/v1/?query=stock&symbol=[TICKER]"
 
 @implementation RealStock
 
@@ -66,6 +67,7 @@ bool didGetYear;
     stock.companyName = coreStockObject.companyName;
     stock.quantityOwned = coreStockObject.quantityOwned;
     stock.totalSpent = coreStockObject.totalPaid;
+    stock.isFakeStock = [coreStockObject.isFakeStock boolValue];
     return stock;
 }
 
@@ -258,41 +260,94 @@ bool didGetYear;
 
 -(void)downloadCurrentData
 {
-    NSString *urlStr = [URL stringByReplacingOccurrencesOfString:@"[TICKER]" withString:_tickerSymbol];
-    NSString *urlWindowedStr = [urlStr stringByReplacingOccurrencesOfString:@"[DATERANGE]" withString:@"1d"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlWindowedStr]];
-    NSOperationQueue *queue = [NSOperationQueue mainQueue];
-    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        if(connectionError) {
-            if(_delegate) [_delegate realStockError:connectionError downloadingInformation:self];
-            return;
-        }
-        NSString *responseStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        responseStr = [responseStr substringWithRange:NSMakeRange([@"finance_charts_json_callback( " length], [responseStr length]-2-[@"finance_charts_json_callback( " length])];
-        
-        NSError *error;
-        NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:[responseStr dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
-        if(!error) {
-            _companyName = [[jsonDictionary valueForKey:@"meta"] valueForKey:@"Company-Name"];
-            if(!_companyName || [_companyName isEqualToString:@""]) {
-                if(_delegate) [_delegate realStockDoneDownloading:nil];
+    if(!self.isFakeStock){
+        NSString *urlStr = [URL stringByReplacingOccurrencesOfString:@"[TICKER]" withString:_tickerSymbol];
+        NSString *urlWindowedStr = [urlStr stringByReplacingOccurrencesOfString:@"[DATERANGE]" withString:@"1d"];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlWindowedStr]];
+        NSOperationQueue *queue = [NSOperationQueue mainQueue];
+        [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+            if(connectionError) {
+                if(_delegate) [_delegate realStockError:connectionError downloadingInformation:self];
                 return;
             }
-            _openingValue = [NSNumber numberWithDouble:[[[jsonDictionary valueForKey:@"meta"] valueForKey:@"previous_close"] doubleValue]];
-            _currentHigh = [NSNumber numberWithDouble:[[[[jsonDictionary valueForKey:@"ranges"] valueForKey:@"high"] valueForKey:@"max"] doubleValue]];
-            _currentLow = [NSNumber numberWithDouble:[[[[jsonDictionary valueForKey:@"ranges"] valueForKey:@"low"] valueForKey:@"min"] doubleValue]];
-            NSMutableArray *performanceValuesTemp = [[NSMutableArray alloc] init];
-            NSArray *performanceValuesTempJson = [jsonDictionary valueForKey:@"series"];
-            for(NSDictionary *tempDictionary in performanceValuesTempJson) {
-                [performanceValuesTemp addObject:[[PriceTime alloc] initWithDictionary:tempDictionary]];
+            NSString *responseStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            responseStr = [responseStr substringWithRange:NSMakeRange([@"finance_charts_json_callback( " length], [responseStr length]-2-[@"finance_charts_json_callback( " length])];
+            
+            NSError *error;
+            NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:[responseStr dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
+            if(!error) {
+                _companyName = [[jsonDictionary valueForKey:@"meta"] valueForKey:@"Company-Name"];
+                if(!_companyName || [_companyName isEqualToString:@""]) {
+                    if(_delegate) [_delegate realStockDoneDownloading:nil];
+                    return;
+                }
+                _openingValue = [NSNumber numberWithDouble:[[[jsonDictionary valueForKey:@"meta"] valueForKey:@"previous_close"] doubleValue]];
+                _currentHigh = [NSNumber numberWithDouble:[[[[jsonDictionary valueForKey:@"ranges"] valueForKey:@"high"] valueForKey:@"max"] doubleValue]];
+                _currentLow = [NSNumber numberWithDouble:[[[[jsonDictionary valueForKey:@"ranges"] valueForKey:@"low"] valueForKey:@"min"] doubleValue]];
+                NSMutableArray *performanceValuesTemp = [[NSMutableArray alloc] init];
+                NSArray *performanceValuesTempJson = [jsonDictionary valueForKey:@"series"];
+                for(NSDictionary *tempDictionary in performanceValuesTempJson) {
+                    [performanceValuesTemp addObject:[[PriceTime alloc] initWithDictionary:tempDictionary]];
+                }
+                _performanceValues = performanceValuesTemp;
+                didGetDay = YES;
+                _currentValue = ((PriceTime *)[_performanceValues lastObject]).price;
+                if(_delegate) [_delegate realStockDoneDownloading:self];
             }
-            _performanceValues = performanceValuesTemp;
-            didGetDay = YES;
-            _currentValue = ((PriceTime *)[_performanceValues lastObject]).price;
-            if(_delegate) [_delegate realStockDoneDownloading:self];
-        }
-        else if(_delegate) [_delegate realStockError:error downloadingInformation:self];
-    }];
+            else if(_delegate) [_delegate realStockError:error downloadingInformation:self];
+        }];
+    }
+    else {
+        NSString *urlStr = [FAKE_URL stringByReplacingOccurrencesOfString:@"[TICKER]" withString:[_tickerSymbol lowercaseString]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
+        NSOperationQueue *queue = [NSOperationQueue mainQueue];
+        [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+            if(connectionError) {
+                if(_delegate) [_delegate realStockError:connectionError downloadingInformation:self];
+                return;
+            }
+            NSString *responseStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSError *error;
+            NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:[responseStr dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
+            if(!error) {
+                NSMutableArray *values = [[jsonDictionary valueForKey:@"trades"] mutableCopy];
+                NSDate *now = [NSDate date];
+                double difference = 43200.0;
+                double step = difference/((double)values.count)-1.0;
+                NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:now];
+                [components setHour:10];
+                NSNumber *smallest = [NSNumber numberWithDouble:0.0];
+                NSNumber *largest = [NSNumber numberWithDouble:0.0];
+                for(int i=0; i<values.count; i++) {
+                    NSInteger sec = step*((double)i);
+                    [components setSecond:sec];
+                    NSDate *modifiedDate = [[NSCalendar currentCalendar] dateFromComponents:components];
+                    PriceTime *temp = [[PriceTime alloc] init];
+                    temp.utcTime = [NSNumber numberWithDouble:[modifiedDate timeIntervalSince1970]];
+                    temp.price = [NSNumber numberWithDouble:[values[i] doubleValue]];
+                    values[i] = temp;
+                }
+                _performanceValuesDay = [values copy];
+                for(int i=(int)values.count-1; i>=0; i--) {
+                    PriceTime *time = values[i];
+                    if([time.utcTime doubleValue] > [[NSDate date] timeIntervalSince1970]) {
+                        [values removeObjectAtIndex:i];
+                    }
+                    else {
+                        if([time.price doubleValue]<[smallest doubleValue] || [smallest doubleValue]==0.0) smallest = time.price;
+                        if([time.price doubleValue]>[largest doubleValue]) largest = time.price;
+                    }
+                }
+                _performanceValues = [values copy];
+                _openingValue = ((PriceTime *)[_performanceValues firstObject]).price;
+                _currentValue = ((PriceTime *)[_performanceValues lastObject]).price;
+                _currentHigh = largest;
+                _currentLow = smallest;
+                if(_delegate) [_delegate realStockDoneDownloading:self];
+            }
+            else if(_delegate) [_delegate realStockError:error downloadingInformation:self];
+        }];
+    }
 }
 
 -(void)checkDoneDownloading

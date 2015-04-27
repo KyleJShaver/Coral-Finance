@@ -26,7 +26,7 @@
 {
     NSString *url;
     switch (_fetchType) {
-        case DataFetchTypeFakeStockList: url = @""; break;
+        case DataFetchTypeFakeStockList: url = @"http://coral.finance/api/v1/?query=list&market=coral"; break;
         case DataFetchTypeRealStockList: url = @"http://coral.finance/api/v1/?query=list"; break;
     }
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
