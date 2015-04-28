@@ -92,7 +92,7 @@
     [self addChildViewController:vc];
     vc.view.alpha = 0;
     [self.view addSubview:vc.view];
-    vc.isInFakeStockMode = YES;
+    vc.isInFakeStockMode = self.isInFakeStockMode;
     [vc.tableView reloadData];
     [UIView animateWithDuration:0.4 animations:^{
         self.view.alpha = 1;
