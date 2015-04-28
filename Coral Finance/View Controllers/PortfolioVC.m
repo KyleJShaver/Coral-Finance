@@ -120,6 +120,14 @@
     if(!self.isInFakeStockMode && [Globals isRealExchangeOpen]) self.marketStatusLabel.text = @"market open";
     else if(self.isInFakeStockMode && [Globals isFakeExchangeOpen]) self.marketStatusLabel.text = @"market open";
     else self.marketStatusLabel.text = @"market closed";
+    if(self.isInFakeStockMode) {
+        self.timePeriodPicker.enabled = NO;
+        self.timePeriodPicker.alpha = 0.2;
+    }
+    else {
+        self.timePeriodPicker.enabled = YES;
+        self.timePeriodPicker.alpha = 1.0;
+    }
 }
 
 -(void)changeRealFakeStocks
@@ -177,6 +185,7 @@
         return cell;
     }
     else {
+        self.stock = stock;
         ExpandedStockCell *cell = [tableView dequeueReusableCellWithIdentifier:@"expandedCell"];
         if(!stock.isFakeStock) cell.tickerSymbolLabel.text = stock.tickerSymbol;
         else cell.tickerSymbolLabel.text = [NSString stringWithFormat:@"~%@",stock.tickerSymbol];
@@ -336,9 +345,8 @@
 
 -(void)timePeriodChanged:(UISegmentedControl *)sender
 {
-    if(!self.stock) return;
+    if(self.isInFakeStockMode) return;
     [UIView animateWithDuration:0.2 animations:^{
-        self.stock.delegate = nil;
         self.chart.chart.alpha = 0;
     } completion:^(BOOL finished) {
         [self clearAllCharts];
@@ -367,8 +375,10 @@
                 window = PerformanceWindowOneDay;
                 break;
         }
-        self.stock = [[RealStock alloc] initWithTicker:[self.stock.tickerSymbol stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] performanceWindow:window andDelegate:self];
-        [self.stock downloadStockData];
+        for(RealStock *stock in self.tableData) {
+            stock.performanceWindow = window;
+            [stock downloadStockData];
+        }
     }];
 }
 

@@ -330,7 +330,7 @@ bool didGetYear;
                 _performanceValuesDay = [values copy];
                 for(int i=(int)values.count-1; i>=0; i--) {
                     PriceTime *time = values[i];
-                    if([time.utcTime doubleValue] > [[NSDate date] timeIntervalSince1970]) {
+                    if(i!=0 && [time.utcTime doubleValue] > [[NSDate date] timeIntervalSince1970]) {
                         [values removeObjectAtIndex:i];
                     }
                     else {
