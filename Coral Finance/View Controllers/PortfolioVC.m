@@ -18,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isChildViewController = NO;
+    self.portfolioView = NO;
     self.showPercentages = NO;
     self.coreDataLayer = [[CoreDataLayer alloc] initWithContext:((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext];
     self.isInFakeStockMode = [self.coreDataLayer isInFakeStockMode];
@@ -28,7 +29,6 @@
                                     forState:UIControlStateNormal];
     [self.timePeriodPicker addTarget:self action:@selector(timePeriodChanged:) forControlEvents:UIControlEventValueChanged];
     [self.timePeriodPicker setSelectedSegmentIndex:0];
-    [self timePeriodChanged:self.timePeriodPicker];
     self.priceLabel.font = [Globals bebasLight:40];
     [self checkExchangeOpen];
 }
@@ -43,11 +43,12 @@
     [super viewDidAppear:animated];
     [self changeRealFakeStocks];
     [self checkExchangeOpen];
+    [self timePeriodChanged:self.timePeriodPicker];
 }
 
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-    if(size.height<size.width) {
+    if(size.height<size.width && UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
         NSString *title = @"Pick a stock";
         if(self.stock) title = self.stock.tickerSymbol;
         [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
@@ -120,7 +121,7 @@
     if(!self.isInFakeStockMode && [Globals isRealExchangeOpen]) self.marketStatusLabel.text = @"market open";
     else if(self.isInFakeStockMode && [Globals isFakeExchangeOpen]) self.marketStatusLabel.text = @"market open";
     else self.marketStatusLabel.text = @"market closed";
-    if(self.isInFakeStockMode) {
+    if(self.isInFakeStockMode || self.portfolioView) {
         self.timePeriodPicker.enabled = NO;
         self.timePeriodPicker.alpha = 0.2;
     }
@@ -165,8 +166,17 @@
     RealStock *stock = (RealStock *)self.tableData[indexPath.row];
     if(!self.stock || ![self.stock.tickerSymbol isEqualToString:stock.tickerSymbol]) {
         StockCell *cell = [tableView dequeueReusableCellWithIdentifier:@"stockCell"];
+        
         if(!stock.isFakeStock) cell.tickerSymbolLabel.text = stock.tickerSymbol;
         else cell.tickerSymbolLabel.text = [NSString stringWithFormat:@"~%@",stock.tickerSymbol];
+        if(indexPath.row==1 && self.portfolioView) {
+            cell.tickerSymbolLabel.text = [NSString stringWithFormat:@"Best: %@",cell.tickerSymbolLabel.text];
+            [cell setUserInteractionEnabled:NO];
+        }
+        else if(indexPath.row==2 && self.portfolioView) {
+            cell.tickerSymbolLabel.text = [NSString stringWithFormat:@"Worst: %@",cell.tickerSymbolLabel.text];
+            [cell setUserInteractionEnabled:NO];
+        }
         if(stock.currentValue)
             cell.currentPriceLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:stock.currentValue]];
         else cell.currentPriceLabel.text = @"";
@@ -189,7 +199,7 @@
         ExpandedStockCell *cell = [tableView dequeueReusableCellWithIdentifier:@"expandedCell"];
         if(!stock.isFakeStock) cell.tickerSymbolLabel.text = stock.tickerSymbol;
         else cell.tickerSymbolLabel.text = [NSString stringWithFormat:@"~%@",stock.tickerSymbol];
-        if(stock.currentValue) {
+        if(stock.currentValue && !self.portfolioView) {
             cell.currentPriceLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:stock.currentValue]];
             cell.currentPriceLabel.font = [Globals bebasLight:30];
             NSString *performance = [stock dailyPerformanceValue];
@@ -216,15 +226,55 @@
             cell.equityValueLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:[NSNumber numberWithDouble:equityValue]]];
             [cell.buyButton setUserInteractionEnabled:YES];
             cell.buyButton.alpha = 1;
-            if([self.stock.quantityOwned intValue]>0){
+            if([self.stock.quantityOwned intValue]>0 && !self.portfolioView){
                 [cell.sellButton setUserInteractionEnabled:YES];
                 cell.sellButton.alpha = 1;
+                [cell.buyButton setUserInteractionEnabled:YES];
+                cell.buyButton.alpha = 1;
+            }
+            else if (self.portfolioView) {
+                [cell.sellButton setUserInteractionEnabled:YES];
+                cell.sellButton.alpha = 1;
+                [cell.buyButton setUserInteractionEnabled:YES];
+                cell.buyButton.alpha = 1;
             }
             else {
                 [cell.sellButton setUserInteractionEnabled:NO];
                 cell.sellButton.alpha = 0.2;
+                [cell.buyButton setUserInteractionEnabled:YES];
+                cell.buyButton.alpha = 1;
             }
             //cell.returnPercentLabel.text = [stock overallPerformancePercent];
+        }
+        else if(self.portfolioView) {
+            cell.currentPriceLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:stock.currentValue]];
+            cell.currentPriceLabel.font = [Globals bebasLight:30];
+            NSString *performance = [stock dailyPerformanceValuePortfolio];
+            if(self.showPercentages) performance = [stock dailyPerformancePercentPortfolio];
+            if(performance && [performance rangeOfString:@"-"].location!=NSNotFound)
+                cell.performanceButton.backgroundColor = [Globals negativeColor];
+            else
+                cell.performanceButton.backgroundColor = [Globals positiveColor];
+            if(!self.showPercentages) {
+                cell.returnPercentDescLabel.text = @"Return Value";
+                cell.returnPercentLabel.text = [stock overallPerformanceValuePortfolio];
+            }
+            else {
+                cell.returnPercentDescLabel.text = @"Return Percent";
+                cell.returnPercentLabel.text = [stock overallPerformancePercentPortfolio];
+            }
+            [cell.performanceButton setTitle:performance forState:UIControlStateNormal];
+            cell.companyNameLabel.text = stock.companyName;
+            cell.coreDataLayer = self.coreDataLayer;
+            cell.stock = stock;
+            cell.parent = self;
+            cell.sharesOwnedLabel.text = [NSString stringWithFormat:@"%d",[stock.quantityOwned intValue]];
+            double equityValue = [stock.currentValue doubleValue];
+            cell.equityValueLabel.text = [NSString stringWithFormat:@"$%@",[Globals numberToString:[NSNumber numberWithDouble:equityValue]]];
+            [cell.sellButton setUserInteractionEnabled:NO];
+            cell.sellButton.alpha = 0.2;
+            [cell.buyButton setUserInteractionEnabled:NO];
+            cell.buyButton.alpha = 0.2;
         }
         else {
             cell.currentPriceLabel.text = @"";
@@ -261,7 +311,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(self.isChildViewController) return;
+    if(self.isChildViewController) {
+        return;
+    };
     [self clearAllCharts];
     RealStock *stock = (RealStock *)self.tableData[indexPath.row];
     if([self.stock.tickerSymbol isEqualToString:stock.tickerSymbol]) {
@@ -317,6 +369,9 @@
         }
         [self.tableView reloadData];
     }
+    else {
+        
+    }
 }
 
 -(void)toggleShowPercent
@@ -330,6 +385,7 @@
 
 -(void)clearAllCharts
 {
+    //self.chart = nil;
     self.priceLabel.text = @"";
     NSMutableArray *array = [[self.chartContainer subviews] mutableCopy];
     for(int i=(int)array.count-1; i>=0; i--) {
@@ -405,10 +461,37 @@
 
 -(void)realStockDoneDownloading:(RealStock *)realStock
 {
-    if(![realStock.tickerSymbol isEqualToString:self.stock.tickerSymbol]) {
+    if(![realStock.tickerSymbol isEqualToString:self.stock.tickerSymbol] && !self.portfolioView) {
         [self.tableView reloadData];
         return;
     }
+    else if(self.portfolioView) {
+        NSLog(@"portfolio view");
+        RealStock *performance = self.stock;
+        performance.currentValue = [NSNumber numberWithDouble:[performance.currentValue doubleValue] + ([realStock.currentValue doubleValue] *(double)[realStock.quantityOwned intValue])];
+        performance.totalSpent = [NSNumber numberWithDouble:[performance.totalSpent doubleValue] + [realStock.totalSpent doubleValue]];
+        ((PriceTime *)performance.performanceValues[0]).price = performance.currentValue;
+        if(self.tableData.count==1) self.tableData = @[self.tableData[0], realStock];
+        else if(self.tableData.count==2) {
+            double real = ([realStock.currentValue doubleValue] *((double)[realStock.quantityOwned intValue]))-[realStock.totalSpent doubleValue];
+            RealStock *inList = self.tableData[1];
+            double first = ([inList.currentValue doubleValue] *((double)[inList.quantityOwned intValue]))-[inList.totalSpent doubleValue];
+            if(first>real) self.tableData = @[self.tableData[0], inList, realStock];
+            else self.tableData = @[self.tableData[0], realStock, inList];
+        }
+        else {
+            double real = ([realStock.currentValue doubleValue] *((double)[realStock.quantityOwned intValue]))-[realStock.totalSpent doubleValue];
+            RealStock *pos1 = self.tableData[1];
+            double first = ([pos1.currentValue doubleValue] *((double)[pos1.quantityOwned intValue]))-[pos1.totalSpent doubleValue];
+            RealStock *pos2 = self.tableData[2];
+            double second = ([pos2.currentValue doubleValue] *((double)[pos2.quantityOwned intValue]))-[pos2.totalSpent doubleValue];
+            if(real>first) self.tableData = @[self.tableData[0], realStock, pos2];
+            else if (real<second) self.tableData = @[self.tableData[0], pos1, realStock];
+        }
+        [self.tableView reloadData];
+        return;
+    }
+    [self clearAllCharts];
     self.chart = [[CFStockChart alloc] initWithStock:realStock];
     self.chart.priceLabel = self.priceLabel;
     self.chart.chart.alpha = 0;
@@ -418,7 +501,6 @@
     frame.size.width -= 50;
     frame.origin.x += 20;
     self.chart.chart.frame = frame;
-    [self clearAllCharts];
     [self.chartContainer addSubview:self.chart.chart];
     [UIView animateWithDuration:0.2 animations:^{
         self.chart.chart.alpha = 1;

@@ -63,6 +63,8 @@
     vc.view.alpha = 0;
     [self.view addSubview:vc.view];
     vc.isInFakeStockMode = self.isInFakeStockMode;
+    vc.isChildViewController = YES;
+    vc.portfolioView = YES;
     [vc.tableView reloadData];
     [UIView animateWithDuration:0.4 animations:^{
         self.view.alpha = 1;
@@ -71,13 +73,12 @@
         vc.view.alpha = 1;
         self.view.alpha = 1;
     }];
-    vc.isChildViewController = YES;
     [vc overviewMode];
     [vc checkViewControllerStatus];
     [vc.tableView setUserInteractionEnabled:YES];
-    [vc.tableView setScrollEnabled:NO];
-    vc.tableData = @[];
-    vc.stock = nil;
+    [vc.tableView setScrollEnabled:YES];
+    vc.tableData = [vc.coreDataLayer portfolioPerformanceWithDelegate:vc];
+    vc.stock = vc.tableData[0];
     vc.didCheckOwned = NO;
 }
 

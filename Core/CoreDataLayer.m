@@ -188,7 +188,7 @@
     RealStock *worstPerformer;
     RealStock *bestPerformer;
     NSArray *ownedStocks;
-    performanceStock.tickerSymbol = @"Performance";
+    performanceStock.tickerSymbol = @"overview";
     performanceStock.isFakeStock = self.isInFakeStockMode;
     if(self.isInFakeStockMode) {
         performanceStock.companyName = @"Coral-Created Stocks";
@@ -203,6 +203,21 @@
         stocksOwned+=[stock.quantityOwned intValue];
     }
     performanceStock.quantityOwned = [NSNumber numberWithInt:stocksOwned];
+    CorePortfolioPerformance *performance;
+    if(performanceStock.isFakeStock) performance = [CorePortfolioPerformance fakeObjectWithContext:_managedObjectContext];
+    else performance = [CorePortfolioPerformance realObjectWithContext:_managedObjectContext];
+    if(!performance) {
+        performance = [CorePortfolioPerformance newWithContext:_managedObjectContext];
+        if(performanceStock.isFakeStock) performance.isFakeStock = [NSNumber numberWithBool:YES];
+        else performance.isFakeStock = [NSNumber numberWithBool:NO];
+    }
+    PriceTime *priceTime = [[PriceTime alloc] init];
+    priceTime.utcTime = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
+    priceTime.price = [NSNumber numberWithDouble:0];
+    performanceStock.performanceValuesDay = @[priceTime];
+    performanceStock.performanceValues = performanceStock.performanceValuesDay;
+    performanceStock.totalSpent = [NSNumber numberWithDouble:0];
+    performanceStock.currentValue = [NSNumber numberWithDouble:0];
     [retVal addObject:performanceStock];
     return retVal;
 }

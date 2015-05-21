@@ -39,6 +39,7 @@
 @property (assign, nonatomic) BOOL isInPorfolioOverviewMode;
 @property (assign, nonatomic) BOOL didCheckOwned;
 @property (assign, nonatomic) BOOL showPercentages;
+@property (assign, nonatomic) BOOL portfolioView;
 
 -(void)checkViewControllerStatus;
 -(void)changeRealFakeStocks;

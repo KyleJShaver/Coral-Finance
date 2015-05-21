@@ -60,9 +60,13 @@ typedef NS_ENUM(NSUInteger, PerformanceWindow) {
 -(void)downloadStockData;
 -(void)downloadCurrentData;
 -(NSString *)dailyPerformanceValue;
+-(NSString *)dailyPerformanceValuePortfolio;
 -(NSString *)dailyPerformancePercent;
+-(NSString *)dailyPerformancePercentPortfolio;
 -(NSString *)overallPerformanceValue;
+-(NSString *)overallPerformanceValuePortfolio;
 -(NSString *)overallPerformancePercent;
+-(NSString *)overallPerformancePercentPortfolio;
 -(NSString *)peformanceToJSON;
 -(NSComparisonResult)compareSymbols:(RealStock *)otherObject;
 

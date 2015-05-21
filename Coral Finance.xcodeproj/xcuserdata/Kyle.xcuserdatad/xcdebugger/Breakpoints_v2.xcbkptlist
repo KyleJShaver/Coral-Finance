@@ -9,13 +9,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Coral Finance/View Controllers/PortfolioVC.m"
-            timestampString = "451935480.45273"
+            filePath = "Coral Finance/Stock Objects/RealStock.m"
+            timestampString = "452112235.917985"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "-checkExchangeOpen"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "-overallPerformancePercentPortfolio"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Coral Finance/Stock Objects/RealStock.m"
+            timestampString = "452112300.933914"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "-dailyPerformanceValuePortfolio"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Coral Finance/Stock Objects/RealStock.m"
+            timestampString = "452112305.119747"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "-dailyPerformancePercentPortfolio"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

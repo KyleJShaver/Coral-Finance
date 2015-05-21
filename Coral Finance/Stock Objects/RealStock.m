@@ -90,11 +90,27 @@ bool didGetYear;
     return [NSString stringWithFormat:@"$%@",[self numberToString:[NSNumber numberWithDouble:difference]]];
 }
 
+-(NSString *)dailyPerformanceValuePortfolio
+{
+    if(!_currentValue) return nil;
+    double difference = [_currentValue doubleValue] - [_totalSpent doubleValue];
+    return [NSString stringWithFormat:@"$%@",[self numberToString:[NSNumber numberWithDouble:difference]]];
+}
+
 -(NSString *)dailyPerformancePercent
 {
     if(!_currentValue || !_openingValue) return nil;
     double difference = [_currentValue doubleValue] - [_openingValue doubleValue];
     difference /= [_openingValue doubleValue];
+    difference *= 100;
+    return [NSString stringWithFormat:@"%@%%",[self numberToString:[NSNumber numberWithDouble:difference]]];
+}
+
+-(NSString *)dailyPerformancePercentPortfolio
+{
+    if(!_currentValue) return nil;
+    double difference = [_currentValue doubleValue] - [_totalSpent doubleValue];
+    difference /= [_totalSpent doubleValue];
     difference *= 100;
     return [NSString stringWithFormat:@"%@%%",[self numberToString:[NSNumber numberWithDouble:difference]]];
 }
@@ -108,10 +124,29 @@ bool didGetYear;
     else return [NSString stringWithFormat:@"-$%@",[self numberToString:[NSNumber numberWithDouble:(difference*-1.0)]]];
 }
 
+-(NSString *)overallPerformanceValuePortfolio
+{
+    if(!_totalSpent || !_quantityOwned || !_currentValue) return [NSString stringWithFormat:@"$%@",[self numberToString:[NSNumber numberWithDouble:0]]];
+    double difference = [_currentValue doubleValue] - [_totalSpent doubleValue];
+    difference = ([[self numberToString:[NSNumber numberWithDouble:difference]] doubleValue]==0) ? 0.0 : difference;
+    if(difference>=0) return [NSString stringWithFormat:@"$%@",[self numberToString:[NSNumber numberWithDouble:difference]]];
+    else return [NSString stringWithFormat:@"-$%@",[self numberToString:[NSNumber numberWithDouble:(difference*-1.0)]]];
+}
+
 -(NSString *)overallPerformancePercent
 {
     if(!_totalSpent || !_quantityOwned || !_currentValue || [_totalSpent doubleValue]==0 || [_quantityOwned intValue]==0) return [NSString stringWithFormat:@"%@%%",[self numberToString:[NSNumber numberWithDouble:0]]];
     double difference = ([_currentValue doubleValue] * (double)[_quantityOwned intValue]) - [_totalSpent doubleValue];
+    difference = ([[self numberToString:[NSNumber numberWithDouble:difference]] doubleValue]==0) ? 0.0 : difference;
+    difference /= [_totalSpent doubleValue];
+    difference *= 100;
+    return [NSString stringWithFormat:@"%@%%",[self numberToString:[NSNumber numberWithDouble:difference]]];
+}
+
+-(NSString *)overallPerformancePercentPortfolio
+{
+    if(!_totalSpent || !_quantityOwned || !_currentValue || [_totalSpent doubleValue]==0 || [_quantityOwned intValue]==0) return [NSString stringWithFormat:@"%@%%",[self numberToString:[NSNumber numberWithDouble:0]]];
+    double difference = [_currentValue doubleValue] - [_totalSpent doubleValue];
     difference = ([[self numberToString:[NSNumber numberWithDouble:difference]] doubleValue]==0) ? 0.0 : difference;
     difference /= [_totalSpent doubleValue];
     difference *= 100;
